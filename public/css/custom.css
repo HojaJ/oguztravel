@@ -1,0 +1,175 @@
+#messages {
+    top: 110px;
+    right: 32px;
+    width: 420px;
+    z-index: 999;
+    position: fixed;
+}
+
+.alert {
+    border-radius: 0;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.alert.alert-success {
+    background-color: #23a058;
+    color: #fff;
+    border-color: #23a058;
+}
+
+.alert.alert-danger {
+    background-color: #bf312d;
+    color: #fff;
+    border-color: #bf312d;
+}
+
+#reccomended_adventure figure {
+    height: 313px;
+    overflow: hidden;
+}
+
+#reccomended_adventure figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.gallery.grid ul li figure {
+    height: 189px;
+}
+
+.gallery.grid ul li figure img {
+    object-fit: cover;
+    object-position: center;
+}
+
+.box_grid figure small {
+    padding: 6px 10px 6px 10px;
+}
+
+@media (min-width: 576px) {
+    a.grid_item figure.tour-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+}
+
+@media (min-width: 768px) {
+    a.grid_item figure.tour-item {
+        height: 220px;
+    }
+}
+
+@media (min-width: 992px) {
+    a.grid_item figure.tour-item {
+        height: 300px;
+    }
+}
+
+@media (min-width: 1200px) {
+    a.grid_item figure.tour-item {
+        height: 170px;
+    }
+}
+
+@media (min-width: 1400px) {
+    a.grid_item figure.tour-item {
+        height: 216px;
+    }
+}
+
+@media (max-width: 1399.98px) {
+    #reccomended_adventure figure {
+        height: 342px;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .gallery.grid ul li figure {
+        height: 159px;
+    }
+
+    #reccomended_adventure figure {
+        height: 284px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .gallery.grid ul li figure {
+        height: 234px;
+    }
+
+    #reccomended_adventure figure {
+        height: 282px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .gallery.grid ul li figure {
+        height: 344px;
+    }
+
+    #reccomended_adventure figure {
+        height: 620px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .gallery.grid ul li figure {
+        height: 317px;
+    }
+
+    #reccomended_adventure figure {
+        height: 420px;
+    }
+
+    a.grid_item figure.tour-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+}
+
+@media (max-width: 320.98px) {
+    #reccomended_adventure figure {
+        height: 312px;
+    }
+}
+
+header.header .locale,
+header.header .locale svg path {
+    text-decoration: none;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+header.header.sticky .locale {
+    text-decoration: none;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    color: #444;
+}
+
+header.header .locale svg path {
+    stroke: #fff;
+}
+
+header.header.sticky .locale svg path {
+    stroke: #444 !important;
+}
+
+.follow_us svg path,
+.contacts svg path {
+    stroke: #fff;
+}
