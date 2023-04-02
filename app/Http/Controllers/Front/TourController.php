@@ -32,15 +32,16 @@ class TourController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => 'required',
             'surname' => 'required',
             'patronymic' => 'nullable',
             'email' => 'required|email',
             'phone' => 'required',
+            'gender' => 'required',
             'date_of_birth' => 'required',
-            'applicant_type' => 'required|in:inbound,outbound',
-            'scanned_passport' => 'nullable|mimes:jpg,bmp,png,docx,pdf',
+            'scanned_passport' => 'nullable',
             'tour_id' => 'required|exists:tours,id',
         ]);
 
@@ -49,12 +50,20 @@ class TourController extends Controller
             'date_of_birth' => date('Y-m-d', strtotime($request->get('date_of_birth')))
         ]);
 
-        $file = $request->file('scanned_passport');
+        $scanned_files_array = [];
+        $scanned_passport_file = $request->file('scanned_passport');
+        if ($scanned_passport_file) {
+            $filename = [];
+            foreach ($request->file('scanned_passport', []) as $key => $file) {
+                $filename['file_type'] = $file->extension();
+                $filename['filename'] = $this->uploadFile($file,'scanned_passport_file');
+                 $scanned_files_array[] = $filename;
+            }
+         }
 
-        if ($file) {
+        if ($scanned_files_array) {
             $request->merge([
-                'file_type' => $file->extension(),
-                'filename' => $this->uploadFile($file, 'tour_requests'),
+                'filename' => json_encode($scanned_files_array),
             ]);
         }
 
@@ -64,6 +73,7 @@ class TourController extends Controller
             'name' => $request->get('name'),
             'surname' => $request->get('surname'),
             'patronymic' => $request->get('patronymic'),
+            'gender' => $request->get('gender'),
             'date_if_birth' => $request->get('date_of_birth')
         ];
 
@@ -74,9 +84,7 @@ class TourController extends Controller
         } else {
             Person::create($person_data);
         }
-
         TourRequest::create($request->all());
-
         return back()->with('success', __('Request has been sent'));
     }
 }

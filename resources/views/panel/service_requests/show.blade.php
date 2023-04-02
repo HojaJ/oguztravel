@@ -198,15 +198,18 @@
     <div class="data-item">
       <div class="data-col">
         <span class="data-label">{{ __('Scanned passport file') }}</span>
-        <span class="data-value">
-          @if ($service->scanned_passport_file_type == 'jpg' || $service->scanned_passport_file_type == 'bmp' || $service->scanned_passport_file_type == 'png')
-          <a href="{{ $service->getPassport() }}" target="_blank">{{ __('Image') }}</a>
-          @elseif ($service->scanned_passport_file_type == 'doc' || $service->scanned_passport_file_type == 'docx')
-          <a href="{{ $service->getPassport() }}" target="_blank">{{ __('Microsoft Word') }}</a>
-          @elseif ($service->scanned_passport_file_type == 'pdf')
-          <a href="{{ $service->getPassport() }}" target="_blank">{{ __('PDF') }}</a>
-          @endif
-        </span>
+        @foreach($service->getPassport() as $file)
+          <span class="data-value mr-3">
+            @if ($file['type'] == 'jpg' || $file['type'] == 'bmp' || $file['type'] == 'png')
+              <a href="{{ $file['filename'] }}" target="_blank">{{ __('Image') }}</a>
+            @elseif ($file['type'] == 'doc' || $file['type'] == 'docx')
+              <a href="{{ $file['filename'] }}" target="_blank">{{ __('Microsoft Word') }}</a>
+            @elseif ($file['type'] == 'pdf')
+              <a href="{{ $file['filename'] }}" target="_blank">{{ __('PDF') }}</a>
+            @endif
+          </span>
+        @endforeach
+
       </div>
       <div class="data-col data-col-end"></div>
     </div>

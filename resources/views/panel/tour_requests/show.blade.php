@@ -86,15 +86,17 @@
     <div class="data-item">
       <div class="data-col">
         <span class="data-label">{{ __('Scanned passport file') }}</span>
-        <span class="data-value">
-          @if ($tour->file_type == 'jpg' || $tour->file_type == 'bmp' || $tour->file_type == 'png')
-          <a href="{{ $tour->getFile() }}" target="_blank">{{ __('Image') }}</a>
-          @elseif ($tour->file_type == 'doc' || $tour->file_type == 'docx')
-          <a href="{{ $tour->getFile() }}" target="_blank">{{ __('Microsoft Word') }}</a>
-          @elseif ($tour->file_type == 'pdf')
-          <a href="{{ $tour->getFile() }}" target="_blank">{{ __('PDF') }}</a>
-          @endif
+        @foreach($tour->getFile() as $file)
+          <span class="data-value mr-3">
+          @if ($file['type'] == 'jpg' || $file['type'] == 'bmp' || $file['type'] == 'png')
+              <a href="{{ $file['filename'] }}" target="_blank">{{ __('Image') }}</a>
+            @elseif ($file['type'] == 'doc' || $file['type'] == 'docx')
+              <a href="{{ $file['filename'] }}" target="_blank">{{ __('Microsoft Word') }}</a>
+            @elseif ($file['type'] == 'pdf')
+              <a href="{{ $file['filename'] }}" target="_blank">{{ __('PDF') }}</a>
+            @endif
         </span>
+        @endforeach
       </div>
       <div class="data-col data-col-end"></div>
     </div>

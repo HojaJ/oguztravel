@@ -30,6 +30,7 @@ class ContactController extends Controller
             'name' => 'required',
             'surname' => 'required',
             'email' => 'required|email',
+            'gender'=> 'required',
             'phone' => 'required',
             'message' => 'required',
             'subject_id' => 'required|exists:subjects,id',
@@ -41,7 +42,8 @@ class ContactController extends Controller
             'phone' => $data['phone'],
             'email' => $data['email'],
             'name' => $data['name'],
-            'surname' => $data['surname']
+            'surname' => $data['surname'],
+            'gender' => $data['gender']
         ];
 
         $person = Person::wherePhone($data['phone'])->whereEmail($data['email'])->first();

@@ -34,6 +34,7 @@ class ServiceController extends Controller
             'name' => 'required',
             'patronymic' => 'nullable',
             'email' => 'required|email',
+            'gender' => 'required',
             'phone' => 'required',
             'note' => 'nullable',
         ];
@@ -73,7 +74,7 @@ class ServiceController extends Controller
             $rules['date_of_birth'] = 'required';
             $rules['passport_number'] = 'nullable';
             $rules['expiry_date'] = 'nullable';
-            $rules['scanned_passport_file'] = 'nullable|mimes:jpg,bmp,png,docx,pdf,zip,rar';
+            $rules['scanned_passport_file'] = 'nullable';
         }
 
         $request->validate($rules);
@@ -148,15 +149,23 @@ class ServiceController extends Controller
             }
         }
 
-        $scanned_passport_file = $request->file('scanned_passport_file');
 
+        $scanned_files_array = [];
+        $scanned_passport_file = $request->file('scanned_passport_file');
         if ($scanned_passport_file) {
-            $request->merge([
-                'scanned_passport_file_type' => $scanned_passport_file->extension(),
-                'scanned_passport' => $this->uploadFile($scanned_passport_file, 'service_requests'),
-            ]);
+            $filename = [];
+            foreach ($request->file('scanned_passport_file', []) as $key => $file) {
+                $filename['file_type'] = $file->extension();
+                $filename['filename'] = $this->uploadFile($file,'scanned_passport_file');
+                $scanned_files_array[] = $filename;
+            }
         }
 
+        if ($scanned_files_array) {
+            $request->merge([
+                'scanned_passport' => json_encode($scanned_files_array),
+            ]);
+        }
         $service = ServiceRequest::create($request->all());
 
         $person_data = [
@@ -165,6 +174,7 @@ class ServiceController extends Controller
             'name' => $request->get('name'),
             'surname' => $request->get('surname'),
             'patronymic' => $request->get('patronymic'),
+            'gender' => $request->get('gender'),
             'date_if_birth' => $request->get('date_of_birth')
         ];
 

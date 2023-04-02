@@ -39,7 +39,8 @@ class ServiceRequest extends Model
         'scanned_passport_file_type',
         'note',
         'type',
-        'is_read'
+        'is_read',
+        'gender'
     ];
 
     public function files()
@@ -62,8 +63,19 @@ class ServiceRequest extends Model
         return $this->files()->whereType('scanned_documents')->get();
     }
 
+    public function getFile()
+    {
+
+    }
+
     public function getPassport()
     {
-        return asset('storage/service_requests/' . $this->scanned_passport);
+        $array = [];
+        foreach (json_decode($this->scanned_passport) as $file){
+            $new['filename'] = asset('storage/scanned_passport_file/' . $file->filename);
+            $new['type'] = $file->file_type;
+            $array[] = $new;
+        }
+        return $array;
     }
 }

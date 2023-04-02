@@ -124,22 +124,41 @@
                 </div>
               </div>
             </div>
-            @if (count($subjects))
-              <div class="form-group">
-                <label for="subject">{{ __('Select subject') }}</label>
-                <select class="custom-select @error('subject_id') is-invalid @enderror" id="subject" name="subject_id">
-                  <option selected disabled hidden>{{ __('Select subject') }}</option>
-                  @foreach ($subjects as $subject)
-                    <option value="{{ $subject->id }}" {{ old('subject_id') == $subject->id ? 'selected' : '' }}>{{ $subject->title }} ( {{ $subject->email  }} )</option>
-                  @endforeach
-                </select>
-                @if ($errors->has('message'))
-                  <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('message') }}</strong></span>
-                @else
-                  <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="subject">{{ __('Select Gender') }}</label>
+                  <select class="custom-select @error('gender') is-invalid @enderror" id="gender" name="gender" required>
+                    <option selected disabled hidden>{{ __('Select Gender') }}</option>
+                    <option value="male" {{ old('male') == 'male' ? 'selected' : '' }}>{{ __('Male') }}</option>
+                    <option value="female" {{ old('female') == 'famale' ? 'selected' : '' }}>{{ __('Female') }}</option>
+                  </select>
+                  @if ($errors->has('message'))
+                    <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('message') }}</strong></span>
+                  @else
+                    <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
+                  @endif
+                </div>
+              </div>
+              <div class="col-md-6">
+                @if (count($subjects))
+                  <div class="form-group">
+                    <label for="subject">{{ __('Select subject') }}</label>
+                    <select class="custom-select @error('subject_id') is-invalid @enderror" id="subject" name="subject_id">
+                      <option selected disabled hidden>{{ __('Select subject') }}</option>
+                      @foreach ($subjects as $subject)
+                        <option value="{{ $subject->id }}" {{ old('subject_id') == $subject->id ? 'selected' : '' }}>{{ $subject->title }} ( {{ $subject->email  }} )</option>
+                      @endforeach
+                    </select>
+                    @if ($errors->has('message'))
+                      <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('message') }}</strong></span>
+                    @else
+                      <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
+                    @endif
+                  </div>
                 @endif
               </div>
-            @endif
+            </div>
             <div class="form-group">
               <label for="message">{{ __('Message') }}</label>
               <textarea class="form-control @error('message') is-invalid @enderror" id="message" name="message" style="height:150px;" required>{{ old('message') }}</textarea>

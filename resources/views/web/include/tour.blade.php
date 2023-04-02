@@ -121,6 +121,21 @@
               <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
               @endif
             </div>
+
+            <div class="form-group">
+              <label for="subject">{{ __('Select Gender') }} <span class="text-danger">*</span></label>
+              <select class="custom-select display-block @error('gender') is-invalid @enderror" id="gender" name="gender" required>
+                <option selected disabled hidden>{{ __('Select Gender') }}</option>
+                <option value="male" {{ old('male') == 'male' ? 'selected' : '' }}>{{ __('Male') }}</option>
+                <option value="female" {{ old('female') == 'famale' ? 'selected' : '' }}>{{ __('Female') }}</option>
+              </select>
+              @if ($errors->has('message'))
+                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('message') }}</strong></span>
+              @else
+                <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
+              @endif
+            </div>
+
             <div class="form-group">
               <label for="email">{{ __("Email") }} <span class="text-danger">*</span></label>
               <input class="form-control @error('email') is-invalid @enderror" type="email" id="email" name="email" placeholder="{{ __("Email") }}" value="{{ old('email') }}">
@@ -149,23 +164,23 @@
               <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
               @endif
             </div>
-            <div class="form-group clearfix">
-              <label for="applicant_type">{{ __("Applicant type") }} <span class="text-danger">*</span></label>
-              <div class="custom-select-form">
-                <select class="wide @error('applicant_type') is-invalid @enderror" id="applicant_type" name="applicant_type">
-                  <option value="inbound" @if(old('applicant_type')=='inbound' ) selected @endif>{{ __("Inbound") }}</option>
-                  <option value="outbound" @if(old('applicant_type')=='outbound' ) selected @endif>{{ __("Outbound") }}</option>
-                </select>
-                @if ($errors->has('applicant_type'))
-                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('applicant_type') }}</strong></span>
-                @else
-                <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
-                @endif
-              </div>
-            </div>
+{{--            <div class="form-group clearfix">--}}
+{{--              <label for="applicant_type">{{ __("Applicant type") }} <span class="text-danger">*</span></label>--}}
+{{--              <div class="custom-select-form">--}}
+{{--                <select class="wide @error('applicant_type') is-invalid @enderror" id="applicant_type" name="applicant_type">--}}
+{{--                  <option value="inbound" @if(old('applicant_type')=='inbound' ) selected @endif>{{ __("Inbound") }}</option>--}}
+{{--                  <option value="outbound" @if(old('applicant_type')=='outbound' ) selected @endif>{{ __("Outbound") }}</option>--}}
+{{--                </select>--}}
+{{--                @if ($errors->has('applicant_type'))--}}
+{{--                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('applicant_type') }}</strong></span>--}}
+{{--                @else--}}
+{{--                <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>--}}
+{{--                @endif--}}
+{{--              </div>--}}
+{{--            </div>--}}
             <div class="form-group">
               <label for="scanned_passport">{{ __("Scanned passport") }}</label>
-              <input class="form-control @error('scanned_passport') is-invalid @enderror" type="file" id="scanned_passport" name="scanned_passport" placeholder="{{ __("Scanned passport") }}">
+              <input class="form-control @error('scanned_passport') is-invalid @enderror" type="file" id="scanned_passport" name="scanned_passport[]" placeholder="{{ __("Scanned passport") }}" multiple>
               @if ($errors->has('scanned_passport '))
               <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('scanned_passport ') }}</strong></span>
               @else

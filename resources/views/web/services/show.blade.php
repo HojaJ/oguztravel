@@ -279,6 +279,22 @@
                   @endif
                 </div>
               </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="subject">{{ __('Select Gender') }} <span class="text-danger">*</span></label>
+                  <select class="custom-select @error('gender') is-invalid @enderror" id="gender" name="gender" required>
+                    <option selected disabled hidden>{{ __('Select Gender') }}</option>
+                    <option value="male" {{ old('male') == 'male' ? 'selected' : '' }}>{{ __('Male') }}</option>
+                    <option value="female" {{ old('female') == 'famale' ? 'selected' : '' }}>{{ __('Female') }}</option>
+                  </select>
+                  @if ($errors->has('message'))
+                    <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('message') }}</strong></span>
+                  @else
+                    <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
+                  @endif
+                </div>
+              </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="email">{{ __('Email') }} <span class="text-danger">*</span></label>
@@ -388,7 +404,7 @@
                 <div class="col-12 d-none" id="scannedPassportWrap">
                   <div class="form-group">
                     <label for="scanned_passport">{{ __('Scanned passport') }}</label>
-                    <input type="file" class="form-control @error('scanned_passport') is-invalid @enderror" name="scanned_passport_file" id="scanned_passport">
+                    <input type="file" class="form-control @error('scanned_passport') is-invalid @enderror" name="scanned_passport_file[]" id="scanned_passport" multiple>
                     @if ($errors->has('scanned_passport'))
                       <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('scanned_passport') }}</strong></span>
                     @else

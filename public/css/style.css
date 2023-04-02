@@ -8691,3 +8691,6 @@ section#galleries .carousel {
 .tour .nice-select .list {
   height: unset;
 }
+.display-block {
+  display: block !important;
+}
