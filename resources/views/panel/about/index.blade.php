@@ -1,6 +1,6 @@
 @extends('layouts.panel')
 
-@section('title') {{ __('index page', ['name' => __('About us')]) }} @endsection
+@section('title') {{ __('index page', ['name' => __($about->page)]) }} @endsection
 
 @section('css')
 <style>
@@ -35,7 +35,7 @@
 <div class="nk-block-head nk-block-head-sm">
   <div class="nk-block-between-md g-4">
     <div class="nk-block-head-content">
-      <h2 class="nk-block-title fw-normal">{{ __('About us') }}</h2>
+      <h2 class="nk-block-title fw-normal">{{ __($about->page) }}</h2>
     </div>
     <div class="nk-block-head-content">
       <ul class="nk-block-tools gx-3">
@@ -130,8 +130,7 @@
   </div>
 
   @else
-  <p>{{ __('not exist', ['thing' => __('About us')]) }}</p>
+    <p>{{ __('not exist', ['thing' => __($about->page)]) }}</p>
   @endif
 </div>
-
 @endsection

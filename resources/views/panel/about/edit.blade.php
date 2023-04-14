@@ -1,9 +1,9 @@
 @extends('layouts.panel')
 
-@section('title') {{ __('Edit thing', ['thing' => __('About us')]) }} @endsection
+@section('title') {{ __('Edit thing', ['thing' => __($about->page)]) }} @endsection
 
 @section('content')
-@include('panel.include.block-header.min', ['data' => ['sub' => __('Edit thing', ['thing' => __('About us')]), 'title' => __('About us')]])
+@include('panel.include.block-header.min', ['data' => ['sub' => __('Edit thing', ['thing' => __($about->page)]), 'title' => __($about->page)]])
 
 <form action="{{ route('panel.about.update', $about->id) }}" class="form-contact needs-validation" method="POST" enctype="multipart/form-data" novalidate>
   @csrf

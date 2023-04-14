@@ -24,6 +24,25 @@
     </div>
   </div>
 
+  @if($type === "turkmenistan")
+    <div class="form-group mb-5">
+      <label class="form-label" for="bound">{{ __('Bound') }} <span class="text-danger">*</span></label>
+      <div class="form-control-wrap">
+        <select class="form-select @error('bound') is-invalid @enderror" id="bound" name="bound" data-search="on" data-ui="lg" required>
+          <option selected disabled hidden>{{ __('Select Bound') }}</option>
+          <option value="inbound" {{ old('bound') ? (old('bound') == $tour->bound ? 'selected' : '') : ($tour->bound == 'inbound' ? 'selected' : '') }}>{{ __('Inbound') }}</option>
+          <option value="outbound" {{ old('bound') ? (old('bound') == $tour->bound ? 'selected' : '') : ($tour->bound == 'outbound' ? 'selected' : '') }}>{{ __('Outbound') }}</option>
+        </select>
+        @if ($errors->has('bound'))
+          <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('bound') }}</strong></span>
+        @else
+          <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
+        @endif
+      </div>
+    </div>
+  @endif
+
+
   <div class="card card-bordered my-3">
     <div class="card-inner">
       <h5 class="float-title">{{ __('Title') }} <span class="text-danger">*</span></h5>

@@ -14,7 +14,7 @@
 @endsection
 
 @section('content')
-@include('panel.include.block-header.min', ['data' => ['sub' => __('Add image'), 'title' => 'About us']])
+@include('panel.include.block-header.min', ['data' => ['sub' => __('Add image'), 'title' => $about->page]])
 
 <form action="{{ route('panel.about.images.store', $about->id) }}" class="form-contact needs-validation" method="POST" enctype="multipart/form-data" novalidate>
   @csrf

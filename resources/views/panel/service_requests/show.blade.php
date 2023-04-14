@@ -117,6 +117,18 @@
       </div>
       <div class="data-col data-col-end"></div>
     </div>
+      <div class="data-item">
+        <div class="data-col">
+          <span class="data-label">{{ __('Returning date') }}</span>
+          <span class="data-value">
+        {{ date('d-m-Y', strtotime($service->returning_date_from)) }}
+            @if ($service->returning_date_to)
+              &#8212; {{date('d-m-Y', strtotime($service->returning_date_to)) }}
+            @endif
+      </span>
+        </div>
+        <div class="data-col data-col-end"></div>
+      </div>
     @endif
 
     <div class="data-item">

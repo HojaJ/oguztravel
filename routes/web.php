@@ -75,11 +75,15 @@ Route::group(
                     Route::resource('banners', BannerController::class)->except('show');
 
                     Route::resource('about', AboutController::class)->except('show');
+                    Route::get('tours_index',[AboutController::class,'tours_index'])->name('tours_index');
+                    Route::get('turkmenistan_index',[AboutController::class,'turkmenistan_index'])->name('turkmenistan_index');
                     Route::get('about/{about}/images', [AboutImageController::class, 'create'])->name('about.images.create');
                     Route::post('about/{about}/images', [AboutImageController::class, 'store'])->name('about.images.store');
                     Route::get('about/{about}/order', [AboutImageController::class, 'order'])->name('about.images.order');
                     Route::patch('about/{about}/order', [AboutImageController::class, 'orderUpdate'])->name('about.images.order.update');
                     Route::delete('about/images/{image}', [AboutImageController::class, 'destroy'])->name('about.images.destroy');
+
+
 
                     Route::resource('contact', ContactController::class)->except('show');
 

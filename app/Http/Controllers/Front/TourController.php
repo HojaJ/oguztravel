@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\About;
 use App\Models\Category;
 use App\Models\Cover;
 use App\Models\Person;
@@ -15,6 +16,7 @@ class TourController extends Controller
 {
     public function index()
     {
+        $about = About::where('page','tours')->first();
         $tours = Tour::whereType('tour')->latest()->get();
         $cover = Cover::whereSlug('tour')->whereIsActive(true)->first();
 
@@ -22,7 +24,7 @@ class TourController extends Controller
             $query->whereType('tour');
         })->get();
 
-        return view('web.tours.index', compact('tours', 'categories', 'cover'));
+        return view('web.tours.index', compact('about','tours', 'categories', 'cover'));
     }
 
     public function show(Tour $tour)

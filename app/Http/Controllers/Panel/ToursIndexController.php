@@ -7,24 +7,12 @@ use App\Models\AboutImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class AboutController extends Controller
+class ToursIndexController extends Controller
 {
     public function index()
     {
-        About::where('id',1)->update(['page' => 'About Us']);
-        $about = About::first();
-        return view('panel.about.index', compact('about'));
-    }
+        $about = About::where('page','tours')->first();
 
-    public function tours_index()
-    {
-        $about = About::where('page','Tours')->first();
-        return view('panel.about.index', compact('about'));
-    }
-
-    public function turkmenistan_index()
-    {
-        $about = About::where('page','Turkmenistan')->first();
         return view('panel.about.index', compact('about'));
     }
 
@@ -65,7 +53,6 @@ class AboutController extends Controller
 
     public function edit(About $about)
     {
-
         return view('panel.about.edit', compact('about'));
     }
 
@@ -86,16 +73,7 @@ class AboutController extends Controller
 
         $about->update($data);
 
-        $route = '';
-        if($about->page == 'About Us'){
-            $route = 'panel.about.index';
-        }elseif ($about->page == 'Tours'){
-            $route = 'panel.tours_index';
-        }elseif ($about->page == 'Turkmenistan'){
-            $route = 'panel.turkmenistan_index';
-        }
-
-        return redirect()->route($route)->with('success', __('Updated msg', ['name' => __($about->page)]));
+        return redirect()->route('panel.about.index')->with('success', __('Updated msg', ['name' => __('About us')]));
     }
 
     public function destroy(About $about)
@@ -106,15 +84,7 @@ class AboutController extends Controller
         }
 
         $about->delete();
-        $route = '';
-        if($about->page == 'About Us'){
-            $route = 'panel.about.index';
-        }elseif ($about->page == 'Tours'){
-            $route = 'panel.tours_index';
-        }elseif ($about->page == 'Turkmenistan'){
-            $route = 'panel.turkmenistan_index';
-        }
 
-        return redirect()->route($route)->with('danger', __('Deleted msg', ['name' => __($about->page)]));
+        return redirect()->route('panel.about.index')->with('danger', __('Deleted msg', ['name' => __('About us')]));
     }
 }

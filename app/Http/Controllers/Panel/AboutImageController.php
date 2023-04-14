@@ -28,7 +28,6 @@ class AboutImageController extends Controller
 
         foreach ($request->file('images', []) as $key => $image) {
             $last_order++;
-
             AboutImage::create([
                 'about_id' => $about->id,
                 'filename' => $this->uploadFile($image, 'about'),
@@ -36,15 +35,30 @@ class AboutImageController extends Controller
             ]);
         }
 
-        return redirect()->route('panel.about.index')->with('success', __('Added msg', ['name' => __('About image')]));
+        $route = '';
+        if($about->page == 'About Us'){
+            $route = 'panel.about.index';
+        }elseif ($about->page == 'Tours'){
+            $route = 'panel.tours_index';
+        }elseif ($about->page == 'Turkmenistan'){
+            $route = 'panel.turkmenistan_index';
+        }
+        return redirect()->route($route)->with('success', __('Added msg', ['name' => __($about->page)]));
     }
 
     public function destroy(AboutImage $image)
     {
         $about = $image->about;
-
+        $route = '';
+        if($about->page == 'About Us'){
+            $route = 'panel.about.index';
+        }elseif ($about->page == 'Tours'){
+            $route = 'panel.tours_index';
+        }elseif ($about->page == 'Turkmenistan'){
+            $route = 'panel.turkmenistan_index';
+        }
         if (count($about->images) == 1) {
-            return redirect()->route('panel.about.index')->with('warning', __('must be at least one thing', ['name' => __('About image')]));
+            return redirect()->route($route)->with('warning', __('must be at least one thing', ['name' => __($about->page)]));
         }
 
         $this->removeFile($image->filename, 'about');
@@ -54,7 +68,7 @@ class AboutImageController extends Controller
             $item->update(['order' => $key + 1]);
         }
 
-        return redirect()->route('panel.about.index')->with('danger', __('Deleted msg', ['name' => __('About image')]));
+        return redirect()->route($route)->with('danger', __('Deleted msg', ['name' => __($about->page)]));
     }
 
     public function order(About $about)
@@ -70,6 +84,14 @@ class AboutImageController extends Controller
             AboutImage::whereId($id)->update(['order' => $key + 1]);
         }
 
-        return redirect()->route('panel.about.index')->with('success', __('Ordered msg', ['name' => __('About image')]));
+        $route = '';
+        if($about->page == 'About Us'){
+            $route = 'panel.about.index';
+        }elseif ($about->page == 'Tours'){
+            $route = 'panel.tours_index';
+        }elseif ($about->page == 'Turkmenistan'){
+            $route = 'panel.turkmenistan_index';
+        }
+        return redirect()->route($route)->with('success', __('Ordered msg', ['name' => __($about->page)]));
     }
 }

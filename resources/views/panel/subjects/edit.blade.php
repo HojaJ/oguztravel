@@ -42,6 +42,19 @@
               </div>
             </div>
           </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="type" class="form-label">Type</label>
+              <div class="form-control-wrap">
+                <input type="text" id="type" name="type" value="{{ old('type',$subject->type) }}" class="form-control form-control-lg @error('type') is-invalid @enderror" placeholder="Type" required>
+                @if ($errors->has('type'))
+                  <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('type') }}</strong></span>
+                @else
+                  <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
+                @endif
+              </div>
+            </div>
+          </div>
       </div>
     </div>
   </div>

@@ -40,7 +40,9 @@ class ServiceRequest extends Model
         'note',
         'type',
         'is_read',
-        'gender'
+        'gender',
+        'returning_date_from',
+        'returning_date_to'
     ];
 
     public function files()

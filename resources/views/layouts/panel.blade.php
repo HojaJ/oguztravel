@@ -115,6 +115,16 @@
                         <span class="nk-menu-icon"><em class="icon ni ni-file-text"></em></span><span class="nk-menu-text">{{ __('About us') }}</span>
                       </a>
                     </li>
+                    <li class="nk-menu-item {{ request()->is('tours_index*') ? 'active' : '' }}">
+                      <a href="{{ route('panel.tours_index') }}" class="nk-menu-link">
+                        <span class="nk-menu-icon"><em class="icon ni ni-file-text"></em></span><span class="nk-menu-text">{{ __('Tours Page') }}</span>
+                      </a>
+                    </li>
+                    <li class="nk-menu-item {{ request()->is('turkmenistan_index*') ? 'active' : '' }}">
+                      <a href="{{ route('panel.turkmenistan_index') }}" class="nk-menu-link">
+                        <span class="nk-menu-icon"><em class="icon ni ni-file-text"></em></span><span class="nk-menu-text">{{ __('Turkmenistan Page') }}</span>
+                      </a>
+                    </li>
                     <li class="nk-menu-item {{ request()->is('services*') ? 'active' : '' }}">
                       <a href="{{ route('panel.services.index') }}" class="nk-menu-link">
                         <span class="nk-menu-icon"><em class="icon ni ni-layers"></em></span><span class="nk-menu-text">{{ __('Services') }}</span>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Models\About;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -13,16 +14,20 @@ use Illuminate\Database\Eloquent\Builder;
 
 class TurkmenistanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $tours = Tour::whereType('turkmenistan')->latest()->get();
+        $about = About::where('page','turkmenistan')->first();
+        if($request->bound && in_array($request->bound,['inbound','outbound'])){
+            $tours = Tour::whereType('turkmenistan')->where('bound',$request->bound)->latest()->get();
+        }else{
+            $tours = null;
+        }
         $cover = Cover::whereSlug('turkmenistan')->whereIsActive(true)->first();
-
         $categories = Category::whereHas('tours', function (Builder $query) {
             $query->whereType('turkmenistan');
         })->get();
 
-        return view('web.turkmenistan.index', compact('tours', 'categories', 'cover'));
+        return view('web.turkmenistan.index', compact('tours','about', 'categories', 'cover'));
     }
 
     public function show(Tour $tour)

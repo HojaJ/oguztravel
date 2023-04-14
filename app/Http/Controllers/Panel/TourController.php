@@ -31,6 +31,7 @@ class TourController extends Controller
         $page_limit = 15;
         $type = $this->type;
 
+
         $tours = Tour::whereType($type)->latest()->paginate($page_limit);
 
         return view('panel.tours.index', compact('tours', 'page_limit', 'type'));
@@ -51,6 +52,7 @@ class TourController extends Controller
             'description.*' => 'required',
             'include.*' => 'required',
             'details.*' => 'required',
+            'bound' => 'nullable',
             'images.*' => 'image|max:1000|required',
             'category_id' => 'required|exists:categories,id',
         ]);
@@ -92,6 +94,7 @@ class TourController extends Controller
             'description.*' => 'required',
             'include.*' => 'required',
             'details.*' => 'required',
+            'bound' => 'nullable',
             'category_id' => 'required|exists:categories,id',
         ]);
 

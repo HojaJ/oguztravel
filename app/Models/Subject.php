@@ -10,7 +10,7 @@ class Subject extends Model
 {
     use HasFactory, HasTranslations;
 
-    protected $fillable = ['title','email'];
+    protected $fillable = ['title','email','type'];
     public $translatable = ['title'];
 
     public function messages()

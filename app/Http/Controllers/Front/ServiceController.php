@@ -3,12 +3,18 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ContactMessage;
+use App\Mail\HotelMessage;
+use App\Mail\TicketMessage;
+use App\Mail\TranslationMessage;
+use App\Mail\VisaMessage;
 use App\Models\Country;
 use App\Models\Cover;
 use App\Models\Person;
 use App\Models\Service;
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestFile;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -63,7 +69,7 @@ class ServiceController extends Controller
             $rules['ticket_from'] = 'nullable';
             $rules['ticket_to'] = 'nullable';
             $rules['boarding_date'] = 'nullable';
-            $rules['boarding_date_range'] = 'nullable';
+            $rules['returning_date'] = 'nullable';
         }
 
         if ($service->slug == 'translation') {
@@ -86,29 +92,31 @@ class ServiceController extends Controller
             'expiry_date' => $request->get('expiry_date') ? date('Y-m-d', strtotime($request->get('expiry_date'))) : null,
         ]);
 
-        if ($service->slug == 'ticket' && $request->get('ticket_type') == 'oneway') {
+        if ($service->slug == 'ticket') {
             $request->merge([
-                'boarding_date_from' => date('Y-m-d', strtotime($request->get('boarding_date'))),
+                'boarding_date_from' => $request->boarding_date,
             ]);
         }
 
         if ($service->slug == 'ticket' && $request->get('ticket_type') == 'round') {
-            $boarding_date = $request->get('boarding_date_range');
+            $request->merge([
+                'returning_date_from' => $request->returning_date,
+            ]);
+//            $boarding_date = $request->get('boarding_date_range');
+//            if (strlen($boarding_date) == 10) {
+//                $request->merge([
+//                    'boarding_date_from' => date('Y-m-d', strtotime($request->get('boarding_date'))),
+//                ]);
+//            }
 
-            if (strlen($boarding_date) == 10) {
-                $request->merge([
-                    'boarding_date_from' => date('Y-m-d', strtotime($request->get('boarding_date'))),
-                ]);
-            }
+//            if (strlen($boarding_date) == 21) {
+//                $range_date = explode(",", $boarding_date);
 
-            if (strlen($boarding_date) == 21) {
-                $range_date = explode(",", $boarding_date);
-
-                $request->merge([
-                    'boarding_date_from' => date('Y-m-d', strtotime($range_date[0])),
-                    'boarding_date_to' => date('Y-m-d', strtotime($range_date[1])),
-                ]);
-            }
+//                $request->merge([
+//                    'boarding_date_from' => date('Y-m-d', strtotime($range_date[0])),
+//                    'boarding_date_to' => date('Y-m-d', strtotime($range_date[1])),
+//                ]);
+//            }
         }
 
         if ($service->slug == 'visa') {
@@ -165,6 +173,19 @@ class ServiceController extends Controller
             $request->merge([
                 'scanned_passport' => json_encode($scanned_files_array),
             ]);
+        }
+        if($service->slug == 'visa'){
+            $email = Subject::where('type','Visa')->first()->email;
+            \Mail::to($email)->send(new VisaMessage($request->all()));
+        }elseif ($service->slug == 'hotel'){
+            $email = Subject::where('type','Hotel')->first()->email;
+            \Mail::to($email)->send(new HotelMessage($request->all()));
+        }elseif ($service->slug == 'ticket'){
+            $email = Subject::where('type','Ticket')->first()->email;
+            \Mail::to($email)->send(new TicketMessage($request->all()));
+        }elseif ($service->slug == 'translation'){
+            $email = Subject::where('type','Translation')->first()->email;
+            \Mail::to($email)->send(new TranslationMessage($request->all()));
         }
         $service = ServiceRequest::create($request->all());
 

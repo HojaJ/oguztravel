@@ -216,6 +216,7 @@
                 </div>
               </div>
             </div>
+
             <div class="row">
               <div class="col-md-6" id="boardingDateWrap">
                 <div class="form-group">
@@ -231,14 +232,14 @@
                 </div>
               </div>
 
-              <div class="col-md-6 d-none" id="boardingDateRangeWrap">
+              <div class="col-md-6" id="returning_dateWrap">
                 <div class="form-group">
-                  <label for="boarding_date_range">{{ __('Boarding date') }}</label>
-                  <input class="form-control air-pick-range @error('boarding_date_range') is-invalid @enderror" type="text" id="boarding_date_range"
-                    name="boarding_date_range" value="{{ old('boarding_date_range') }}">
+                  <label for="returning_date">{{ __('Returning date') }}</label>
+                  <input class="form-control air-pick @error('returning_date') is-invalid @enderror" type="text" id="returning_date"
+                    name="returning_date" value="{{ old('returning_date') }}" disabled>
                   <i class="icon_calendar"></i>
-                  @if ($errors->has('boarding_date_range'))
-                    <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('boarding_date_range') }}</strong></span>
+                  @if ($errors->has('returning_date'))
+                    <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('returning_date') }}</strong></span>
                   @else
                     <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
                   @endif
@@ -511,14 +512,14 @@
       $('.air-pick').datepicker({
         language: currentLang,
         autoClose: true,
-        dateFormat: 'dd-mm-yyyy',
+        dateFormat: 'yyyy-mm-dd',
       });
 
       $('.air-pick-range').datepicker({
         language: currentLang,
         autoClose: true,
         range: true,
-        dateFormat: 'dd-mm-yyyy',
+        dateFormat: 'yyyy-mm-dd',
       });
 
       const service = $('form.oguzform').attr('data-service');
@@ -530,16 +531,16 @@
       if (service === 'ticket') {
         const boardingDateWrap = $('#boardingDateWrap');
         const boardingDateRangeWrap = $('#boardingDateRangeWrap');
+        let returningDate = $('#returning_date');
 
         $('input[name=ticket_type]').change(function() {
+          console.log($(this).val())
           if ($(this).val() === 'oneway') {
-            boardingDateWrap.removeClass('d-none');
-            boardingDateRangeWrap.addClass('d-none');
+            returningDate.prop('disabled',true)
           }
 
           if ($(this).val() === 'round') {
-            boardingDateWrap.addClass('d-none');
-            boardingDateRangeWrap.removeClass('d-none');
+            returningDate.prop('disabled',false);
           }
         });
       }

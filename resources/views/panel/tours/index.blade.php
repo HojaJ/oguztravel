@@ -29,6 +29,7 @@
         <tr class="tb-tnx-head">
           <th>{{ __('Image') }}</th>
           <th>{{ __('Category') }}</th>
+          <th>{{ __('Bound') }}</th>
           @foreach(LaravelLocalization::getSupportedLocales() as $properties)
           <th>{{ $properties['native'] }}</th>
           @endforeach
@@ -40,6 +41,7 @@
         <tr class="tb-tnx-item">
           <td><img src="{{ $tour->firstImage() }}" alt="tour-{{ $tour->id }}" style="height: 70px;"></td>
           <td>{{ $tour->category->name }}</td>
+          <td>{{ ucfirst($tour->bound) }}</td>
           @foreach(LaravelLocalization::getSupportedLocales() as $locale => $properties)
           <td>{{ $tour->getTranslation('title', $locale) }}</td>
           @endforeach

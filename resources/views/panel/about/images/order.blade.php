@@ -23,7 +23,7 @@
 @endsection
 
 @section('content')
-@include('panel.include.block-header.min', ['data' => ['sub' => __('Ordering thing', ['name' => __('About image')]), 'title' => $about->name]])
+@include('panel.include.block-header.min', ['data' => ['sub' => __('Ordering thing', ['name' => __($about->page)]), 'title' => $about->name]])
 
 <h5 class="title">{{ __('Ordering') }}</h5>
 <form action="{{ route('panel.about.images.order.update', $about->id) }}" method="post" class="needs-validation mt-4" novalidate>
