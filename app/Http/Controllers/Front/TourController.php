@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Mail\TranslationMessage;
 use App\Models\About;
 use App\Models\Category;
 use App\Models\Cover;
 use App\Models\Person;
+use App\Models\Subject;
 use App\Models\Tour;
 use App\Models\TourRequest;
 use Illuminate\Http\Request;
@@ -86,6 +88,8 @@ class TourController extends Controller
         } else {
             Person::create($person_data);
         }
+        $email = Subject::where('type','World Tours')->first()->email;
+        \Mail::to($email)->send(new TranslationMessage($request->all()));
         TourRequest::create($request->all());
         return back()->with('success', __('Request has been sent'));
     }
