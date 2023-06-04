@@ -11,11 +11,9 @@
     .hero_in.general::before {
       background-image: url('{{ $service->getImage() }}');
     }
-
     .hide {
       display: none;
     }
-
     .iti.iti--allow-dropdown.iti--separate-dial-code {
       width: 100%
     }
@@ -90,7 +88,7 @@
               @if ($service->slug == 'visa' || $service->slug == 'hotel')
                 <div class="col-md-6" id="countryWrap">
                   <div class="form-group">
-                    <label for="country">{{ __('Country') }} <span class="text-danger">*</span></label>
+                    <label for="country">{{ __('Planned Country') }} <span class="text-danger">*</span></label>
                     <select name="country" id="country" class="form-control">
                       <option value="empty" disabled hidden selected>{{ __('Choose country') }}</option>
                       @foreach ($countries as $country)
@@ -284,10 +282,10 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="subject">{{ __('Select Gender') }} <span class="text-danger">*</span></label>
-                  <select class="custom-select @error('gender') is-invalid @enderror" id="gender" name="gender" required>
+                  <select class="custom-select @error('gender') is-invalid @enderror" id="gender" name="gender" required >
                     <option selected disabled hidden>{{ __('Select Gender') }}</option>
-                    <option value="male" {{ old('male') == 'male' ? 'selected' : '' }}>{{ __('Male') }}</option>
-                    <option value="female" {{ old('female') == 'famale' ? 'selected' : '' }}>{{ __('Female') }}</option>
+                    <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>{{ __('Male') }}</option>
+                    <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>{{ __('Female') }}</option>
                   </select>
                   @if ($errors->has('message'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('message') }}</strong></span>
@@ -507,8 +505,6 @@
         utilsScript: "{{ asset('js/utils.js') }}"
       });
 
-      iti.setCountry("tm");
-
       $('.air-pick').datepicker({
         language: currentLang,
         autoClose: true,
@@ -549,21 +545,27 @@
         const countryWrap = $('#countryWrap');
         const innerPassportWrap = $('#innerPassportWrap');
 
-        if ($('input[name=applicant_type]').val() === 'outbound') {
+        if ($('input[name=applicant_type]').val() === 'inbound') {
           countryWrap.find('#country').val('Turkmenistan').attr('disabled',true);
+          iti.setCountry("tm");
         }
 
-        if ($('input[name=applicant_type]').val() === 'inbound') {
+        if ($('input[name=applicant_type]').val() === 'outbound') {
           countryWrap.find('#country').val('empty').attr('disabled',false);
+          $.get('https://ipinfo.io', function() {}, "jsonp").always(function(resp) {
+            const countryCode = (resp && resp.country) ? resp.country : "ru";
+
+            iti.setCountry(countryCode)
+          });
         }
 
         $('input[name=applicant_type]').change(function() {
-          if ($(this).val() === 'outbound') {
+          if ($(this).val() === 'inbound') {
             countryWrap.find('#country').val('Turkmenistan').attr('disabled',true);
             innerPassportWrap.removeClass('d-none');
           }
 
-          if ($(this).val() === 'inbound') {
+          if ($(this).val() === 'outbound') {
             countryWrap.find('#country').val('empty').attr('disabled',false);
             innerPassportWrap.addClass('d-none');
           }
@@ -588,11 +590,11 @@
 
       if (service !== 'translation') {
         $('input[name=applicant_type]').change(function() {
-          if ($(this).val() === 'outbound') {
+          if ($(this).val() === 'inbound') {
             iti.setCountry("tm");
           }
 
-          if ($(this).val() === 'inbound') {
+          if ($(this).val() === 'outbound') {
             $.get('https://ipinfo.io', function() {}, "jsonp").always(function(resp) {
               const countryCode = (resp && resp.country) ? resp.country : "ru";
 

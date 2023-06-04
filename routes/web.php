@@ -43,17 +43,12 @@ Route::group(
         Route::get('services', [App\Http\Controllers\Front\ServiceController::class, 'index'])->name('services.index');
         Route::get('services/{service:slug}', [App\Http\Controllers\Front\ServiceController::class, 'show'])->name('services.show');
         Route::post('services/{service:slug}', [App\Http\Controllers\Front\ServiceController::class, 'store'])->name('services.store');
-
         Route::get('contacts', [App\Http\Controllers\Front\ContactController::class, 'index'])->name('contact.index');
-
         Route::post('contacts/message', [App\Http\Controllers\Front\ContactController::class, 'send'])->name('contact.message');
-
         Route::get('about', [WebController::class, 'about'])->name('about.index');
-
         Route::get('turkmenistan', [TurkmenistanController::class, 'index'])->name('turkmenistan.index');
         Route::get('turkmenistan/{tour}', [TurkmenistanController::class, 'show'])->name('turkmenistan.show');
         Route::post('turkmenistan', [App\Http\Controllers\Front\TurkmenistanController::class, 'store'])->name('turkmenistan.store');
-
         Route::get('tours', [App\Http\Controllers\Front\TourController::class, 'index'])->name('tours.index');
         Route::get('tours/{tour}', [App\Http\Controllers\Front\TourController::class, 'show'])->name('tours.show');
         Route::post('tours', [App\Http\Controllers\Front\TourController::class, 'store'])->name('tours.store');
@@ -82,8 +77,6 @@ Route::group(
                     Route::get('about/{about}/order', [AboutImageController::class, 'order'])->name('about.images.order');
                     Route::patch('about/{about}/order', [AboutImageController::class, 'orderUpdate'])->name('about.images.order.update');
                     Route::delete('about/images/{image}', [AboutImageController::class, 'destroy'])->name('about.images.destroy');
-
-
 
                     Route::resource('contact', ContactController::class)->except('show');
 

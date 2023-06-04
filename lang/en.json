@@ -187,6 +187,10 @@
     "Hotel request": "Hotel request",
     "Hotel requests": "Hotel requests",
     "Translation request": "Translation request",
-    "Translation requests": "Translation requests"
-
+    "Translation requests": "Translation requests",
+    "Pages": "Pages",
+    "Service Requests": "Service Requests",
+    "Tour Requests": "Tour Requests",
+    "Date": "Date",
+    "Planned Country": "Planned Country"
 }

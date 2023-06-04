@@ -48,17 +48,23 @@ class ContactController extends Controller
     {
         $data = $request->validate([
             'icon' => 'nullable',
-            'data' => 'required_without:locale_data',
-            'locale_data.*' => 'required_without:data',
+            'data' => 'nullable',
+            'locale_data.*' => 'nullable',
             'is_active' => 'nullable',
         ]);
 
         if (!$request->has('is_active') && $contact->is_active) {
             $data['is_active'] = false;
         }
+        if(isset($data['locale_data'])){
+            $data['locale_data'] = array_map('strip_tags',$data['locale_data']);
+        }
+
+        if(!isset($data['data'])){
+            $data['data'] = null;
+        }
 
         $contact->update($data);
-
         return redirect()->route('panel.contact.index')->with('success', __('Updated msg', ['name' => __('Contact us')]));
     }
 

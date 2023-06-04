@@ -187,6 +187,10 @@
     "Hotel request": "Отель запрос",
     "Hotel requests": "Отель запросы",
     "Translation request": "Перевод запрос",
-    "Translation requests": "Перевод запросы"
-
+    "Translation requests": "Перевод запросы",
+    "Pages": "Страницы",
+    "Service Requests": "Сервис запросы",
+    "Tour Requests": "Запросы на тур",
+    "Date": "Дата",
+    "Planned Country": "Планируемая страна"
 }

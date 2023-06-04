@@ -78,7 +78,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="name">{{ __('Name') }}</label>
-                  <input class="form-control @error('name') is-invalid @enderror" type="text" id="name" name="name" value="{{ old('name') }}">
+                  <input class="form-control @error('name') is-invalid @enderror" type="text" id="name"  name="name" value="{{ old('name') }}">
                   @if ($errors->has('name'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('name') }}</strong></span>
                   @else
@@ -192,12 +192,16 @@
               @endif
 
               @if ($contact->type == 'email')
-                <li><a href="mailto://{{ $contact->data }}"><i>{!! $contact->icon !!}</i> {{ $contact->data }}</a></li>
+                <li><a href="mailto:{{ $contact->data }}"><i>{!! $contact->icon !!}</i> {{ $contact->data }}</a></li>
+              @endif
+              @if ($contact->slug == 'fax')
+                <li><a href="fax:{{ $contact->data }}"><i>{!! $contact->icon !!}</i> {{ $contact->data }}</a></li>
               @endif
 
               @if ($contact->type == 'contact')
-                <li><a href="tel://{{ $contact->data }}"><i>{!! $contact->icon !!}</i> {{ $contact->data }}</a></li>
+                <li><a href="tel:{{ $contact->data }}"><i>{!! $contact->icon !!}</i> {{ $contact->data }}</a></li>
               @endif
+
             @endforeach
           </ul>
         @endforeach

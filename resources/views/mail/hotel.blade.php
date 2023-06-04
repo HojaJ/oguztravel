@@ -4,7 +4,12 @@
             <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Oguz Travel</a>
         </div>
         @foreach($data as $key => $value)
-            @php if (($key === '_token')) continue; @endphp
+            @if ($key === '_token' || $key === 'files') @continue;
+            @elseif($key === 'attach')
+                @foreach($value as $k => $file)
+                    <a href="{{ $file }}" download>{{ $k }}</a>
+                @endforeach
+            @endif
                 <p style="font-size:1em">{{ $key }}: {{ $value }}</p>
         @endforeach
         <hr style="border:none;border-top:1px solid #eee" />

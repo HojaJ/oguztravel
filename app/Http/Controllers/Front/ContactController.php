@@ -59,7 +59,6 @@ class ContactController extends Controller
             \Mail::to($email)->send(new ContactMessage($data));
             return back()->with('success', __('Your message has been sent'));
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             return back()->with('danger', __('Something went wrong :('))->withInput();
         }
     }

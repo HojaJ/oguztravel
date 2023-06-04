@@ -38,13 +38,15 @@
         <td>{{ $contact->slug }}</td>
         <td>
           @if ($contact->data)
-          @if ($contact->data == 'phone')
-          <a href="tel:{{ $contact->data }}" target="_blank">{{ $contact->data }}</a>
-          @elseif ($contact->data == 'email')
-          <a href="mailto:{{ $contact->data }}" target="_blank">{{ $contact->data }}</a>
-          @else
-          <a href="{{ $contact->data }}" target="_blank">{{ $contact->data }}</a>
-          @endif
+            @if ($contact->data == 'phone')
+              <a href="tel:{{ $contact->data }}" target="_blank">{{ $contact->data }}</a>
+            @elseif ($contact->data == 'email')
+              <a href="mailto:{{ $contact->data }}" target="_blank">{{ $contact->data }}</a>
+            @else
+              <a href="{{ $contact->data }}" target="_blank">{{ $contact->data }}</a>
+            @endif
+          @elseif($contact->type == 'social')
+            <a href="{{ $contact->data }}" target="_blank">{{ $contact->data }}</a>
           @else
           @foreach(LaravelLocalization::getSupportedLocales() as $locale => $properties)
           <p>

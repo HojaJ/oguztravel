@@ -69,6 +69,13 @@
       </div>
       <div class="data-col data-col-end"></div>
     </div>
+    <div class="data-item">
+      <div class="data-col">
+        <span class="data-label">{{ __('Date') }}</span>
+        <span class="data-value">{{ $message->created_at }}</span>
+      </div>
+      <div class="data-col data-col-end"></div>
+    </div>
   </div>
 </div>
 @endsection

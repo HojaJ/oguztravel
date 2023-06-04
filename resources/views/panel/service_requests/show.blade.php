@@ -87,14 +87,14 @@
     <div class="data-item">
       <div class="data-col">
         <span class="data-label">{{ __('From') }}</span>
-        <span class="data-value">{{ $service->form ?? '—' }}</span>
+        <span class="data-value">{{ $service->ticket_from ?? '—' }}</span>
       </div>
       <div class="data-col data-col-end"></div>
     </div>
     <div class="data-item">
       <div class="data-col">
         <span class="data-label">{{ __('To') }}</span>
-        <span class="data-value">{{ $service->to ?? '—' }}</span>
+        <span class="data-value">{{ $service->ticket_to ?? '—' }}</span>
       </div>
       <div class="data-col data-col-end"></div>
     </div>

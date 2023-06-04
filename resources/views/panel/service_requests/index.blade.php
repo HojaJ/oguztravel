@@ -31,6 +31,7 @@
           @if ($type != 'translation')
           <th>{{ __('Date of birth') }}</th>
           @endif
+          <th>{{ __('Date') }}</th>
           <th>{{ __('Action') }}</th>
         </tr>
       </thead>
@@ -73,6 +74,7 @@
           @if ($service->type != 'translation')
           <td>{{ date('d-m-Y', strtotime($service->date_of_birth)) }}</td>
           @endif
+            <td>{{ $service->created_at }}</td>
           <td class="tb-col-action">
             <a href="{{ route('panel.service_requests.show', ['service' => $service->id, 'type' => $type]) }}" class="link-cross d-inline-block link-edit mr-2"><em class="icon ni ni-eye"></em></a>
             <a href="#" onclick="if (confirm('{{ __('want to remove') }}')) { document.getElementById('destroy-{{ $service->id }}').submit(); }" class="link-cross mr-sm-n1"><em class="icon ni ni-trash"></em></a>

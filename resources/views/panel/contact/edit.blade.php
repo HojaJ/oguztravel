@@ -45,7 +45,7 @@
   <div class="form-group">
     <div class="form-control-wrap">
       <label for="data" class="form-label">{{ __('Contact data') }} <span class="text-danger">*</span></label>
-      <input type="text" name="data" id="data" class="form-control @error('data') is-invalid @enderror" value="{{ old('data', $contact->data) }}" placeholder="{{ __(ucwords($contact->slug)) }}" required>
+      <input type="text" name="data" id="data" class="form-control @error('data') is-invalid @enderror" value="{{ old('data', $contact->data) }}" placeholder="{{ __(ucwords($contact->slug)) }}" >
       @if ($errors->has('data'))
       <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('data') }}</strong></span>
       @else

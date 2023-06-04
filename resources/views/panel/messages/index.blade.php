@@ -31,6 +31,7 @@
           <th>{{ __('Surname') }}</th>
           <th>{{ __('Email') }}</th>
           <th>{{ __('Phone') }}</th>
+          <th>{{ __('Date') }}</th>
           <th>&nbsp;</th>
         </tr>
       </thead>
@@ -53,6 +54,7 @@
           <td>{{ $message->surname }}</td>
           <td><a href="mailto:{{ $message->email }}" target="_blank">{{ $message->email }}</a></td>
           <td><a href="tel:{{ $message->phone }}" target="_blank">{{ $message->phone }}</a></td>
+          <td>{{ $message->created_at }}</td>
           <td class="tb-col-action">
             <a href="{{ route('panel.messages.show', $message->id) }}" class="link-cross d-inline-block link-edit mr-2"><em class="icon ni ni-eye"></em></a>
             <a href="#" onclick="if (confirm('{{ __('want to remove') }}')) { document.getElementById('destroy-{{ $message->id }}').submit(); }" class="link-cross mr-sm-n1"><em class="icon ni ni-trash"></em></a>

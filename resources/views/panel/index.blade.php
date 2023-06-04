@@ -84,7 +84,4 @@
   </div>
 </div> --}}
 
-<div class="nk-block">
-  s
-</div>
 @endsection

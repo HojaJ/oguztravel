@@ -100,96 +100,136 @@
                     <li class="nk-menu-heading">
                       <h6 class="overline-title">{{ __('Menu') }}</h6>
                     </li>
-                    <li class="nk-menu-item {{ request()->is(app()->getLocale()) ? 'active' : '' }}">
+
+                    <li class="nk-menu-item">
                       <a href="{{ route('panel.index') }}" class="nk-menu-link">
                         <span class="nk-menu-icon"><em class="icon ni ni-dashboard"></em></span><span class="nk-menu-text">{{ __('Dashboard') }}</span>
                       </a>
                     </li>
-                    <li class="nk-menu-item {{ request()->is('banners*') ? 'active' : '' }}">
-                      <a href="{{ route('panel.banners.index') }}" class="nk-menu-link">
-                        <span class="nk-menu-icon"><em class="icon ni ni-img"></em></span><span class="nk-menu-text">{{ __('Banners') }}</span>
+                    <!-- Pages -->
+                    <li class="nk-menu-item has-sub {{request()->is('contact*') || request()->is('covers*') || request()->is('countries*') || request()->is('turkmenistan_index*') || request()->is('tours_index*') || request()->is('banners*') || request()->is('about*') ? 'active' : '' }}">
+                      <a href="#" class="nk-menu-link nk-menu-toggle">
+                        <span class="nk-menu-icon"><em class="icon ni ni-grid-alt-fill"></em></span>
+                        <span class="nk-menu-text">{{ __('Pages') }}</span>
                       </a>
+                      <ul class="nk-menu-sub" style="display: none;">
+                        <li class="nk-menu-item {{ request()->is('banners*') ? 'active' : '' }}">
+                          <a href="{{ route('panel.banners.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('Banners') }}</span>
+                          </a>
+                        </li>
+                        <li class="nk-menu-item {{ request()->is('about*') ? 'active' : '' }}">
+                          <a href="{{ route('panel.about.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('About us') }}</span>
+                          </a>
+                        </li>
+                        <li class="nk-menu-item {{ request()->is('contact*') ? 'active' : '' }}">
+                          <a href="{{ route('panel.contact.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('Contact us') }}</span>
+                          </a>
+                        </li>
+                        <li class="nk-menu-item {{ request()->is('tours_index*') ? 'active' : '' }}">
+                          <a href="{{ route('panel.tours_index') }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('Tours Page') }}</span>
+                          </a>
+                        </li>
+                        <li class="nk-menu-item {{ request()->is('turkmenistan_index*') ? 'active' : '' }}">
+                          <a href="{{ route('panel.turkmenistan_index') }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('Turkmenistan Page') }}</span>
+                          </a>
+                        </li>
+                        <li class="nk-menu-item {{ request()->is('countries*') ? 'active' : '' }}">
+                          <a href="{{ route('panel.countries.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('Countries') }}</span>
+                          </a>
+                        </li>
+                        <li class="nk-menu-item {{ request()->is('covers*') ? 'active' : '' }}">
+                          <a href="{{ route('panel.covers.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('Covers') }}</span>
+                          </a>
+                        </li>
+                      </ul>
                     </li>
-                    <li class="nk-menu-item {{ request()->is('about*') ? 'active' : '' }}">
-                      <a href="{{ route('panel.about.index') }}" class="nk-menu-link">
-                        <span class="nk-menu-icon"><em class="icon ni ni-file-text"></em></span><span class="nk-menu-text">{{ __('About us') }}</span>
+                    <!-- End Pages -->
+
+                    <!-- Service Requests -->
+                    <li class="nk-menu-item has-sub" data-active="{{ (request()->get('type') && (request()->get('type') == 'visa' || request()->get('type') == 'ticket' || request()->get('type') == 'hotel' || request()->get('type') == 'translation')) ? 'active' : '' }}">
+                      <a href="#" class="nk-menu-link nk-menu-toggle">
+                        <span class="nk-menu-icon"><em class="icon ni ni-layers"></em></span>
+                        <span class="nk-menu-text">{{ __('Service Requests') }}</span>
                       </a>
+                      <ul class="nk-menu-sub" style="display: {{ (request()->get('type') && (request()->get('type') == 'visa' || request()->get('type') == 'ticket' || request()->get('type') == 'hotel' || request()->get('type') == 'translation')) ? 'block;' : 'none;' }}">
+                        <li class="nk-menu-item" data-active="{{ (request()->get('type') && request()->get('type') == 'visa') ? 'active' : '' }}">
+                          <a href="{{ route('panel.service_requests.index', ['type' => 'visa']) }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('Visa') }}</span>
+                          </a>
+                        </li>
+                        <li class="nk-menu-item" data-active="{{ (request()->get('type') && request()->get('type') == 'ticket') ? 'active' : '' }}">
+                          <a href="{{ route('panel.service_requests.index', ['type' => 'ticket']) }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('Ticket') }}</span>
+                          </a>
+                        </li>
+                        <li class="nk-menu-item" data-active="{{ (request()->get('type') && request()->get('type') == 'hotel') ? 'active' : '' }}">
+                          <a href="{{ route('panel.service_requests.index', ['type' => 'hotel']) }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('Hotel') }}</span>
+                          </a>
+                        </li>
+                        <li class="nk-menu-item" data-active="{{ (request()->get('type') && request()->get('type') == 'translation') ? 'active' : '' }}">
+                          <a href="{{ route('panel.service_requests.index', ['type' => 'translation']) }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('Translation') }}</span>
+                          </a>
+                        </li>
+                      </ul>
                     </li>
-                    <li class="nk-menu-item {{ request()->is('tours_index*') ? 'active' : '' }}">
-                      <a href="{{ route('panel.tours_index') }}" class="nk-menu-link">
-                        <span class="nk-menu-icon"><em class="icon ni ni-file-text"></em></span><span class="nk-menu-text">{{ __('Tours Page') }}</span>
+                    <!-- End Service Requests -->
+
+                    <!-- Tours -->
+                    <li class="nk-menu-item has-sub" data-active="{{ request()->is('categories*') || (request()->get('type') && (request()->get('type') == 'turkmenistan' || request()->get('type') == 'tour')) ? 'active' : '' }}">
+                      <a href="#" class="nk-menu-link nk-menu-toggle">
+                        <span class="nk-menu-icon"><em class="icon ni ni-article"></em></span>
+                        <span class="nk-menu-text">{{ __('Tours') }}</span>
                       </a>
+                      <ul class="nk-menu-sub" style="display: {{ request()->is('categories*') || (request()->get('type') && (request()->get('type') == 'turkmenistan' || request()->get('type') == 'tour')) ? 'block;' : 'none;' }}">
+                        <li class="nk-menu-item {{ request()->is('categories*') ? 'active' : '' }}">
+                          <a href="{{ route('panel.categories.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('Categories') }}</span>
+                          </a>
+                        </li>
+                        <li class="nk-menu-item" data-active="{{ (request()->get('type') && request()->get('type') == 'turkmenistan') ? 'active' : '' }}">
+                          <a href="{{ route('panel.tours.index', ['type' => 'turkmenistan']) }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('Turkmenistan') }}</span>
+                          </a>
+                        </li>
+                        <li class="nk-menu-item" data-active="{{ (request()->get('type') && request()->get('type') == 'tour') ? 'active' : '' }}">
+                          <a href="{{ route('panel.tours.index', ['type' => 'tour']) }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('Tours') }}</span>
+                          </a>
+                        </li>
+                      </ul>
                     </li>
-                    <li class="nk-menu-item {{ request()->is('turkmenistan_index*') ? 'active' : '' }}">
-                      <a href="{{ route('panel.turkmenistan_index') }}" class="nk-menu-link">
-                        <span class="nk-menu-icon"><em class="icon ni ni-file-text"></em></span><span class="nk-menu-text">{{ __('Turkmenistan Page') }}</span>
+                    <!-- End Tours -->
+
+                    <!-- Requests -->
+                    <li class="nk-menu-item has-sub" data-active="{{ request()->get('kind') && (request()->get('kind') == 'turkmenistan' || request()->get('kind') == 'tour') ? 'active' : '' }}">
+                      <a href="#" class="nk-menu-link nk-menu-toggle">
+                        <span class="nk-menu-icon"><em class="icon ni ni-cc-new"></em></span>
+                        <span class="nk-menu-text">{{ __('Tour Requests') }}</span>
                       </a>
+                      <ul class="nk-menu-sub" style="display: {{ request()->get('kind') && (request()->get('kind') == 'turkmenistan' || request()->get('kind') == 'tour') ? 'block;' : 'none;' }}">
+                        <li class="nk-menu-item" data-active="{{ (request()->get('kind') && request()->get('kind') == 'turkmenistan') ? 'active' : '' }}">
+                          <a href="{{ route('panel.tour_requests.index', ['kind' => 'turkmenistan']) }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('TM requests') }}</span>
+                          </a>
+                        </li>
+                        <li class="nk-menu-item" data-active="{{ (request()->get('kind') && request()->get('kind') == 'tour') ? 'active' : '' }}">
+                          <a href="{{ route('panel.tour_requests.index', ['kind' => 'tour']) }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('Tour requests') }}</span>
+                          </a>
+                        </li>
+                      </ul>
                     </li>
-                    <li class="nk-menu-item {{ request()->is('services*') ? 'active' : '' }}">
-                      <a href="{{ route('panel.services.index') }}" class="nk-menu-link">
-                        <span class="nk-menu-icon"><em class="icon ni ni-layers"></em></span><span class="nk-menu-text">{{ __('Services') }}</span>
-                      </a>
-                    </li>
-                    <li class="nk-menu-item {{ request()->is('countries*') ? 'active' : '' }}">
-                      <a href="{{ route('panel.countries.index') }}" class="nk-menu-link">
-                        <span class="nk-menu-icon"><em class="icon ni ni-globe"></em></span><span class="nk-menu-text">{{ __('Countries') }}</span>
-                      </a>
-                    </li>
-                    <li class="nk-menu-item" data-active="{{ (request()->get('type') && request()->get('type') == 'visa') ? 'active' : '' }}">
-                      <a href="{{ route('panel.service_requests.index', ['type' => 'visa']) }}" class="nk-menu-link">
-                        <span class="nk-menu-icon"><em class="icon ni ni-cards"></em></span><span class="nk-menu-text">{{ __('Visa') }}</span>
-                      </a>
-                    </li>
-                    <li class="nk-menu-item" data-active="{{ (request()->get('type') && request()->get('type') == 'ticket') ? 'active' : '' }}">
-                      <a href="{{ route('panel.service_requests.index', ['type' => 'ticket']) }}" class="nk-menu-link">
-                        <span class="nk-menu-icon"><em class="icon ni ni-cards"></em></span><span class="nk-menu-text">{{ __('Ticket') }}</span>
-                      </a>
-                    </li>
-                    <li class="nk-menu-item" data-active="{{ (request()->get('type') && request()->get('type') == 'hotel') ? 'active' : '' }}">
-                      <a href="{{ route('panel.service_requests.index', ['type' => 'hotel']) }}" class="nk-menu-link">
-                        <span class="nk-menu-icon"><em class="icon ni ni-cards"></em></span><span class="nk-menu-text">{{ __('Hotel') }}</span>
-                      </a>
-                    </li>
-                    <li class="nk-menu-item" data-active="{{ (request()->get('type') && request()->get('type') == 'translation') ? 'active' : '' }}">
-                      <a href="{{ route('panel.service_requests.index', ['type' => 'translation']) }}" class="nk-menu-link">
-                        <span class="nk-menu-icon"><em class="icon ni ni-cards"></em></span><span class="nk-menu-text">{{ __('Translation') }}</span>
-                      </a>
-                    </li>
-                    <li class="nk-menu-item {{ request()->is('covers*') ? 'active' : '' }}">
-                      <a href="{{ route('panel.covers.index') }}" class="nk-menu-link">
-                        <span class="nk-menu-icon"><em class="icon ni ni-toolbar"></em></span><span class="nk-menu-text">{{ __('Covers') }}</span>
-                      </a>
-                    </li>
-                    <li class="nk-menu-item {{ request()->is('contact*') ? 'active' : '' }}">
-                      <a href="{{ route('panel.contact.index') }}" class="nk-menu-link">
-                        <span class="nk-menu-icon"><em class="icon ni ni-contact"></em></span><span class="nk-menu-text">{{ __('Contact us') }}</span>
-                      </a>
-                    </li>
-                    <li class="nk-menu-item {{ request()->is('categories*') ? 'active' : '' }}">
-                      <a href="{{ route('panel.categories.index') }}" class="nk-menu-link">
-                        <span class="nk-menu-icon"><em class="icon ni ni-layers"></em></span><span class="nk-menu-text">{{ __('Categories') }}</span>
-                      </a>
-                    </li>
-                    <li class="nk-menu-item" data-active="{{ (request()->get('type') && request()->get('type') == 'turkmenistan') ? 'active' : '' }}">
-                      <a href="{{ route('panel.tours.index', ['type' => 'turkmenistan']) }}" class="nk-menu-link">
-                        <span class="nk-menu-icon"><em class="icon ni ni-article"></em></span><span class="nk-menu-text">{{ __('Turkmenistan') }}</span>
-                      </a>
-                    </li>
-                    <li class="nk-menu-item" data-active="{{ (request()->get('kind') && request()->get('kind') == 'turkmenistan') ? 'active' : '' }}">
-                      <a href="{{ route('panel.tour_requests.index', ['kind' => 'turkmenistan']) }}" class="nk-menu-link">
-                        <span class="nk-menu-icon"><em class="icon ni ni-cc-new"></em></span><span class="nk-menu-text">{{ __('TM requests') }}</span>
-                      </a>
-                    </li>
-                    <li class="nk-menu-item" data-active="{{ (request()->get('type') && request()->get('type') == 'tour') ? 'active' : '' }}"">
-                      <a href=" {{ route('panel.tours.index', ['type'=> 'tour']) }}" class="nk-menu-link">
-                      <span class="nk-menu-icon"><em class="icon ni ni-article"></em></span><span class="nk-menu-text">{{ __('Tours') }}</span>
-                      </a>
-                    </li>
-                    <li class="nk-menu-item" data-active="{{ (request()->get('kind') && request()->get('kind') == 'tour') ? 'active' : '' }}">
-                      <a href="{{ route('panel.tour_requests.index', ['kind' => 'tour']) }}" class="nk-menu-link">
-                        <span class="nk-menu-icon"><em class="icon ni ni-cc-new"></em></span><span class="nk-menu-text">{{ __('Tour requests') }}</span>
-                      </a>
-                    </li>
+                    <!-- End Requests -->
+
                     <li class="nk-menu-item {{ request()->is('messages*') ? 'active' : '' }}">
                       <a href="{{ route('panel.messages.index') }}" class="nk-menu-link">
                         <span class="nk-menu-icon"><em class="icon ni ni-msg"></em></span><span class="nk-menu-text">{{ __('Messages') }}</span>

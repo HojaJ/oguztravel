@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ServiceRequest extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $appends = ['attach'];
 
     protected $fillable = [
         'applicant_type',
@@ -50,6 +53,16 @@ class ServiceRequest extends Model
         return $this->hasMany(ServiceRequestFile::class);
     }
 
+    public function getAttachAttribute()
+    {
+        $array = [];
+        foreach ($this->files as $file){
+            $array[$file->type] = asset('storage/service_request_files/'. $file->filename);
+        }
+        return $array;
+    }
+
+
     public function getDocPhotoFiles()
     {
         return $this->files()->whereType('doc_photos')->get();
@@ -65,10 +78,6 @@ class ServiceRequest extends Model
         return $this->files()->whereType('scanned_documents')->get();
     }
 
-    public function getFile()
-    {
-
-    }
 
     public function getPassport()
     {
