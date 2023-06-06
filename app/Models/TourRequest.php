@@ -10,7 +10,7 @@ class TourRequest extends Model
 {
     use HasFactory, SoftDeletes;
     
-    protected $fillable = ['name', 'surname', 'patronymic', 'email', 'phone', 'date_of_birth', 'applicant_type', 'filename', 'file_type', 'type', 'tour_id','gender'];
+    protected $fillable = ['name', 'surname','note', 'patronymic', 'email', 'phone', 'date_of_birth', 'applicant_type', 'filename', 'file_type', 'type', 'tour_id','gender'];
 
     public function tour()
     {
@@ -20,6 +20,9 @@ class TourRequest extends Model
     public function getFile()
     {
         $array = [];
+        if(is_null($this->filename)){
+            return $array;
+        }
         foreach (json_decode($this->filename) as $file){
             $new['filename'] = asset('storage/scanned_passport_file/' . $file->filename);
             $new['type'] = $file->file_type;

@@ -163,6 +163,7 @@ class ServiceController extends Controller
                     'scanned_passport' => json_encode($scanned_files_array),
                 ]);
             }
+
             $service = ServiceRequest::create($request->all());
 
             $person_data = [
@@ -172,7 +173,7 @@ class ServiceController extends Controller
                 'surname' => $request->get('surname'),
                 'patronymic' => $request->get('patronymic'),
                 'gender' => $request->get('gender'),
-                'date_if_birth' => $request->get('date_of_birth')
+                'date_of_birth' => $request->get('date_of_birth')
             ];
 
             $person = Person::wherePhone($person_data['phone'])->whereEmail($person_data['email'])->first();

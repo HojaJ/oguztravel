@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Panel\ClientController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Front\WebController;
@@ -83,6 +84,12 @@ Route::group(
                     Route::resource('services', ServiceController::class)->only('index', 'edit', 'update');
 
                     Route::resource('covers', CoverController::class)->only('index', 'edit', 'update');
+
+                    Route::resource('clients', ClientController::class)->except('show');
+
+
+                    Route::post('/import',[ClientController::class, 'importClients'])->name('import');
+                    Route::get('/export-clients',[ClientController::class, 'exportClients'])->name('export-clients');
 
                     Route::resource('categories', CategoryController::class)->except('show');
 

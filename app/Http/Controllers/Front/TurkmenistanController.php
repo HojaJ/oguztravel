@@ -47,6 +47,7 @@ class TurkmenistanController extends Controller
             'name' => 'required',
             'surname' => 'required',
             'patronymic' => 'nullable',
+            'note' => 'nullable',
             'email' => 'required|email',
             'gender' => 'required',
             'phone' => 'required',
@@ -86,7 +87,7 @@ class TurkmenistanController extends Controller
             'surname' => $request->get('surname'),
             'gender' => $request->get('gender'),
             'patronymic' => $request->get('patronymic'),
-            'date_if_birth' => $request->get('date_of_birth')
+            'date_of_birth' => $request->get('date_of_birth')
         ];
 
         $person = Person::wherePhone($person_data['phone'])->whereEmail($person_data['email'])->first();
@@ -96,10 +97,10 @@ class TurkmenistanController extends Controller
         } else {
             Person::create($person_data);
         }
-        $email = Subject::where('type','Turkmen Tours')->first()->email;
-        \Mail::to($email)->send(new TranslationMessage($request->all()));
 
-        TourRequest::create($request->all());
+        $tour = TourRequest::create($request->all());
+        $email = Subject::where('type','Turkmen Tours')->first()->email;
+        \Mail::to($email)->send(new TranslationMessage($tour));
 
         return back()->with('success', __('Request has been sent'));
     }

@@ -102,7 +102,7 @@
             <p><img src="{{ asset('images/logo.svg') }}" height="36" alt="logo-footer"></p>
             <div class="follow_us">
               <ul>
-                <li>{{ __('Follow us') }}</li>
+                <li>{{ __('Follow us') }}</li><br/>
                 @foreach ($share['socials'] as $social)
                 <li><a href="{{ $social->data }}" target="_blank"><i>{!! $social->icon !!}</i></a></li>
                 @endforeach

@@ -42,6 +42,18 @@
     </div>
   @endif
 
+  <div class="form-group mb-5">
+    <label class="form-label" for="bound">{{ __('Price') }} <span class="text-danger">*</span></label>
+    <div class="form-control-wrap">
+      <input type="number" step="0.1" id="price" name="price" value="{{ $tour->price ?? 0 }}" class="form-control form-control-lg @error('price') is-invalid @enderror" placeholder="{{ __('Price') }}" required>
+      @if ($errors->has('price'))
+        <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('price') }}</strong></span>
+      @else
+        <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
+      @endif
+    </div>
+  </div>
+
 
   <div class="card card-bordered my-3">
     <div class="card-inner">

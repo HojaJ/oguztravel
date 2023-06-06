@@ -34,7 +34,7 @@
   <div class="form-group">
     <label for="data" class="form-label">{{ __('Social network link') }} <span class="text-danger">*</span></label>
     <div class="form-control-wrap">
-      <input type="text" id="data" name="data" value="{{ old('data') }}" class="form-control form-control-lg @error('data') is-invalid @enderror" placeholder="{{ __('Web addreess') }}" required>
+      <input type="text" id="data" name="data" value="{{ old('data') }}" class="form-control form-control-lg @error('data') is-invalid @enderror" placeholder="{{ __('Web addreess') }}">
       @if ($errors->has('data'))
       <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('data') }}</strong></span>
       @else

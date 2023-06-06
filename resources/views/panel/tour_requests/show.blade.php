@@ -86,17 +86,28 @@
     <div class="data-item">
       <div class="data-col">
         <span class="data-label">{{ __('Scanned passport file') }}</span>
-        @foreach($tour->getFile() as $file)
-          <span class="data-value mr-3">
-          @if ($file['type'] == 'jpg' || $file['type'] == 'bmp' || $file['type'] == 'png')
-              <a href="{{ $file['filename'] }}" target="_blank">{{ __('Image') }}</a>
-            @elseif ($file['type'] == 'doc' || $file['type'] == 'docx')
-              <a href="{{ $file['filename'] }}" target="_blank">{{ __('Microsoft Word') }}</a>
-            @elseif ($file['type'] == 'pdf')
-              <a href="{{ $file['filename'] }}" target="_blank">{{ __('PDF') }}</a>
-            @endif
-        </span>
-        @endforeach
+        @if(!is_null($tour->getFile()))
+          @foreach($tour->getFile() as $file)
+            <span class="data-value mr-3">
+            @if ($file['type'] == 'jpg' || $file['type'] == 'bmp' || $file['type'] == 'png')
+                <a href="{{ $file['filename'] }}" download>{{ __('Image') }}</a>
+              @elseif ($file['type'] == 'doc' || $file['type'] == 'docx')
+                <a href="{{ $file['filename'] }}" download>{{ __('Microsoft Word') }}</a>
+              @elseif ($file['type'] == 'pdf')
+                <a href="{{ $file['filename'] }}" download>{{ __('PDF') }}</a>
+              @else
+                <a href="{{ $file['filename'] }}" download>{{ $file['filename'] }}</a>
+              @endif
+          </span>
+          @endforeach
+        @endif
+      </div>
+      <div class="data-col data-col-end"></div>
+    </div>
+    <div class="data-item">
+      <div class="data-col">
+        <span class="data-label">{{ __('Note') }}</span>
+        <span class="data-value">{!! $tour->note ?? '&#8212' !!}</span>
       </div>
       <div class="data-col data-col-end"></div>
     </div>

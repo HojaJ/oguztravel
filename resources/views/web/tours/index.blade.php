@@ -72,6 +72,10 @@
               @endforeach
             </ul>
           </div>
+            <div class="filter_type">
+              <h6>{{ __('Price') }}</h6>
+              <input type="text" id="range" name="range" value="">
+            </div>
         </div>
       </div>
     </aside>
@@ -102,4 +106,22 @@
     </div>
   </div>
 </div>
+@endsection
+
+@section('js')
+  <!-- Range Slider -->
+  <script>
+    $("#range").ionRangeSlider({
+      hide_min_max: true,
+      keyboard: true,
+      min: 0,
+      max: 250,
+      from: 0,
+      to: 250,
+      type: 'double',
+      step: 10,
+      prefix: "$",
+      grid: false
+    });
+  </script>
 @endsection

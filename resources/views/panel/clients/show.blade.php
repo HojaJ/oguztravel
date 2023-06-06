@@ -218,8 +218,6 @@
               <a href="{{ $file['filename'] }}" target="_blank">{{ __('Microsoft Word') }}</a>
             @elseif ($file['type'] == 'pdf')
               <a href="{{ $file['filename'] }}" target="_blank">{{ __('PDF') }}</a>
-            @else
-              <a href="{{ $file['filename'] }}" target="_blank">{{ $file['type'] }}</a>
             @endif
           </span>
         @endforeach
@@ -245,7 +243,7 @@
     </div>
     @endif
 
-    @if ($service->type == "visa")
+    @if ($service->type == "visa" && $service->applicant_type == 'outbound')
     <div class="data-item">
       <div class="data-col">
         <span class="data-label">{{ __('Inner passport and birth certificate') }}</span>

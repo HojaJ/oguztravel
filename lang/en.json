@@ -192,5 +192,8 @@
     "Service Requests": "Service Requests",
     "Tour Requests": "Tour Requests",
     "Date": "Date",
-    "Planned Country": "Planned Country"
+    "Planned Country": "Planned Country",
+    "Clients": "Clients",
+    "New Clients Added": "New Clients Added",
+    "Price": "Price"
 }

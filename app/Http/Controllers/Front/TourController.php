@@ -41,6 +41,7 @@ class TourController extends Controller
             'name' => 'required',
             'surname' => 'required',
             'patronymic' => 'nullable',
+            'tour' => 'nullable',
             'email' => 'required|email',
             'phone' => 'required',
             'gender' => 'required',
@@ -78,7 +79,7 @@ class TourController extends Controller
             'surname' => $request->get('surname'),
             'patronymic' => $request->get('patronymic'),
             'gender' => $request->get('gender'),
-            'date_if_birth' => $request->get('date_of_birth')
+            'date_of_birth' => $request->get('date_of_birth')
         ];
 
         $person = Person::wherePhone($person_data['phone'])->whereEmail($person_data['email'])->first();
@@ -88,9 +89,10 @@ class TourController extends Controller
         } else {
             Person::create($person_data);
         }
+
+        $tour =  TourRequest::create($request->all());
         $email = Subject::where('type','World Tours')->first()->email;
-        \Mail::to($email)->send(new TranslationMessage($request->all()));
-        TourRequest::create($request->all());
+        \Mail::to($email)->send(new TranslationMessage($tour));
         return back()->with('success', __('Request has been sent'));
     }
 }

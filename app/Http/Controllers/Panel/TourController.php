@@ -53,6 +53,7 @@ class TourController extends Controller
             'include.*' => 'required',
             'details.*' => 'required',
             'bound' => 'nullable',
+            'price' => 'nullable',
             'images.*' => 'image|max:1000|required',
             'category_id' => 'required|exists:categories,id',
         ]);
@@ -95,6 +96,7 @@ class TourController extends Controller
             'include.*' => 'required',
             'details.*' => 'required',
             'bound' => 'nullable',
+            'price' => 'nullable',
             'category_id' => 'required|exists:categories,id',
         ]);
 

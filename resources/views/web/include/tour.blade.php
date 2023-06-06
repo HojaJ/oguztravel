@@ -188,6 +188,17 @@
               @endif
             </div>
 
+            <div class="form-group">
+              <label for="note">{{ __('Note') }}</label>
+              <textarea name="note" id="note" class="form-control @error('note') is-invalid @enderror">{{ old('note') }}</textarea>
+              @if ($errors->has('note'))
+                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('note') }}</strong></span>
+              @else
+                <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
+              @endif
+            </div>
+
+
             <button class="btn_1 full-width purchase">{{ __("Send inquiry") }}</button>
           </form>
         </div>
