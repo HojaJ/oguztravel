@@ -524,6 +524,10 @@
       const passportExpirationWrap = $('#passportExpirationWrap');
       const scannedPassportWrap = $('#scannedPassportWrap');
 
+      $.get('https://ipinfo.io', function() {}, "jsonp").always(function(resp) {
+        const countryCode = (resp && resp.country) ? resp.country : "ru";
+        iti.setCountry(countryCode)
+      });
       if (service === 'ticket') {
         const boardingDateWrap = $('#boardingDateWrap');
         const boardingDateRangeWrap = $('#boardingDateRangeWrap');
@@ -541,7 +545,7 @@
         });
       }
 
-      if (service === 'visa') {
+        if (service === 'visa') {
         const countryWrap = $('#countryWrap');
         const innerPassportWrap = $('#innerPassportWrap');
 
@@ -554,7 +558,6 @@
           countryWrap.find('#country').val('empty').attr('disabled',false);
           $.get('https://ipinfo.io', function() {}, "jsonp").always(function(resp) {
             const countryCode = (resp && resp.country) ? resp.country : "ru";
-
             iti.setCountry(countryCode)
           });
         }

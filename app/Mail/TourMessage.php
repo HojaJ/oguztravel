@@ -9,11 +9,11 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class TicketMessage extends Mailable
+class TourMessage extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subject = 'Email From Oguz Travel';
+    public $subject = 'Email From Oguz Travel - Tour';
 
     protected $data;
 
@@ -29,7 +29,7 @@ class TicketMessage extends Mailable
 
     public function build()
     {
-        return $this->view('mail.hotel')->with(['data'=>$this->data]);
+        return $this->view('mail.tour')->with(['data'=>$this->data]);
     }
 
 }

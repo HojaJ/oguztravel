@@ -94,7 +94,10 @@
               </figure>
               <div class="wrapper">
                 <h3><a href="#">{{ $tour->title }}</a></h3>
-                <p class="mb-0">{{ $tour->summary90() }}</p>
+                <p>{{ $tour->summary90() }}</p>
+                @if(isset($tour->price))
+                  <span class="price"><strong>${{ $tour->price }}</strong> /per person</span>
+                @endif
               </div>
             </div>
           </div>  

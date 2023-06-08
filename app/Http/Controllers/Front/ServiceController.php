@@ -3,11 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use App\Mail\ContactMessage;
-use App\Mail\HotelMessage;
-use App\Mail\TicketMessage;
-use App\Mail\TranslationMessage;
-use App\Mail\VisaMessage;
+use App\Mail\ServiceMessage;
 use App\Models\Country;
 use App\Models\Cover;
 use App\Models\Person;
@@ -164,7 +160,8 @@ class ServiceController extends Controller
                 ]);
             }
 
-            $service = ServiceRequest::create($request->all());
+            $service_request_id = ServiceRequest::create($request->all())->id;
+            $service_request = ServiceRequest::where('id',$service_request_id)->first();
 
             $person_data = [
                 'phone' => $request->get('phone'),
@@ -186,7 +183,7 @@ class ServiceController extends Controller
 
             foreach ($request->file('extra_docs', []) as $key => $file) {
                 ServiceRequestFile::create([
-                    'service_request_id' => $service->id,
+                    'service_request_id' => $service_request_id,
                     'filename' => $this->uploadFile($file, 'service_request_files'),
                     'type' => 'extra_docs',
                 ]);
@@ -194,7 +191,7 @@ class ServiceController extends Controller
 
             foreach ($request->file('doc_photos', []) as $key => $file) {
                 ServiceRequestFile::create([
-                    'service_request_id' => $service->id,
+                    'service_request_id' => $service_request_id,
                     'filename' => $this->uploadFile($file, 'service_request_files'),
                     'type' => 'doc_photos',
                 ]);
@@ -202,7 +199,7 @@ class ServiceController extends Controller
 
             foreach ($request->file('scanned_documents', []) as $key => $file) {
                 ServiceRequestFile::create([
-                    'service_request_id' => $service->id,
+                    'service_request_id' => $service_request_id,
                     'filename' => $this->uploadFile($file, 'service_request_files'),
                     'type' => 'scanned_documents',
                 ]);
@@ -210,18 +207,16 @@ class ServiceController extends Controller
 
             if($service->slug == 'visa'){
                 $email = Subject::where('type','Visa')->first()->email;
-                \Mail::to($email)->send(new VisaMessage($service->toArray()));
             }elseif ($service->slug == 'hotel'){
                 $email = Subject::where('type','Hotel')->first()->email;
-                \Mail::to($email)->send(new HotelMessage($service->toArray()));
             }elseif ($service->slug == 'ticket'){
                 $email = Subject::where('type','Ticket')->first()->email;
-                \Mail::to($email)->send(new TicketMessage($service->toArray()));
             }elseif ($service->slug == 'translation'){
                 $email = Subject::where('type','Translate')->first()->email;
-                \Mail::to($email)->send(new TranslationMessage($service->toArray()));
+            }else{
+                $email = Subject::where('type','Others')->first()->email;
             }
-
+            \Mail::to($email)->send(new ServiceMessage($service_request->toArray()));
             return back()->with('success', __('Request has been sent'));
         }catch (\Exception $e){
             dd($e->getMessage());

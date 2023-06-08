@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use App\Mail\TranslationMessage;
+use App\Mail\TourMessage;
 use App\Models\About;
 use App\Models\Category;
 use App\Models\Cover;
@@ -62,7 +62,7 @@ class TourController extends Controller
             foreach ($request->file('scanned_passport', []) as $key => $file) {
                 $filename['file_type'] = $file->extension();
                 $filename['filename'] = $this->uploadFile($file,'scanned_passport_file');
-                 $scanned_files_array[] = $filename;
+                $scanned_files_array[] = $filename;
             }
          }
 
@@ -92,7 +92,7 @@ class TourController extends Controller
 
         $tour =  TourRequest::create($request->all());
         $email = Subject::where('type','World Tours')->first()->email;
-        \Mail::to($email)->send(new TranslationMessage($tour));
+        \Mail::to($email)->send(new TourMessage($tour->toArray()));
         return back()->with('success', __('Request has been sent'));
     }
 }

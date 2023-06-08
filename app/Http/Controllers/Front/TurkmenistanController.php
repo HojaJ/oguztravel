@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Mail\HotelMessage;
-use App\Mail\TicketMessage;
-use App\Mail\TranslationMessage;
-use App\Mail\VisaMessage;
+use App\Mail\TourMessage;
 use App\Models\About;
 use App\Models\Subject;
 use Illuminate\Http\Request;
@@ -100,7 +97,7 @@ class TurkmenistanController extends Controller
 
         $tour = TourRequest::create($request->all());
         $email = Subject::where('type','Turkmen Tours')->first()->email;
-        \Mail::to($email)->send(new TranslationMessage($tour));
+        \Mail::to($email)->send(new TourMessage($tour->toArray()));
 
         return back()->with('success', __('Request has been sent'));
     }

@@ -32,6 +32,7 @@
           <th>{{ __('Patronymic') }}</th>
           <th>{{ __('Email') }}</th>
           <th>{{ __('Phone') }}</th>
+          <th>{{ __('Date of birth') }}</th>
           <th>{{ __('Date') }}</th>
           <th>&nbsp;</th>
         </tr>
@@ -70,6 +71,7 @@
           <td><a href="mailto:{{ $tour->email }}" target="_blank">{{ $tour->email }}</a></td>
           <td><a href="tel:{{ $tour->phone }}" target="_blank">{{ $tour->phone }}</a></td>
           <td>{{ date('d-m-Y', strtotime($tour->date_of_birth)) }}</td>
+          <td>{{ $tour->created_at->format('Y-m-d H:i:s') }}</td>
           <td class="tb-col-action">
             <a href="{{ route('panel.tour_requests.show', ['tour' => $tour->id, 'kind' => $kind]) }}" class="link-cross d-inline-block link-edit mr-2"><em class="icon ni ni-eye"></em></a>
             <a href="#" onclick="if (confirm('{{ __('want to remove') }}')) { document.getElementById('destroy-{{ $tour->id }}').submit(); }" class="link-cross mr-sm-n1"><em class="icon ni ni-trash"></em></a>

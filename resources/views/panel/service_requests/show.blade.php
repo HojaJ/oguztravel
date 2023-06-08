@@ -277,6 +277,15 @@
     </div>
     @endif
 
+
+      <div class="data-item">
+        <div class="data-col">
+          <span class="data-label">{{ __('Date') }}</span>
+          <span class="data-value">{{ $service->created_at->format('Y-m-d H:i:s') }}</span>
+        </div>
+        <div class="data-col data-col-end"></div>
+      </div>
+
     <div class="data-item">
       <div class="data-col">
         <span class="data-label">{{ __('Note') }}</span>

@@ -72,6 +72,9 @@
             </ol>
           </div>
         </section>
+        <div class="price">
+          <h5>{{ $tour->price }}$<small>/ {{__('per person')}}</small></h5>
+        </div>
 
         <section id="description">
           <h2>{{ __("Description") }}</h2>
