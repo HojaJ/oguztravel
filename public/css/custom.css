@@ -173,3 +173,7 @@ header.header.sticky .locale svg path {
 .contacts svg path {
     stroke: #fff;
 }
+
+.contacts svg g > path{
+    fill: rgb(100%,100%,100%) !important;
+}

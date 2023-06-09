@@ -54,9 +54,10 @@ class ContactController extends Controller
             } else {
                 Person::create($person_data);
             }
-            Message::create($data);
+            $contact_message =  Message::create($data);
             $email = Subject::find($data['subject_id'])->email;
             \Mail::to($email)->send(new ContactMessage($data));
+
             return back()->with('success', __('Your message has been sent'));
         } catch (\Throwable $th) {
             return back()->with('danger', __('Something went wrong :('))->withInput();
