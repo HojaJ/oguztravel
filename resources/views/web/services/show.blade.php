@@ -71,14 +71,14 @@
                 <div class="col-6 mb-4">
                   <div class="form-check">
                     <input class="form-check-input @error('applicant_type') is-invalid @enderror" type="radio" name="applicant_type" id="outbound_applicant" value="outbound"
-                      {{ !old('applicant_type') || old('applicant_type') == 'outbound' ? 'checked' : '' }}>
+                      {{ !old('applicant_type') || old('applicant_type') == 'outbound' ? 'checked' : '' }} onfocus="this.setAttribute('autocomplete', 'none');" required>
                     <label class="form-check-label" for="outbound_applicant">{{ __('Outbound') }}</label>
                   </div>
                 </div>
                 <div class="col-6 mb-4">
                   <div class="form-check">
-                    <input class="form-check-input @error('applicant_type') is-invalid @enderror" type="radio" name="applicant_type" id="inbound_applicant" value="inbound"
-                      {{ old('applicant_type') == 'inbound' ? 'checked' : '' }}>
+                    <input class="form-check-input @error('applicant_type') is-invalid @enderror" type="radio" name="applicant_type" onfocus="this.setAttribute('autocomplete', 'none');" id="inbound_applicant" value="inbound"
+                      {{ old('applicant_type') == 'inbound' ? 'checked' : '' }} required>
                     <label class="form-check-label" for="inbound_applicant">{{ __('Inbound') }}</label>
                   </div>
                 </div>
@@ -89,7 +89,7 @@
                 <div class="col-md-6" id="countryWrap">
                   <div class="form-group">
                     <label for="country">{{ __('Planned Country') }} <span class="text-danger">*</span></label>
-                    <select name="country" id="country" class="form-control">
+                    <select name="country" id="country" class="form-control" required>
                       <option value="empty" disabled hidden selected>{{ __('Choose country') }}</option>
                       @foreach ($countries as $country)
                         <option value="{{ $country->name }}" {{ old('country' == $country->name) ? 'selected' : '' }}>{{ $country->name }}</option>
@@ -110,7 +110,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="city">{{ __('City') }}</label>
-                    <input class="form-control @error('city') is-invalid @enderror" type="text" id="city" name="city" value="{{ old('city') }}">
+                    <input class="form-control @error('city') is-invalid @enderror" type="text" id="city" onfocus="this.setAttribute('autocomplete', 'none');" name="city" value="{{ old('city') }}" required>
                     @if ($errors->has('city'))
                       <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('city') }}</strong></span>
                     @else
@@ -122,8 +122,8 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="booking_date">{{ __('Booking date') }}</label>
-                    <input class="form-control air-pick-range @error('booking_date') is-invalid @enderror" type="text" id="booking_date" name="booking_date"
-                      value="{{ old('booking_date') }}">
+                    <input class="form-control air-pick-range @error('booking_date') is-invalid @enderror" type="text" onfocus="this.setAttribute('autocomplete', 'none');" id="booking_date" name="booking_date"
+                      value="{{ old('booking_date') }}" required>
                     <i class="icon_calendar"></i>
                     @if ($errors->has('booking_date'))
                       <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('booking_date') }}</strong></span>
@@ -136,7 +136,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="room_type">{{ __('Room type') }}</label>
-                    <select name="room_type" id="room_type" class="form-control @error('room_type') is-invalid @enderror">
+                    <select name="room_type" id="room_type" class="form-control @error('room_type') is-invalid @enderror" required>
                       <option value="single_bed" {{ old('room_type') == 'single_bed' ? 'selected' : '' }}>
                         {{ __('Single Bed') }}</option>
                       <option value="double_bed" {{ old('room_type') == 'double_bed' ? 'selected' : '' }}>
@@ -176,7 +176,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="ticket_from">{{ __('From') }}</label>
-                    <input class="form-control @error('ticket_from') is-invalid @enderror" type="text" id="ticket_from" name="ticket_from" value="{{ old('ticket_from') }}">
+                    <input class="form-control @error('ticket_from') is-invalid @enderror" type="text" id="ticket_from" name="ticket_from" value="{{ old('ticket_from') }}" required>
                     @if ($errors->has('ticket_from'))
                       <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('ticket_from') }}</strong></span>
                     @else
@@ -188,7 +188,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="ticket_to">{{ __('To') }}</label>
-                    <input class="form-control @error('ticket_to') is-invalid @enderror" type="text" id="ticket_to" name="ticket_to" value="{{ old('ticket_to') }}">
+                    <input class="form-control @error('ticket_to') is-invalid @enderror" type="text" id="ticket_to" name="ticket_to" value="{{ old('ticket_to') }}" required>
                     @if ($errors->has('ticket_to'))
                       <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('ticket_to') }}</strong></span>
                     @else
@@ -202,14 +202,14 @@
               <div class="col-6 mb-4">
                 <div class="form-check">
                   <input class="form-check-input @error('ticket_type') is-invalid @enderror" type="radio" name="ticket_type" id="oneway" value="oneway"
-                    {{ !old('ticket_type') || old('ticket_type') == 'oneway' ? 'checked' : '' }}>
+                    {{ !old('ticket_type') || old('ticket_type') == 'oneway' ? 'checked' : '' }} required>
                   <label class="form-check-label" for="oneway">{{ __('One way') }}</label>
                 </div>
               </div>
               <div class="col-6 mb-4">
                 <div class="form-check">
                   <input class="form-check-input @error('ticket_type') is-invalid @enderror" type="radio" name="ticket_type" id="round" value="round"
-                    {{ old('ticket_type') == 'round' ? 'checked' : '' }}>
+                    {{ old('ticket_type') == 'round' ? 'checked' : '' }} required>
                   <label class="form-check-label" for="round">{{ __('Round trip') }}</label>
                 </div>
               </div>
@@ -220,7 +220,7 @@
                 <div class="form-group">
                   <label for="boarding_date">{{ __('Boarding date') }}</label>
                   <input class="form-control air-pick @error('boarding_date') is-invalid @enderror" type="text" id="boarding_date" name="boarding_date"
-                    value="{{ old('boarding_date') }}">
+                    value="{{ old('boarding_date') }}" required>
                   <i class="icon_calendar"></i>
                   @if ($errors->has('boarding_date'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('boarding_date') }}</strong></span>
@@ -248,7 +248,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="surname">{{ __('Surname') }} <span class="text-danger">*</span></label>
-                  <input class="form-control @error('surname') is-invalid @enderror" type="text" id="surname" name="surname" value="{{ old('surname') }}" required>
+                  <input class="form-control @error('surname') is-invalid @enderror" type="text" id="surname" onfocus="this.setAttribute('autocomplete', 'none');" name="surname" value="{{ old('surname') }}" required>
                   @if ($errors->has('surname'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('surname') }}</strong></span>
                   @else
@@ -259,7 +259,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="name">{{ __('Name') }} <span class="text-danger">*</span></label>
-                  <input class="form-control @error('name') is-invalid @enderror" type="text" id="name" name="name" value="{{ old('name') }}" required>
+                  <input class="form-control @error('name') is-invalid @enderror" type="text" id="name" onfocus="this.setAttribute('autocomplete', 'none');" name="name" value="{{ old('name') }}" required>
                   @if ($errors->has('name'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('name') }}</strong></span>
                   @else
@@ -270,7 +270,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="patronymic">{{ __('Patronymic') }}</label>
-                  <input class="form-control @error('patronymic') is-invalid @enderror" type="text" id="patronymic" value="{{ old('patronymic') }}" name="patronymic">
+                  <input class="form-control @error('patronymic') is-invalid @enderror" type="text" onfocus="this.setAttribute('autocomplete', 'none');" id="patronymic" value="{{ old('patronymic') }}" name="patronymic">
                   @if ($errors->has('patronymic'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('patronymic') }}</strong></span>
                   @else
@@ -281,14 +281,14 @@
 
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="subject">{{ __('Select Gender') }} <span class="text-danger">*</span></label>
-                  <select class="custom-select @error('gender') is-invalid @enderror" id="gender" name="gender" required >
-                    <option selected disabled hidden>{{ __('Select Gender') }}</option>
+                  <label for="gender">{{ __('Select Gender') }} <span class="text-danger">*</span></label>
+                  <select class="custom-select @error('gender') is-invalid @enderror" id="gender" name="gender" required>
+                    <option disabled value="" selected hidden>{{ __('Select Gender') }}</option>
                     <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>{{ __('Male') }}</option>
                     <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>{{ __('Female') }}</option>
                   </select>
-                  @if ($errors->has('message'))
-                    <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('message') }}</strong></span>
+                  @if ($errors->has('gender'))
+                    <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('gender') }}</strong></span>
                   @else
                     <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
                   @endif
@@ -297,7 +297,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="email">{{ __('Email') }} <span class="text-danger">*</span></label>
-                  <input class="form-control @error('email') is-invalid @enderror" type="email" id="email" name="email" value="{{ old('email') }}" required>
+                  <input class="form-control @error('email') is-invalid @enderror" type="email" id="email" onfocus="this.setAttribute('autocomplete', 'none');" name="email" value="{{ old('email') }}" required>
                   @if ($errors->has('email'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('email') }}</strong></span>
                   @else
@@ -308,7 +308,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="phone">{{ __('Mobile number') }} <span class="text-danger">*</span></label>
-                  <input class="form-control @error('phone') is-invalid @enderror" type="tel" id="phone" name="phone" value="{{ old('phone') }}" required>
+                  <input class="form-control @error('phone') is-invalid @enderror" type="tel" id="phone" onfocus="this.setAttribute('autocomplete', 'none');" name="phone" value="{{ old('phone') }}" required>
                   @if ($errors->has('phone'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('phone') }}</strong></span>
                   @else
@@ -340,7 +340,7 @@
                   <div class="form-group">
                     <label for="planned_date">{{ __('Planned date') }} <span class="text-danger">*</span></label>
                     <input class="form-control air-pick-range @error('planned_date') is-invalid @enderror" type="text" name="planned_date" id="planned_date"
-                      value="{{ old('planned_date') }}">
+                      value="{{ old('planned_date') }}" required>
                     <i class="icon_calendar"></i>
                     @if ($errors->has('planned_date'))
                       <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('planned_date') }}</strong></span>
@@ -357,7 +357,7 @@
                 <div class="col-6 mb-4">
                   <div class="form-check">
                     <input class="form-check-input" type="radio" name="passport_info_type" id="passport_info_type" value="typing"
-                      {{ !old('passport_info_type') || old('passport_info_type') == 'typing' ? 'checked' : '' }}>
+                      {{ !old('passport_info_type') || old('passport_info_type') == 'typing' ? 'checked' : '' }} required>
                     <label class="form-check-label @error('passport_info_type') is-invalid @enderror" for="passport_info_type">{{ __('Type passport information') }}</label>
                   </div>
                 </div>

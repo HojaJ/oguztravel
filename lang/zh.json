@@ -196,5 +196,8 @@
     "Clients": "客戶",
     "New Clients Added": "添加了新客戶",
     "Price": "價格",
-    "per person": "每人"
+    "per person": "每人",
+    "Discount": "折扣",
+    "Percentage": "百分比",
+    "Discount end time": "折扣結束時間"
 }

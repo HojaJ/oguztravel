@@ -98,17 +98,17 @@
             @csrf
             <div class="form-group">
               <label for="name">{{ __("Name") }} <span class="text-danger">*</span></label>
-              <input class="form-control @error('name') is-invalid @enderror" type="text" id="name" name="name" placeholder="{{ __("Name") }}" value="{{ old('name') }}">
+              <input class="form-control @error('name') is-invalid @enderror" type="text" id="name" name="name" onfocus="this.setAttribute('autocomplete', 'none');" placeholder="{{ __("Name") }}" value="{{ old('name') }}" required>
               @if ($errors->has('name'))
               <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('name') }}</strong></span>
               @else
               <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
               @endif
             </div>
-            <input type="hidden" name="tour_id" value="{{ $tour->id }}">
+            <input type="hidden" name="tour_id" value="{{ $tour->id }}" >
             <div class="form-group">
               <label for="surname">{{ __("Surname") }} <span class="text-danger">*</span></label>
-              <input class="form-control @error('surname') is-invalid @enderror" type="text" id="surname" name="surname" placeholder="{{ __("Surname") }}" value="{{ old('surname') }}">
+              <input class="form-control @error('surname') is-invalid @enderror" type="text" id="surname" name="surname" onfocus="this.setAttribute('autocomplete', 'none');" placeholder="{{ __("Surname") }}" value="{{ old('surname') }}" required>
               @if ($errors->has('surname'))
               <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('surname') }}</strong></span>
               @else
@@ -117,9 +117,9 @@
             </div>
             <div class="form-group">
               <label for="patronymic">{{ __("Patronymic") }}</label>
-              <input class="form-control @error('patronymic') is-invalid @enderror" type="text" id="patronymic" name="patronymic" placeholder="{{ __("Patronymic") }}" value="{{ old('patronymic') }}">
+              <input class="form-control @error('patronymic') is-invalid @enderror" type="text" id="patronymic" name="patronymic" placeholder="{{ __("Patronymic") }}" onfocus="this.setAttribute('autocomplete', 'none');" value="{{ old('patronymic') }}">
               @if ($errors->has('patronymic'))
-              <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('patronymic') }}</strong></span>
+                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('patronymic') }}</strong></span>
               @else
               <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
               @endif
@@ -132,8 +132,8 @@
                 <option value="male" {{ old('male') == 'male' ? 'selected' : '' }}>{{ __('Male') }}</option>
                 <option value="female" {{ old('female') == 'famale' ? 'selected' : '' }}>{{ __('Female') }}</option>
               </select>
-              @if ($errors->has('message'))
-                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('message') }}</strong></span>
+              @if ($errors->has('gender'))
+                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('gender') }}</strong></span>
               @else
                 <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
               @endif
@@ -141,7 +141,7 @@
 
             <div class="form-group">
               <label for="email">{{ __("Email") }} <span class="text-danger">*</span></label>
-              <input class="form-control @error('email') is-invalid @enderror" type="email" id="email" name="email" placeholder="{{ __("Email") }}" value="{{ old('email') }}">
+              <input class="form-control @error('email') is-invalid @enderror" type="email" id="email" name="email" onfocus="this.setAttribute('autocomplete', 'none');" placeholder="{{ __("Email") }}" value="{{ old('email') }}" required>
               @if ($errors->has('email'))
               <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('email') }}</strong></span>
               @else
@@ -150,7 +150,7 @@
             </div>
             <div class="form-group">
               <label for="phone">{{ __("Mobile number") }} <span class="text-danger">*</span></label>
-              <input class="form-control @error('phone') is-invalid @enderror" type="tel" id="phone" name="phone" placeholder="{{ __("Mobile number") }}" value="{{ old('phone') }}">
+              <input class="form-control @error('phone') is-invalid @enderror" type="tel" id="phone" onfocus="this.setAttribute('autocomplete', 'none');" name="phone" placeholder="{{ __("Mobile number") }}" value="{{ old('phone') }}" required>
               @if ($errors->has('phone'))
               <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('phone') }}</strong></span>
               @else
@@ -159,7 +159,7 @@
             </div>
             <div class="form-group">
               <label for="date_of_birth">{{ __("Date of birth") }} <span class="text-danger">*</span></label>
-              <input class="form-control air-pick @error('date_of_birth') is-invalid @enderror" type="text" id="date_of_birth" name="date_of_birth" placeholder="{{ __("Date of birth") }}" value="{{ old('date_of_birth') }}">
+              <input class="form-control air-pick @error('date_of_birth') is-invalid @enderror" type="text" id="date_of_birth" name="date_of_birth" placeholder="{{ __("Date of birth") }}" value="{{ old('date_of_birth') }}" required>
               <i class="icon_calendar"></i>
               @if ($errors->has('date_of_birth'))
               <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('date_of_birth') }}</strong></span>

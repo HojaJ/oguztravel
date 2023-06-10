@@ -11,6 +11,11 @@
     <div class="nk-block-head-content">
       <ul class="nk-block-tools gx-3">
         <li>
+          <a href="{{ route('panel.clients.create') }}" class="btn btn-white btn-dim btn-outline-primary">
+            <em class="icon ni ni-edit"></em><span class="d-none d-sm-inline-block">{{ __('Create new') }}</span>
+          </a>
+        </li>
+        <li>
           <form action="{{ route('panel.import') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="input-group">
@@ -32,6 +37,13 @@
 </div>
 
 <div class="nk-block">
+  <form action="{{ route('panel.clients.index') }}" method="GET">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" name="q" value="{{ $q ?? $q }}"
+             placeholder="{{ __('Client') }}" aria-label="{{ __('Client') }}" aria-describedby="form-query">
+      <button type="submit" id="form-query" class="btn btn-primary">{{ __('Search') }}</button>
+    </div>
+  </form>
   @if (count($clients))
   <div class="card card-bordered mb-5">
     <table class="table">
@@ -45,7 +57,7 @@
           <th>{{ __('Gender') }}</th>
           <th>{{ __('Date of birth') }}</th>
           <th>{{ __('Date') }}</th>
-{{--          <th>{{ __('Action') }}</th>--}}
+          <th>{{ __('Action') }}</th>
         </tr>
       </thead>
       <tbody>
@@ -59,14 +71,20 @@
             <td>{{ $client->gender }}</td>
             <td>{{ $client->date_of_birth }}</td>
             <td>{{ $client->created_at->format('Y-m-d') }}</td>
-            {{--          <td class="tb-col-action">--}}
-            {{--            <a href="{{ route('panel.messages.show', $message->id) }}" class="link-cross d-inline-block link-edit mr-2"><em class="icon ni ni-eye"></em></a>--}}
-            {{--            <a href="#" onclick="if (confirm('{{ __('want to remove') }}')) { document.getElementById('destroy-{{ $message->id }}').submit(); }" class="link-cross mr-sm-n1"><em class="icon ni ni-trash"></em></a>--}}
-            {{--            <form action="{{ route('panel.messages.destroy', $message->id) }}" method="post" id="destroy-{{ $message->id }}">--}}
-            {{--              @method('delete')--}}
-            {{--              @csrf--}}
-            {{--            </form>--}}
-            {{--          </td>--}}
+            <td class="tb-col-action">
+              <a href="{{ route('panel.clients.edit', $client->id) }}"
+                 class="link-cross d-inline-bl  ock link-edit mr-2"><em class="icon ni ni-edit-alt"></em></a>
+
+              <a href="#"
+                 onclick="if (confirm('{{ __('want to remove') }}')) { document.getElementById('destroy-{{ $client->id }}').submit(); }"
+                 class="link-cross mr-sm-n1"><em class="icon ni ni-trash"></em></a>
+              <form action="{{ route('panel.clients.destroy', $client->id) }}" method="post"
+                    id="destroy-{{ $client->id }}">
+                @method('delete')
+                @csrf
+              </form>
+            </td>
+
           </tr>
         @endforeach
       </tbody>

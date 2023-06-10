@@ -196,5 +196,10 @@
     "Clients": "Клиенты",
     "New Clients Added": "Добавлены новые клиенты",
     "Price": "Цена",
-    "per person": "на человека"
+    "per person": "на человека",
+    "Discount": "Скидка",
+    "Percentage": "Процент",
+    "Discount end time": "Время окончания скидки"
+
+
 }

@@ -177,3 +177,29 @@ header.header.sticky .locale svg path {
 .contacts svg g > path{
     fill: rgb(100%,100%,100%) !important;
 }
+.discount {
+    position: absolute;
+    bottom: 0;
+    left: 5px;
+    background-color: #0d8585;
+    color: white;
+    cursor: default;
+    border-radius: 5px;
+    padding: 3px 6px;
+}
+.discount_price{
+    font-size: 12px;
+    color: #737070;
+    margin-left: 10px;
+    text-decoration: line-through;
+}
+.box_grid .price strong {
+    font-size: 16px;
+}
+
+.irs-from, .irs-single, .irs-to {
+    background: #0d8585;
+}
+.irs-from:after, .irs-single:after, .irs-to:after {
+    border-top-color: #0d8585 !important;
+}

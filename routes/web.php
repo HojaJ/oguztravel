@@ -100,7 +100,7 @@ Route::group(
                     Route::patch('tours/{tour}/order', [TourImageController::class, 'orderUpdate'])->name('tours.images.order.update');
                     Route::delete('tours/images/{image}', [TourImageController::class, 'destroy'])->name('tours.images.destroy');
 
-                    Route::resource('messages/subjects', SubjectController::class)->except('show');
+                    Route::resource('subjects', SubjectController::class)->except('show');
                     Route::resource('messages', MessageController::class)->only('index', 'show', 'destroy');
 
                     Route::get('tour_requests', [TourRequestController::class, 'index'])->name('tour_requests.index');

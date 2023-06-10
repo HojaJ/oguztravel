@@ -13,7 +13,10 @@ class ImportClient implements ToCollection
         foreach ($rows as $row)
         {
             if ($row[0] === 'Name')continue;
-            Person::create([
+            Person::updateOrCreate([
+                'email' => $row[3],
+                'phone' => $row[4],
+            ],[
                 'name'  =>  $row[0],
                 'surname' => $row[1],
                 'patronymic' => $row[2],

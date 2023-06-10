@@ -236,9 +236,9 @@
                       </a>
                     </li>
 
-                    <li class="nk-menu-item {{ request()->is('clients*') ? 'active' : '' }}">
-                      <a href="{{ route('panel.clients.index') }}" class="nk-menu-link">
-                        <span class="nk-menu-icon"><em class="icon ni ni-user"></em></span><span class="nk-menu-text">{{ __('Clients') }}</span>
+                    <li class="nk-menu-item {{ request()->is('subjects*') ? 'active' : '' }}">
+                      <a href="{{ route('panel.subjects.index') }}" class="nk-menu-link">
+                        <span class="nk-menu-icon"><em class="icon ni ni-browser"></em></span><span class="nk-menu-text">{{ __('Subjects') }}</span>
                       </a>
                     </li>
 

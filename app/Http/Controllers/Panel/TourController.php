@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Tour;
 use App\Models\TourImage;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TourController extends Controller
@@ -54,9 +55,16 @@ class TourController extends Controller
             'details.*' => 'required',
             'bound' => 'nullable',
             'price' => 'nullable',
+            'discount_active' => 'nullable',
+            'discount_percent' => 'nullable',
+            'discount_end_time' => 'nullable',
             'images.*' => 'image|max:1000|required',
             'category_id' => 'required|exists:categories,id',
         ]);
+
+        if(isset($data['discount_active']) && $data['discount_active'] === 1 ){
+            $data['discount_end_time'] = Carbon::parse($data['discount_end_time']);
+        }
 
         $type = $this->type;
         $data['type'] = $type;
@@ -96,9 +104,20 @@ class TourController extends Controller
             'include.*' => 'required',
             'details.*' => 'required',
             'bound' => 'nullable',
+            'discount_percent' => 'nullable',
+            'discount_active' => 'nullable',
+            'discount_end_time' => 'nullable',
             'price' => 'nullable',
             'category_id' => 'required|exists:categories,id',
         ]);
+
+        if(isset($data['discount_active'])){
+            $data['discount_end_time'] = Carbon::parse($data['discount_end_time']);
+        }else{
+            $data['discount_active'] = 0;
+            $data['discount_percent'] = null;
+            $data['discount_end_time'] = null;
+        }
 
         $type = $this->type;
         $data['type'] = $type;

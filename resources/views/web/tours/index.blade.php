@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('title') {{ __('Tours') }} @endsection
-
 @section('main')
 @if ($cover && $cover->filename)
 <style>
   .hero_in.tours:before {
     background-image: url('{{ $cover->getImage() }}');
   }
+
 </style>
 @endif
 
@@ -65,8 +65,16 @@
             <ul>
               @foreach ($categories as $category)
               <li>
-                <label>
-                  <input type="checkbox" class="icheck">{{ $category->name }}
+                <label class="container_check">{{ $category->name }}
+                  <input class="category_checkbox" type="checkbox" value="{{ $category->id }}"
+                          @php
+                            $cats = json_decode(request()->get('cats'));
+                            if($cats && in_array($category->id, $cats)){
+                                echo 'checked';
+                            }
+                            @endphp
+                  >
+                  <span class="checkmark"></span>
                 </label>
               </li>
               @endforeach
@@ -82,26 +90,8 @@
 
     <div class="col-lg-9">
       <div class="isotope-wrapper">
-        <div class="row">
-          @foreach ($tours as $tour)
-          <div class="col-md-6 isotope-item popular">
-            <div class="box_grid">
-              <figure>
-                <a href="{{ route('tours.show', $tour->id) }}"><img src="{{ $tour->firstImage() }}" class="img-fluid" alt="tour-{{ $tour->id }}" width="800" height="533">
-                  <div class="read_more"><span>{{ __('Read more') }}</span></div>
-                </a>
-                <small>{{ $tour->category->name }}</small>
-              </figure>
-              <div class="wrapper">
-                <h3><a href="#">{{ $tour->title }}</a></h3>
-                <p>{{ $tour->summary90() }}</p>
-                @if(isset($tour->price))
-                  <span class="price"><strong>${{ $tour->price }}</strong> /per person</span>
-                @endif
-              </div>
-            </div>
-          </div>  
-          @endforeach
+        <div class="row" id="data_row">
+          @include('web.include.tour_partial')
         </div>
       </div>
 
@@ -114,17 +104,70 @@
 @section('js')
   <!-- Range Slider -->
   <script>
-    $("#range").ionRangeSlider({
-      hide_min_max: true,
-      keyboard: true,
-      min: 0,
-      max: 250,
-      from: 0,
-      to: 250,
-      type: 'double',
-      step: 10,
-      prefix: "$",
-      grid: false
+    $(document).ready(function() {
+      $("#range").ionRangeSlider({
+        hide_min_max: true,
+        keyboard: true,
+        @if(request()->get('min') || request()->get('max'))
+        from: {{request()->get('min')}},
+        to: {{request()->get('max')}},
+        @endif
+        min: 0,
+        max: {{ $max_price ?? 0 }},
+        type: 'double',
+        step: 5,
+        postfix: "$",
+        grid: false,
+        onChange: function (data) {
+          let min_price= data.from;
+          let max_price= data.to;
+
+          let href = new URL(location.href);
+          href.searchParams.set('min',min_price);
+          href.searchParams.set('max',max_price);
+
+          $.ajax({
+            type:'GET',
+            url: '{{ route('tours.index') }}',
+            data: {
+                _token:'{{ csrf_token() }}',
+                min:min_price,
+                max:max_price
+            },
+            success: function (dataResult) {
+              $('#data_row').html(dataResult);
+              window.history.pushState({ path: href.toString() }, '', href.toString());
+            }
+          })
+        },
+      });
+
+      let categories = [];
+      $('.category_checkbox').each(function (i,obj) {
+        if($(this).is(":checked")) {
+          categories.push(parseInt($(this).val()));
+        }
+      });
+
+      $('.category_checkbox').change(function () {
+        let val =  parseInt($(this).val())
+        if($(this).is(":checked")) {
+          categories.push(val);
+        }else{
+          categories = categories.filter(function(item) {return item !== val})
+        }
+        let href = new URL(location.href);
+
+        if(categories.length === 0) {
+          href.searchParams.delete('cats');
+        }else{
+          href.searchParams.set('cats', JSON.stringify(categories) );
+        }
+        console.log(JSON.parse(href.searchParams.get('cats')))
+
+        window.history.pushState({ path: href.toString() }, '', href.toString());
+      })
+
     });
   </script>
 @endsection

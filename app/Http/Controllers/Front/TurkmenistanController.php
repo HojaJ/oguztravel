@@ -18,18 +18,33 @@ class TurkmenistanController extends Controller
 {
     public function index(Request $request)
     {
-        $about = About::where('page','turkmenistan')->first();
-        if($request->bound && in_array($request->bound,['inbound','outbound'])){
+        $min = $request->get('min', null);
+        $max = $request->get('max', null);
+
+        if($request->get('bound') && in_array($request->get('bound'),['inbound','outbound'])){
             $tours = Tour::whereType('turkmenistan')->where('bound',$request->bound)->latest()->get();
+            if(isset($min) && isset($max)){
+                $tours = Tour::whereType('turkmenistan')
+                    ->where('bound',$request->bound)
+                    ->whereBetween('price',[$min,$max])->latest()->get();
+            }
+            $max_price = Tour::whereType('turkmenistan')->where('bound',$request->bound)->max('price');
         }else{
             $tours = null;
         }
+
+        if($request->ajax()){
+            return response()->json(view('web.include.tkm_partial',['tours' => $tours])->render());
+        }
+
+
+        $about = About::where('page','turkmenistan')->first();
         $cover = Cover::whereSlug('turkmenistan')->whereIsActive(true)->first();
         $categories = Category::whereHas('tours', function (Builder $query) {
             $query->whereType('turkmenistan');
         })->get();
 
-        return view('web.turkmenistan.index', compact('tours','about', 'categories', 'cover'));
+        return view('web.turkmenistan.index', compact('tours','about', 'categories', 'cover','max_price'));
     }
 
     public function show(Tour $tour)

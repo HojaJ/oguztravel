@@ -115,9 +115,9 @@
     "Mobile number": "Mobile number",
     "Date of birth": "Date of birth",
     "Applicant type": "Applicant type",
-    "Inbound": "Inbound",
+    "Inbound": "INbond",
     "Bound": "Bound",
-    "Outbound": "Outbound",
+    "Outbound": "Domestic",
     "Scanned passport": "Scanned passport",
     "Send a message": "Send a message",
     "Select subject": "Select subject",
@@ -196,5 +196,9 @@
     "Clients": "Clients",
     "New Clients Added": "New Clients Added",
     "Price": "Price",
-    "per person": "per person"
+    "per person": "per person",
+
+    "Discount": "Discount",
+    "Percentage": "Percentage",
+    "Discount end time": "Discount end time"
 }
