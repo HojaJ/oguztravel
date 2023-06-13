@@ -21,6 +21,7 @@ class TurkmenistanController extends Controller
         $min = $request->get('min', null);
         $max = $request->get('max', null);
 
+        $max_price = Tour::whereType('turkmenistan')->where('bound',$request->bound)->max('price');
         if($request->get('bound') && in_array($request->get('bound'),['inbound','outbound'])){
             $tours = Tour::whereType('turkmenistan')->where('bound',$request->bound)->latest()->get();
             if(isset($min) && isset($max)){
@@ -28,7 +29,6 @@ class TurkmenistanController extends Controller
                     ->where('bound',$request->bound)
                     ->whereBetween('price',[$min,$max])->latest()->get();
             }
-            $max_price = Tour::whereType('turkmenistan')->where('bound',$request->bound)->max('price');
         }else{
             $tours = null;
         }

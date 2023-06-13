@@ -20,6 +20,7 @@ class TourController extends Controller
     {
         $min = $request->get('min', null);
         $max = $request->get('max', null);
+        $cats = $request->get('cats', null);
         $tours = Tour::whereType('tour')->latest()->get();
 
         if(isset($min) && isset($max)){
