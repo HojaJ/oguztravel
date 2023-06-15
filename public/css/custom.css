@@ -188,13 +188,13 @@ header.header.sticky .locale svg path {
     padding: 3px 6px;
 }
 .discount_price{
-    font-size: 12px;
+    font-size: 16px;
     color: #737070;
     margin-left: 10px;
     text-decoration: line-through;
 }
-.box_grid .price strong {
-    font-size: 16px;
+.box_grid .price  strong{
+    font-size: 20px;
 }
 
 .irs-from, .irs-single, .irs-to {

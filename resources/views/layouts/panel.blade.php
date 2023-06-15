@@ -152,6 +152,15 @@
                     </li>
                     <!-- End Pages -->
 
+                    <!-- Services -->
+                    <li class="nk-menu-item {{ request()->is('services*') ? 'active' : '' }}">
+                      <a href="{{ route('panel.services.index') }}" class="nk-menu-link">
+                        <span class="nk-menu-icon"><em class="icon ni ni-bag-fill"></em></span>
+                        <span class="nk-menu-text">{{ __('Services') }}</span>
+                      </a>
+                    </li>
+                    <!-- End Services -->
+
                     <!-- Service Requests -->
                     <li class="nk-menu-item has-sub" data-active="{{ (request()->get('type') && (request()->get('type') == 'visa' || request()->get('type') == 'ticket' || request()->get('type') == 'hotel' || request()->get('type') == 'translation')) ? 'active' : '' }}">
                       <a href="#" class="nk-menu-link nk-menu-toggle">

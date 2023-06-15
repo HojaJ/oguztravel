@@ -105,6 +105,7 @@ class TourController extends Controller
 
         $tour =  TourRequest::create($request->all());
         $email = Subject::where('type','World Tours')->first()->email;
+
         \Mail::to($email)->send(new TourMessage($tour->toArray()));
         return back()->with('success', __('Request has been sent'));
     }

@@ -65,7 +65,7 @@
       </div>
 
       <div class="row g-4">
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="form-group">
               <label for="discount_percent" class="form-label">{{ __("Percentage") }}</label>
               <div class="form-control-wrap">
@@ -82,19 +82,33 @@
             </div>
           </div>
 
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="discount_end_time" class="form-label">{{ __("Discount end time") }}</label>
-            <div class="form-control-wrap">
-              <input type="datetime-local" id="discount_end_time" name="discount_end_time" value="{{ $tour->discount_end_time }}" max="{{ now()->addDays(30)->format('Y-m-d H:i') }}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}" min="{{ now()->format('Y-m-d\TH:i') }}"  class="form-control form-control-lg @error('discount_end_time') is-invalid @enderror" placeholder="{{ __('Discount end time') }}"disabled  required/>
-              @if ($errors->has('discount_end_time'))
-                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('discount_end_time') }}</strong></span>
-              @else
-                <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
-              @endif
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="discount_end_time" class="form-label">{{ __("Discount end time") }}</label>
+              <div class="form-control-wrap">
+                <input type="datetime-local" id="discount_end_time" name="discount_end_time" value="{{ $tour->discount_end_time }}" max="{{ now()->addDays(30)->format('Y-m-d H:i') }}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}" min="{{ now()->format('Y-m-d\TH:i') }}"  class="form-control form-control-lg @error('discount_end_time') is-invalid @enderror" placeholder="{{ __('Discount end time') }}"disabled  required/>
+                @if ($errors->has('discount_end_time'))
+                  <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('discount_end_time') }}</strong></span>
+                @else
+                  <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
+                @endif
+              </div>
             </div>
           </div>
-        </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="discount_price" class="form-label">{{ __("Discount Price") }}</label>
+              <div class="form-control-wrap">
+                <div class="form-text-hint">
+                  <span class="overline-title">$</span>
+                </div>
+                <input type="number" id="discount_price"  value="{{ $tour->discount_price }}" class="form-control form-control-l" disabled/>
+              </div>
+            </div>
+          </div>
+
+
 
       </div>
     </div>

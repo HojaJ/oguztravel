@@ -57,7 +57,7 @@ class ServiceRequest extends Model
     {
         $array = [];
         foreach ($this->files as $file){
-            $array[$file->type] = asset('storage/service_request_files/'. $file->filename);
+            $array[$file->type][] = asset('storage/service_request_files/'. $file->filename);
         }
         return $array;
     }

@@ -216,7 +216,6 @@ class ServiceController extends Controller
             }else{
                 $email = Subject::where('type','Others')->first()->email;
             }
-//            dd($service_request->toArray());
             \Mail::to($email)->send(new ServiceMessage($service_request->toArray()));
             return back()->with('success', __('Request has been sent'));
         }catch (\Exception $e){

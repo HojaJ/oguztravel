@@ -62,8 +62,14 @@ class TourController extends Controller
             'category_id' => 'required|exists:categories,id',
         ]);
 
-        if(isset($data['discount_active']) && $data['discount_active'] === 1 ){
+        if(isset($data['discount_active'])){
             $data['discount_end_time'] = Carbon::parse($data['discount_end_time']);
+            $data['discount_price'] = intval($data['price']) - ((intval($data['discount_percent']) / 100) * intval($data['price']));
+        }else{
+            $data['discount_active'] = 0;
+            $data['discount_percent'] = null;
+            $data['discount_end_time'] = null;
+            $data['discount_price'] = null;
         }
 
         $type = $this->type;
@@ -113,10 +119,12 @@ class TourController extends Controller
 
         if(isset($data['discount_active'])){
             $data['discount_end_time'] = Carbon::parse($data['discount_end_time']);
+            $data['discount_price'] = intval($data['price']) - ((intval($data['discount_percent']) / 100) * intval($data['price']));
         }else{
             $data['discount_active'] = 0;
             $data['discount_percent'] = null;
             $data['discount_end_time'] = null;
+            $data['discount_price'] = null;
         }
 
         $type = $this->type;

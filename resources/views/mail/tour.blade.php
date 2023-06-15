@@ -11,9 +11,12 @@
             @elseif($key == 'filename' && isset($data['filename']))
                 @php
                     $json =  json_decode($value);
-                    $url = asset('storage/scanned_passport_file/' . $json[0]->filename);
                 @endphp
-                <p style="font-size:1em"><b>{{ $key }}</b>: <a href="{{ $url }}" download>{{ $json[0]->filename }}</a></p>
+                <p style="font-size:1em"><b>{{ __('Scanned passport') }}</b>:
+                @foreach($json  as $file)
+                    <a href="{{ asset('storage/scanned_passport_file/' . $file->filename) }}" download>{{ $file->file_type }}</a>
+                @endforeach
+                </p>
             @elseif($key == 'attach')
                 @foreach($value as $k => $file)
                     <a href="{{ $file }}" download>{{ $k }}</a><br/>

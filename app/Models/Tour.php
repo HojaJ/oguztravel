@@ -11,7 +11,7 @@ class Tour extends Model
 {
     use HasFactory, HasTranslations;
 
-    protected $fillable = ['title', 'type', 'description','price', 'include', 'details', 'category_id','bound','discount_percent','discount_end_time','discount_active'];
+    protected $fillable = ['title', 'type', 'description','price', 'include', 'details', 'category_id','bound','discount_percent','discount_price','discount_end_time','discount_active'];
     public $translatable = ['title', 'description', 'include', 'details'];
 
     public function category()

@@ -115,7 +115,7 @@
     "Mobile number": "Mobile number",
     "Date of birth": "Date of birth",
     "Applicant type": "Applicant type",
-    "Inbound": "INbond",
+    "Inbound": "Inbound",
     "Bound": "Bound",
     "Outbound": "Domestic",
     "Scanned passport": "Scanned passport",
@@ -200,5 +200,6 @@
 
     "Discount": "Discount",
     "Percentage": "Percentage",
-    "Discount end time": "Discount end time"
+    "Discount end time": "Discount end time",
+    "Discount Price": "Discount Price"
 }

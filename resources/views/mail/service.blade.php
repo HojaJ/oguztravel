@@ -15,8 +15,12 @@
                 @endphp
                 <p style="font-size:1em"><b>{{ $key }}</b>: <a href="{{ $url }}" download>{{ $json[0]->filename }}</a></p>
             @elseif($key == 'attach')
-                @foreach($value as $k => $file)
-                    <a href="{{ $file }}" download >{{ $k }}</a><br/>
+                @foreach($value as $k => $files)
+                    <p style="font-size:1em"><b>{{ $k }}</b>:
+                @foreach($files as $file)
+                        <a href="{{ $file }}" download >Download</a>
+                    @endforeach
+                    </p>
                 @endforeach
             @elseif($key == 'created_at')
                 <p style="font-size:1em"><b>Date</b>: {{ Carbon\Carbon::parse($value)->format('Y-m-d H:i:s') }}</p>
