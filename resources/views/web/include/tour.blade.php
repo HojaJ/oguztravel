@@ -3,6 +3,11 @@
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/datepicker.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
+<style>
+  .box_grid {
+    box-shadow: none;
+  }
+</style>
 @endsection
 
 @section('main')
@@ -72,10 +77,20 @@
             </ol>
           </div>
         </section>
-        <div class="price">
-          <h5>{{ $tour->price }}$<small>/ {{__('per person')}}</small></h5>
+        <div class="box_grid">
+          @if(isset($tour->price))
+            @if($tour->discount_active === 1)
+              <span class="price">
+                        <strong>{{$tour->discount_price}}$</strong></span>
+              <span class="discount_price">
+                              <strong>{{ $tour->price }}$</strong>
+                              <div class="timer" data-time="{{\Carbon\Carbon::make($tour->discount_end_time)->format('Y-m-d H:i')}}"></div>
+                          </span>
+            @else
+              <span class="price"><strong>{{ $tour->price }}$</strong></span>
+            @endif
+          @endif
         </div>
-
         <section id="description">
           <h2>{{ __("Description") }}</h2>
           {!! $tour->description !!}
@@ -201,6 +216,18 @@
               @endif
             </div>
 
+            @if(isset($tour->price))
+              @if($tour->discount_active === 1)
+                <input type="hidden" value="{{ $tour->price }}" name="price" />
+                <input type="hidden" value="{{ $tour->discount_active }}" name="discount_active">
+                <input type="hidden" value="{{ $tour->discount_price }}" name="discount_price">
+                <input type="hidden" value="{{ $tour->discount_end_time }}" name="discount_end_time">
+                <input type="hidden" value="{{ $tour->discount_percent }}" name="discount_percent">
+              @else
+                <input type="hidden" value="{{ $tour->price }}" name="price">
+              @endif
+            @endif
+
 
             <button class="btn_1 full-width purchase">{{ __("Send inquiry") }}</button>
           </form>
@@ -252,6 +279,39 @@
         }
       }, 60);
     }, 5000);
+
+    var timers = Array.from(document.getElementsByClassName("timer"));
+
+    timers.forEach(function (timer) {
+      var countDownDate = new Date(timer.getAttribute('data-time')).getTime();
+
+      // Update the count down every 1 second
+      var x = setInterval(function() {
+
+        // Get today's date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the result in the element with id="demo"
+        timer.innerHTML = days + "d " + hours + "h "
+                + minutes + "m " + seconds + "s ";
+
+        // If the count down is finished, write some text
+        if (distance < 0) {
+          clearInterval(x);
+          timer.innerHTML = "EXPIRED";
+        }
+      }, 1000);
+    })
+
   });
 </script>
 @endsection

@@ -20,13 +20,22 @@ class TourController extends Controller
     {
         $min = $request->get('min', null);
         $max = $request->get('max', null);
-        $cats = $request->get('cats', null);
-        $tours = Tour::whereType('tour')->latest()->get();
+        $cats = parse_url($request->get('cats', null));
 
-        if(isset($min) && isset($max)){
-            $tours = Tour::whereType('tour')->whereBetween('price',[$min,$max])->latest()->get();
+        $tours = Tour::whereType('tour');
+        if(isset($min) && isset($max)) {
+            $tours = $tours
+                ->where(function ($query) use ($min, $max) {
+                    $query->whereNull('discount_active')->whereBetween('price', [$min, $max]);
+                })->orWhere(function ($query) use ($min, $max) {
+                    $query->where('discount_active', 1)->whereBetween('discount_price', [$min, $max]);
+                });
+        }
+        if($cats['path']){
+            $tours = $tours->whereIn('category_id',json_decode($cats['path']));
         }
 
+        $tours = $tours->latest()->get();
         if($request->ajax()){
             return response()->json(view('web.include.tour_partial',['tours' => $tours])->render());
         }
@@ -34,7 +43,6 @@ class TourController extends Controller
         $about = About::where('page','tours')->first();
         $max_price = Tour::whereType('tour')->max('price');
         $cover = Cover::whereSlug('tour')->whereIsActive(true)->first();
-
         $categories = Category::whereHas('tours', function (Builder $query) {
             $query->whereType('tour');
         })->get();
@@ -103,10 +111,11 @@ class TourController extends Controller
             Person::create($person_data);
         }
 
-        $tour =  TourRequest::create($request->all());
+        $tour_id =  TourRequest::create($request->all())->id;
+        $tour_request = TourRequest::where('id',$tour_id)->with('tour')->first();
         $email = Subject::where('type','World Tours')->first()->email;
 
-        \Mail::to($email)->send(new TourMessage($tour->toArray()));
+        \Mail::to($email)->send(new TourMessage($tour_request->toArray()));
         return back()->with('success', __('Request has been sent'));
     }
 }

@@ -125,20 +125,8 @@
           let href = new URL(location.href);
           href.searchParams.set('min',min_price);
           href.searchParams.set('max',max_price);
-
-          $.ajax({
-            type:'GET',
-            url: '{{ route('tours.index') }}',
-            data: {
-                _token:'{{ csrf_token() }}',
-                min:min_price,
-                max:max_price
-            },
-            success: function (dataResult) {
-              $('#data_row').html(dataResult);
-              window.history.pushState({ path: href.toString() }, '', href.toString());
-            }
-          })
+          window.history.pushState({ path: href.toString() }, '', href.toString());
+          updateContent();
         },
       });
 
@@ -163,10 +151,63 @@
         }else{
           href.searchParams.set('cats', JSON.stringify(categories) );
         }
-        console.log(JSON.parse(href.searchParams.get('cats')))
-
         window.history.pushState({ path: href.toString() }, '', href.toString());
+        updateContent();
       })
+
+      var timers = Array.from(document.getElementsByClassName("timer"));
+
+      timers.forEach(function (timer) {
+          var countDownDate = new Date(timer.getAttribute('data-time')).getTime();
+
+          // Update the count down every 1 second
+          var x = setInterval(function() {
+
+              // Get today's date and time
+              var now = new Date().getTime();
+
+              // Find the distance between now and the count down date
+              var distance = countDownDate - now;
+
+              // Time calculations for days, hours, minutes and seconds
+              var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+              var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+              var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+              var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+              // Display the result in the element with id="demo"
+              timer.innerHTML = days + "d " + hours + "h "
+                  + minutes + "m " + seconds + "s ";
+
+              // If the count down is finished, write some text
+              if (distance < 0) {
+                  clearInterval(x);
+                  timer.innerHTML = "EXPIRED";
+              }
+          }, 1000);
+      })
+
+      function updateContent() {
+        let href = new URL(location.href);
+        let min_price = href.searchParams.get('min') ?? null
+        let max_price = href.searchParams.get('max') ?? null
+        let cats = href.searchParams.get('cats') ?? null
+        console.log(min_price);
+        console.log(max_price);
+        $.ajax({
+          type:'GET',
+          url: '{{ route('tours.index') }}',
+          data: {
+            _token:'{{ csrf_token() }}',
+            min:min_price,
+            max:max_price,
+            cats:cats
+          },
+          success: function (dataResult) {
+            $('#data_row').html(dataResult);
+          }
+        })
+      }
 
     });
   </script>

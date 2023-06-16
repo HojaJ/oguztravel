@@ -18,10 +18,12 @@
                 <p>{{ $tour->summary90() }}</p>
                 @if(isset($tour->price))
                     @if($tour->discount_active === 1)
-                        @php $price = $tour->price - (($tour->discount_percent / 100) * $tour->price)  @endphp
                         <span class="price">
-                      <strong>{{$price}}$</strong></span>
-                        <span class="discount_price"><strong>{{ $tour->price }}$</strong></span>
+                      <strong>{{$tour->discount_price}}$</strong></span>
+                        <span class="discount_price">
+                            <strong>{{ $tour->price }}$</strong>
+                            <div class="timer" data-time="{{\Carbon\Carbon::make($tour->discount_end_time)->format('Y-m-d H:i')}}"></div>
+                        </span>
                     @else
                         <span class="price"><strong>{{ $tour->price }}$</strong></span>
                     @endif

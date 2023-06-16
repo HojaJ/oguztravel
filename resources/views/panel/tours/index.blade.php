@@ -87,6 +87,7 @@
   <script>
     // Set the date we're counting down to
     var timers = document.getElementsByClassName("timer");
+    console.log(timers)
     timers.forEach(function (timer) {
       var countDownDate = new Date(timer.getAttribute('data-time')).getTime();
 

@@ -187,13 +187,21 @@ header.header.sticky .locale svg path {
     border-radius: 5px;
     padding: 3px 6px;
 }
-.discount_price{
-    font-size: 16px;
-    color: #737070;
-    margin-left: 10px;
+
+.discount_price strong {
     text-decoration: line-through;
+    font-size: 18px;
+    color: #ff2e2e;
+    margin-left: 10px;
 }
-.box_grid .price  strong{
+
+.timer {
+    color: #ff2e2e;
+    display: inline;
+    margin-left: 10px;
+}
+
+.box_grid .price strong{
     font-size: 20px;
 }
 

@@ -9,9 +9,7 @@
         @foreach($data as $key => $value)
             @if ($key == 'updated_at'  ||  is_null($value)) @continue;
             @elseif($key == 'filename' && isset($data['filename']))
-                @php
-                    $json =  json_decode($value);
-                @endphp
+                @php $json =  json_decode($value); @endphp
                 <p style="font-size:1em"><b>{{ __('Scanned passport') }}</b>:
                 @foreach($json  as $file)
                     <a href="{{ asset('storage/scanned_passport_file/' . $file->filename) }}" download>{{ $file->file_type }}</a>
@@ -21,6 +19,16 @@
                 @foreach($value as $k => $file)
                     <a href="{{ $file }}" download>{{ $k }}</a><br/>
                 @endforeach
+            @elseif($key == 'tour')
+                @if(($value['discount_active'] === 1))
+                    <p style="font-size:1em"><b>{{ __("Price") }}</b>: {{ $value['price'] }}</p>
+                    <p style="font-size:1em"><b>{{ __("Discount") }}</b>: {{ $value['discount_active'] }}</p>
+                    <p style="font-size:1em"><b>{{ __("Percentage") }}</b>: {{ $value['discount_percent'] }}</p>
+                    <p style="font-size:1em"><b>{{ __("Discount end time") }}</b>: {{ $value['discount_end_time'] }}</p>
+                    <p style="font-size:1em"><b>{{ __("Discount Price") }}</b>: {{ $value['discount_price'] }}</p>
+                @else
+                    <p style="font-size:1em"><b>{{ __("Price") }}</b>: {{ $value['price'] }}</p>
+                @endif
             @elseif($key == 'created_at')
                 <p style="font-size:1em"><b>Date</b>: {{ Carbon\Carbon::parse($value)->format('Y-m-d H:i:s') }}</p>
             @else

@@ -30,4 +30,5 @@ class TourRequest extends Model
         }
         return $array;
     }
+
 }

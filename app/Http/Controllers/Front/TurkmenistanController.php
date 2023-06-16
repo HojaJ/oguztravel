@@ -20,15 +20,22 @@ class TurkmenistanController extends Controller
     {
         $min = $request->get('min', null);
         $max = $request->get('max', null);
+        $cats = parse_url($request->get('cats', null));
 
-        $max_price = Tour::whereType('turkmenistan')->where('bound',$request->bound)->max('price');
         if($request->get('bound') && in_array($request->get('bound'),['inbound','outbound'])){
-            $tours = Tour::whereType('turkmenistan')->where('bound',$request->bound)->latest()->get();
-            if(isset($min) && isset($max)){
-                $tours = Tour::whereType('turkmenistan')
-                    ->where('bound',$request->bound)
-                    ->whereBetween('price',[$min,$max])->latest()->get();
+            $tours = Tour::whereType('turkmenistan')->where('bound',$request->bound);
+            if(isset($min) && isset($max)) {
+                $tours = $tours
+                    ->where(function ($query) use ($min, $max) {
+                        $query->whereNull('discount_active')->whereBetween('price', [$min, $max]);
+                    })->orWhere(function ($query) use ($min, $max) {
+                        $query->where('discount_active', 1)->whereBetween('discount_price', [$min, $max]);
+                    });
             }
+            if($cats['path']){
+                $tours = $tours->whereIn('category_id',json_decode($cats['path']));
+            }
+            $tours = $tours->latest()->get();
         }else{
             $tours = null;
         }
@@ -38,6 +45,7 @@ class TurkmenistanController extends Controller
         }
 
 
+        $max_price = Tour::whereType('turkmenistan')->where('bound',$request->bound)->max('price');
         $about = About::where('page','turkmenistan')->first();
         $cover = Cover::whereSlug('turkmenistan')->whereIsActive(true)->first();
         $categories = Category::whereHas('tours', function (Builder $query) {
@@ -110,9 +118,11 @@ class TurkmenistanController extends Controller
             Person::create($person_data);
         }
 
-        $tour = TourRequest::create($request->all());
+        $tour_id =  TourRequest::create($request->all())->id;
+        $tour_request = TourRequest::where('id',$tour_id)->with('tour')->first();
+
         $email = Subject::where('type','Turkmen Tours')->first()->email;
-        \Mail::to($email)->send(new TourMessage($tour->toArray()));
+        \Mail::to($email)->send(new TourMessage($tour_request->toArray()));
 
         return back()->with('success', __('Request has been sent'));
     }
