@@ -235,7 +235,9 @@
         <span class="data-label">{{ __('Document photo') }}</span>
         <span class="data-value">
           @if (count($service->getDocPhotoFiles()))
-          <a href="{{ route('panel.service_requests.download.zip', ['service' => $service->id, 'file_type' => 'doc_photos']) }}">{{ __('Download') }}</a>
+            @foreach($service->getDocPhotoFiles() as $file)
+              <a download href="{{ asset('storage/service_request_files/' . $file->filename) }}">{{ __('Download') }}</a>&nbsp;&nbsp;
+            @endforeach
           @else
           {{ __('None') }}
           @endif
@@ -251,7 +253,9 @@
         <span class="data-label">{{ __('Inner passport and birth certificate') }}</span>
         <span class="data-value">
           @if (count($service->getExtraDocFiles()))
-          <a href="{{ route('panel.service_requests.download.zip', ['service' => $service->id, 'file_type' => 'extra_docs']) }}">{{ __('Download') }}</a>
+            @foreach($service->getExtraDocFiles() as $file)
+                <a download href="{{ asset('storage/service_request_files/' . $file->filename) }}">{{ __('Download') }}</a>&nbsp;&nbsp;
+            @endforeach
           @else
           {{ __('None') }}
           @endif
@@ -267,7 +271,9 @@
         <span class="data-label">{{ __('Scanned document') }}</span>
         <span class="data-value">
           @if (count($service->getScannedDocumentFiles()))
-          <a href="{{ route('panel.service_requests.download.zip', ['service' => $service->id, 'file_type' => 'scanned_documents']) }}">{{ __('Download') }}</a>
+            @foreach($service->getScannedDocumentFiles() as $file)
+              <a download href="{{ asset('storage/scanned_passport_file/' . $file->filename) }}">{{ __('Download') }}</a>&nbsp;&nbsp;
+            @endforeach
           @else
           {{ __('None') }}
           @endif
