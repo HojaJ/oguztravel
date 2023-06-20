@@ -35,4 +35,14 @@ class DashboardController extends Controller
 
         return redirect()->route('panel.profile')->with('success', __('Updated msg', ['name' => __('Profile')]));
     }
+
+    public function markNotification(Request $request)
+    {
+        auth()->user()
+            ->unreadNotifications
+            ->when($request->input('id'), function ($query) use ($request) {
+                return $query->where('id', $request->input('id'));
+            })
+            ->markAsRead();
+    }
 }

@@ -41,7 +41,49 @@
                 </a>
               </div>
               <div class="nk-header-tools">
+
                 <ul class="nk-quick-nav">
+                  @php $notifications = auth()->user()->unreadNotifications; @endphp
+                  <li class="dropdown notification-dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="font-size: 25px;">
+                      <div class="@if($notifications->count() > 0) icon-status icon-status-info @endif"><em class="icon ni ni-bell"></em></div>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                      <div class="dropdown-head">
+                        <span class="sub-title nk-dropdown-title">Notifications</span>
+{{--                        <a href="#">Mark All as Read</a>--}}
+                      </div>
+                      <div class="dropdown-body">
+                        <div class="nk-notification">
+                          <div class="nk-notification-item dropdown-inner">
+                            @forelse($notifications as $notification)
+
+                              <a href="@if($notification->data['request_type'] === 'tour' || $notification->data['request_type'] === 'turkmenistan' )
+                                {{ route('panel.tour_requests.index', ['type' => $notification->data['request_type']]) }}"
+                                 @else
+                                {{ route('panel.service_requests.index', ['type' => $notification->data['request_type']]) }}"
+                                 @endif
+
+                                 data-id="{{ $notification->id }}" class="d-flex mark-as-read">
+                                <div class="nk-notification-icon">
+                                  <em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
+                                </div>
+                                <div class="nk-notification-content">
+                                  <div class="nk-notification-text">You have requested to <span>{{$notification->data['request_type']}}</span>
+                                  </div>
+                                  <div class="nk-notification-time">{{$notification->created_at}}</div>
+                                </div>
+                              </a>
+                            @empty
+                            @endforelse
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+
                   <li class="dropdown user-dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                       <div class="user-toggle">
@@ -83,6 +125,11 @@
                       </div>
                     </div>
                   </li>
+
+
+
+
+
                   <li class="d-lg-none">
                     <a href="#" class="toggle nk-quick-nav-icon mr-n1" data-target="sideNav"><em class="icon ni ni-menu"></em></a>
                   </li>
@@ -292,6 +339,16 @@
   <script src="{{ asset('js/bundle.js') }}"></script>
   <script src="{{ asset('js/scripts.js') }}"></script>
   <script>
+    function sendMarkRequest(id = null) {
+      return $.ajax("{{ route('panel.admin.markNotification') }}", {
+        method: 'POST',
+        data: {
+          _token: "{{ csrf_token() }}",
+          id
+        }
+      });
+    }
+
     (function() {
       'use strict';
       window.addEventListener('load', function() {
@@ -309,6 +366,14 @@
     })();
 
     $(function() {
+
+      $('.mark-as-read').click(function(e) {
+        e.preventDefault();
+        let href = this.href;
+        let request = sendMarkRequest($(this).data('id'));
+        window.location = href;
+      });
+
       @if($errors->any() || session('success') || session('error') || session('warning') || session('danger'))
       setTimeout(function() {
         $('#messages').fadeOut('slow');

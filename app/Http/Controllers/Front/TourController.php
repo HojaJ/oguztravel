@@ -11,7 +11,9 @@ use App\Models\Person;
 use App\Models\Subject;
 use App\Models\Tour;
 use App\Models\TourRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Notification;
 use Illuminate\Database\Eloquent\Builder;
 
 class TourController extends Controller
@@ -36,6 +38,15 @@ class TourController extends Controller
         }
 
         $tours = $tours->latest()->get();
+        foreach ($tours as $tour){
+            if($tour->discount_end_time && Carbon::make($tour->discount_end_time)->isPast()){
+                $tour->discount_active = 0;
+                $tour->discount_percent = null;
+                $tour->discount_end_time = null;
+                $tour->discount_price = null;
+                $tour->save();
+            }
+        }
         if($request->ajax()){
             return response()->json(view('web.include.tour_partial',['tours' => $tours])->render());
         }
@@ -116,6 +127,8 @@ class TourController extends Controller
         $email = Subject::where('type','World Tours')->first()->email;
 
         \Mail::to($email)->send(new TourMessage($tour_request->toArray()));
+        Notification::send(auth()->user(),new \App\Notifications\ServiceRequest($tour_request));
+
         return back()->with('success', __('Request has been sent'));
     }
 }

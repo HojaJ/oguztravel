@@ -12,6 +12,7 @@ use App\Models\ServiceRequest;
 use App\Models\ServiceRequestFile;
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use Notification;
 
 class ServiceController extends Controller
 {
@@ -205,6 +206,7 @@ class ServiceController extends Controller
                 ]);
             }
 
+
             if($service->slug == 'visa'){
                 $email = Subject::where('type','Visa')->first()->email;
             }elseif ($service->slug == 'hotel'){
@@ -217,6 +219,7 @@ class ServiceController extends Controller
                 $email = Subject::where('type','Others')->first()->email;
             }
             \Mail::to($email)->send(new ServiceMessage($service_request->toArray()));
+            Notification::send(auth()->user(),new \App\Notifications\ServiceRequest($service_request));
             return back()->with('success', __('Request has been sent'));
         }catch (\Exception $e){
             dd($e->getMessage());

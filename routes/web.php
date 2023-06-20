@@ -114,6 +114,8 @@ Route::group(
 
                     Route::resource('countries', CountryController::class)->except('show');
 
+                    Route::post('/mark-as-read', [DashboardController::class, 'markNotification'])->name('admin.markNotification');
+
                 });
             });
         });

@@ -13,6 +13,7 @@ use App\Models\Person;
 use App\Models\Tour;
 use App\Models\TourRequest;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 
 class TurkmenistanController extends Controller
 {
@@ -40,6 +41,15 @@ class TurkmenistanController extends Controller
             $tours = null;
         }
 
+        foreach ($tours as $tour){
+            if($tour->discount_end_time && Carbon::make($tour->discount_end_time)->isPast()){
+                $tour->discount_active = 0;
+                $tour->discount_percent = null;
+                $tour->discount_end_time = null;
+                $tour->discount_price = null;
+                $tour->save();
+            }
+        }
         if($request->ajax()){
             return response()->json(view('web.include.tkm_partial',['tours' => $tours])->render());
         }
