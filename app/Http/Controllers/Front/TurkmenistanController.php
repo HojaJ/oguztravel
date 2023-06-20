@@ -37,19 +37,20 @@ class TurkmenistanController extends Controller
                 $tours = $tours->whereIn('category_id',json_decode($cats['path']));
             }
             $tours = $tours->latest()->get();
+            foreach ($tours as $tour){
+                if($tour->discount_end_time && Carbon::make($tour->discount_end_time)->isPast()){
+                    $tour->discount_active = 0;
+                    $tour->discount_percent = null;
+                    $tour->discount_end_time = null;
+                    $tour->discount_price = null;
+                    $tour->save();
+                }
+            }
         }else{
             $tours = null;
         }
 
-        foreach ($tours as $tour){
-            if($tour->discount_end_time && Carbon::make($tour->discount_end_time)->isPast()){
-                $tour->discount_active = 0;
-                $tour->discount_percent = null;
-                $tour->discount_end_time = null;
-                $tour->discount_price = null;
-                $tour->save();
-            }
-        }
+
         if($request->ajax()){
             return response()->json(view('web.include.tkm_partial',['tours' => $tours])->render());
         }
@@ -90,7 +91,16 @@ class TurkmenistanController extends Controller
             'date_of_birth' => date('Y-m-d', strtotime($request->get('date_of_birth')))
         ]);
 
-//        $file = $request->file('scanned_passport');
+        $tour = Tour::findOrFail($request['tour_id']);
+        if($tour){
+            $request->merge([
+                'price' => $tour->price,
+                'discount_price' => $tour->discount_price,
+                'discount_percent'  => $tour->discount_percent,
+                'discount_end_time'  => $tour->discount_end_time,
+                'discount_active'  => $tour->discount_active
+            ]);
+        }else{ dd(); }
 
         $scanned_files_array = [];
         $scanned_passport_file = $request->file('scanned_passport');

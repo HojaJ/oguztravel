@@ -10,7 +10,7 @@ class TourRequest extends Model
 {
     use HasFactory, SoftDeletes;
     
-    protected $fillable = ['name', 'surname','note', 'patronymic', 'email', 'phone', 'date_of_birth', 'applicant_type', 'filename', 'file_type', 'type', 'tour_id','gender'];
+    protected $fillable = ['name', 'surname','note', 'patronymic', 'email', 'phone', 'date_of_birth', 'applicant_type', 'filename', 'file_type', 'type', 'tour_id','gender','price','discount_price','discount_percent','discount_end_time','discount_active'];
 
     public function tour()
     {

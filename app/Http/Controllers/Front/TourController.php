@@ -86,6 +86,18 @@ class TourController extends Controller
             'type' => 'tour',
             'date_of_birth' => date('Y-m-d', strtotime($request->get('date_of_birth')))
         ]);
+        $tour = Tour::findOrFail($request['tour_id']);
+        if($tour){
+            $request->merge([
+                'price' => $tour->price,
+                'discount_price' => $tour->discount_price,
+                'discount_percent'  => $tour->discount_percent,
+                'discount_end_time'  => $tour->discount_end_time,
+                'discount_active'  => $tour->discount_active
+            ]);
+        }else{ dd(); }
+
+
 
         $scanned_files_array = [];
         $scanned_passport_file = $request->file('scanned_passport');
