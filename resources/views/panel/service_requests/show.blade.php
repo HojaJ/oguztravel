@@ -272,7 +272,7 @@
         <span class="data-value">
           @if (count($service->getScannedDocumentFiles()))
             @foreach($service->getScannedDocumentFiles() as $file)
-              <a download href="{{ asset('storage/scanned_passport_file/' . $file->filename) }}">{{ __('Download') }}</a>&nbsp;&nbsp;
+              <a download href="{{ asset('storage/scanned_passport_files/' . $file->filename) }}">{{ __('Download') }}</a>&nbsp;&nbsp;
             @endforeach
           @else
           {{ __('None') }}
