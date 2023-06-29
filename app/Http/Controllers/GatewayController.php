@@ -11,7 +11,7 @@ class GatewayController extends Controller
         if($request->deviceId && $request->action){
             return response()->json([
                 'message' => 'salam',
-                'number' => '+99364336223',
+                'number' => '99364336223',
                 'messageId' => '1'
             ]);
         }
