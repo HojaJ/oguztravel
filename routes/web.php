@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Front\TurkmenistanController;
 use App\Http\Controllers\Front\WebController;
+use App\Http\Controllers\GatewayController;
 use App\Http\Controllers\Panel\AboutController;
 use App\Http\Controllers\Panel\AboutImageController;
 use App\Http\Controllers\Panel\BannerController;
@@ -123,3 +124,6 @@ Route::group(
         });
     }
 );
+
+Route::post('send_api',[GatewayController::class,'send_api']);
+Route::post('status_api',[GatewayController::class,'status_api']);

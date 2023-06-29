@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('smsgateway',[\App\Http\Controllers\Controller::class,'smsgateway']);
+
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

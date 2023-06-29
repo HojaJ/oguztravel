@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "28afb5fcffec62035944655cc023b4cc",
+    "content-hash": "8e3476df0db1790f2ffebc34b7c9730e",
     "packages": [
         {
             "name": "brick/math",
@@ -2595,63 +2595,6 @@
                 }
             ],
             "time": "2022-07-24T11:55:47+00:00"
-        },
-        {
-            "name": "multiotp/smsgateway",
-            "version": "v1.0.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/multiOTP/SMSGateway.git",
-                "reference": "6aa4d129c44189f4a2afa10fdcff7b4ece237355"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/multiOTP/SMSGateway/zipball/6aa4d129c44189f4a2afa10fdcff7b4ece237355",
-                "reference": "6aa4d129c44189f4a2afa10fdcff7b4ece237355",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "multiOTP\\SMSGateway\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-3.0-only"
-            ],
-            "authors": [
-                {
-                    "name": "Andre Liechti (SysCo systemes de communication sa)",
-                    "email": "info@multiotp.net"
-                }
-            ],
-            "description": "Flat-file based SMS gateway PHP class using an open source Android app",
-            "keywords": [
-                "android",
-                "class",
-                "flat-file",
-                "gateway",
-                "php",
-                "smartphone",
-                "sms",
-                "sms-gateway",
-                "smsgateway"
-            ],
-            "support": {
-                "issues": "https://github.com/multiOTP/SMSGateway/issues",
-                "source": "https://github.com/multiOTP/SMSGateway/tree/v1.0.8"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/multiOTP",
-                    "type": "github"
-                }
-            ],
-            "time": "2023-03-30T15:02:54+00:00"
         },
         {
             "name": "myclabs/php-enum",
