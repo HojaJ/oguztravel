@@ -26,7 +26,7 @@
 {{--  <link href="{{ asset('css/style.css') }}" rel="stylesheet">--}}
 {{--  <link href="{{ asset('css/vendors.css') }}" rel="stylesheet">--}}
 {{--  <link href="{{ asset('css/custom.css') }}" rel="stylesheet">--}}
-{{--  <script src="{{ asset('js/modernizr.js') }}"></script>--}}
+  <script src="{{ asset('js/modernizr.js') }}"></script>
 
   @yield('css')
 
@@ -152,8 +152,8 @@
 
   <div id="toTop"></div>
 
-  <script src="{{ asset('js/all.js') }}"></script>
-{{--  <script src="{{ asset('js/common_scripts.js') }}"></script>--}}
+{{--  <script src="{{ asset('js/all.js') }}"></script>--}}
+  <script src="{{ asset('js/common_scripts.js') }}"></script>
   <script src="{{ asset('js/main.js') }}"></script>
 {{--  <script src="{{ asset('js/assets/validate.js') }}"></script>--}}
 
