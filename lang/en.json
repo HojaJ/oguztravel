@@ -197,9 +197,10 @@
     "New Clients Added": "New Clients Added",
     "Price": "Price",
     "per person": "per person",
-
     "Discount": "Discount",
     "Percentage": "Percentage",
     "Discount end time": "Discount end time",
-    "Discount Price": "Discount Price"
+    "Discount Price": "Discount Price",
+
+    "Birthday":"Birthday"
 }

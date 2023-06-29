@@ -1,25 +1,26 @@
 <?php
 
-use App\Http\Controllers\Panel\ClientController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Front\WebController;
 use App\Http\Controllers\Front\TurkmenistanController;
+use App\Http\Controllers\Front\WebController;
 use App\Http\Controllers\Panel\AboutController;
-use App\Http\Controllers\Panel\BannerController;
-use App\Http\Controllers\Panel\ContactController;
-use App\Http\Controllers\Panel\CoverController;
-use App\Http\Controllers\Panel\CategoryController;
-use App\Http\Controllers\Panel\DashboardController;
-use App\Http\Controllers\Panel\ServiceController;
 use App\Http\Controllers\Panel\AboutImageController;
+use App\Http\Controllers\Panel\BannerController;
+use App\Http\Controllers\Panel\BirthdayController;
+use App\Http\Controllers\Panel\CategoryController;
+use App\Http\Controllers\Panel\ClientController;
+use App\Http\Controllers\Panel\ContactController;
 use App\Http\Controllers\Panel\CountryController;
+use App\Http\Controllers\Panel\CoverController;
+use App\Http\Controllers\Panel\DashboardController;
 use App\Http\Controllers\Panel\MessageController;
+use App\Http\Controllers\Panel\ServiceController;
 use App\Http\Controllers\Panel\ServiceRequestController;
 use App\Http\Controllers\Panel\SubjectController;
 use App\Http\Controllers\Panel\TourController;
 use App\Http\Controllers\Panel\TourImageController;
 use App\Http\Controllers\Panel\TourRequestController;
+use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -32,7 +33,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('smsgateway',[\App\Http\Controllers\Controller::class,'smsgeteway']);
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
@@ -113,6 +114,8 @@ Route::group(
                     Route::get('service_requests-download-zip-file/{service}/{file_type}', [ServiceRequestController::class, 'downloadZip'])->name('service_requests.download.zip');
 
                     Route::resource('countries', CountryController::class)->except('show');
+
+                    Route::get('/birthday',[BirthdayController::class,'index'])->name('birthday.index');
 
                     Route::post('/mark-as-read', [DashboardController::class, 'markNotification'])->name('admin.markNotification');
 

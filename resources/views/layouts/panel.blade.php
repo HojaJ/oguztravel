@@ -56,7 +56,7 @@
                       </div>
                       <div class="dropdown-body">
                         <div class="nk-notification">
-                          <div class="nk-notification-item dropdown-inner">
+                          <div class="d-flex p-4 dropdown-inner flex-column">
                             @forelse($notifications as $notification)
 
                               <a href="@if($notification->data['request_type'] === 'tour' || $notification->data['request_type'] === 'turkmenistan' )
@@ -65,7 +65,7 @@
                                 {{ route('panel.service_requests.index', ['type' => $notification->data['request_type']]) }}"
                                  @endif
 
-                                 data-id="{{ $notification->id }}" class="d-flex mark-as-read">
+                                 data-id="{{ $notification->id }}" class="d-flex mark-as-read mb-2">
                                 <div class="nk-notification-icon">
                                   <em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
                                 </div>
@@ -289,6 +289,12 @@
                     <li class="nk-menu-item {{ request()->is('clients*') ? 'active' : '' }}">
                       <a href="{{ route('panel.clients.index') }}" class="nk-menu-link">
                         <span class="nk-menu-icon"><em class="icon ni ni-user"></em></span><span class="nk-menu-text">{{ __('Clients') }}</span>
+                      </a>
+                    </li>
+
+                    <li class="nk-menu-item {{ request()->is('birthday*') ? 'active' : '' }}">
+                      <a href="{{ route('panel.birthday.index') }}" class="nk-menu-link">
+                        <span class="nk-menu-icon"><em class="icon ni ni-happy"></em></span><span class="nk-menu-text">{{ __('Birthday') }}</span>
                       </a>
                     </li>
 
