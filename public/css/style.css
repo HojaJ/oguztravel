@@ -5657,10 +5657,11 @@ a.box_topic i {
   line-height: 100px;
   margin-bottom: 15px;
 }
+a.box_topic h1,
 a.box_topic h3 {
-  font-size: 18px;
   font-size: 1.125rem;
 }
+
 
 .list_articles ul {
   list-style: none;

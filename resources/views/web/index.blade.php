@@ -28,7 +28,7 @@
     <span><em></em></span>
     <h2>{{ __('Our services') }}</h2>
     @if ($cover_service && $cover_service->filename)
-    <p>{{ $cover_service->subtitle }}</p>
+    <h3><p>{{ $cover_service->subtitle }}</p></h3>
     @endif
   </div>
 
@@ -51,7 +51,7 @@
           @endif
         </div>
         <div class="title_wrapper">
-          <h3>{{ $service->title }}</h3>
+          <h1>{{ $service->title }}</h1>
           <p>{{ $service->subtitle }}</p>
         </div>
       </a>

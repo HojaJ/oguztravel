@@ -22,11 +22,11 @@
   <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('images/favicon/apple-touch-icon-152x152.png') }}" />
   <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon/apple-touch-icon-180x180.png') }}" />
 
-  <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/vendors.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-  <script src="{{ asset('js/modernizr.js') }}"></script>
+  <link href="{{ asset('css/all.css') }}" rel="stylesheet">
+{{--  <link href="{{ asset('css/style.css') }}" rel="stylesheet">--}}
+{{--  <link href="{{ asset('css/vendors.css') }}" rel="stylesheet">--}}
+{{--  <link href="{{ asset('css/custom.css') }}" rel="stylesheet">--}}
+{{--  <script src="{{ asset('js/modernizr.js') }}"></script>--}}
 
   @yield('css')
 
@@ -152,9 +152,10 @@
 
   <div id="toTop"></div>
 
-  <script src="{{ asset('js/common_scripts.js') }}"></script>
-  <script src="{{ asset('js/main.js') }}"></script>
-  <script src="{{ asset('js/assets/validate.js') }}"></script>
+  <script src="{{ asset('js/all.js') }}"></script>
+{{--  <script src="{{ asset('js/common_scripts.js') }}"></script>--}}
+{{--  <script src="{{ asset('js/main.js') }}"></script>--}}
+{{--  <script src="{{ asset('js/assets/validate.js') }}"></script>--}}
 
   @yield('js')
 
