@@ -156,9 +156,10 @@
 @endsection
 
 @section('js')
-<script src="{{ asset('layerslider/js/greensock.js') }}"></script>
-<script src="{{ asset('layerslider/js/layerslider.transitions.js') }}"></script>
-<script src="{{ asset('layerslider/js/layerslider.kreaturamedia.jquery.js') }}"></script>
+<script src="{{ asset('js/index.js') }}"></script>
+{{--<script src="{{ asset('layerslider/js/greensock.js') }}"></script>--}}
+{{--<script src="{{ asset('layerslider/js/layerslider.transitions.js') }}"></script>--}}
+{{--<script src="{{ asset('layerslider/js/layerslider.kreaturamedia.jquery.js') }}"></script>--}}
 
 <script>
   'use strict';

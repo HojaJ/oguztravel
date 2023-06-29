@@ -154,7 +154,7 @@
 
   <script src="{{ asset('js/all.js') }}"></script>
 {{--  <script src="{{ asset('js/common_scripts.js') }}"></script>--}}
-{{--  <script src="{{ asset('js/main.js') }}"></script>--}}
+  <script src="{{ asset('js/main.js') }}"></script>
 {{--  <script src="{{ asset('js/assets/validate.js') }}"></script>--}}
 
   @yield('js')
