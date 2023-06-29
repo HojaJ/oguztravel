@@ -31,11 +31,20 @@ class Controller extends BaseController
         }
     }
 
-    public function smsgeteway(Request $request)
+    public function smsgateway(Request $request)
+    {
+        $smsgateway = new SMSGateway();
+        $smsgateway->setDataPath(public_path('data'));
+        $smsgateway->setSharedSecret("oguz");
+        $smsgateway->apiServer();
+    }
+
+    public function smsgeteway2(Request $request)
     {
         $smsgateway = new SMSGateway();
         $smsgateway->setDataPath(public_path('data'));
         $url = $request->fullUrl();
+
 
         $command = isset($_GET["m"]) ? "m" : (isset($_GET["i"]) ? "i" : (isset($_GET["e"]) ? "e" : ""));
         $h = isset($_GET["h"]) ? $_GET["h"] : "";
@@ -208,7 +217,6 @@ class Controller extends BaseController
         } else {
 
             // Run the API server
-            $smsgateway->apiServer();
         }
 
     }
