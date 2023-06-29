@@ -51,7 +51,7 @@
           @endif
         </div>
         <div class="title_wrapper">
-          <h1>{{ $service->title }}</h1>
+          <h3>{{ $service->title }}</h3>
           <p>{{ $service->subtitle }}</p>
         </div>
       </a>
