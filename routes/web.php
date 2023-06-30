@@ -116,6 +116,7 @@ Route::group(
                     Route::resource('countries', CountryController::class)->except('show');
 
                     Route::get('/birthday',[BirthdayController::class,'index'])->name('birthday.index');
+                    Route::put('/birthday/{person}',[BirthdayController::class,'send'])->name('birthday.send');
 
                     Route::post('/mark-as-read', [DashboardController::class, 'markNotification'])->name('admin.markNotification');
 

@@ -32,6 +32,7 @@
           <th>{{ __('Phone') }}</th>
           <th>{{ __('Gender') }}</th>
           <th>{{ __('Date of birth') }}</th>
+{{--          <th>{{ __("Action") }}</th>--}}
         </tr>
       </thead>
       <tbody>
@@ -40,23 +41,17 @@
             <td>{{ $client->name }}</td>
             <td>{{ $client->surname }}</td>
             <td>{{ $client->patronymic }}</td>
-            <td>{{ $client->email }}</td>
+            <td>{{ $client->email }}
+              &nbsp;&nbsp;
+              <form action="{{ route('panel.birthday.send', $client->id) }}" method="post" class="d-inline-block">
+                @method('put')
+                <button class="btn btn-warning">{{ __("Send") }}</button>
+                @csrf
+              </form>
+            </td>
             <td>{{ $client->phone }}</td>
             <td>{{ $client->gender }}</td>
             <td>{{ $client->date_of_birth }}</td>
-
-{{--            <td class="tb-col-action">--}}
-{{--              <a href="{{ route('panel.clients.edit', $client->id) }}"--}}
-{{--                 class="link-cross d-inline-bl  ock link-edit mr-2"><em class="icon ni ni-edit-alt"></em></a>--}}
-{{--              <a href="#"--}}
-{{--                 onclick="if (confirm('{{ __('want to remove') }}')) { document.getElementById('destroy-{{ $client->id }}').submit(); }"--}}
-{{--                 class="link-cross mr-sm-n1"><em class="icon ni ni-trash"></em></a>--}}
-{{--              <form action="{{ route('panel.clients.destroy', $client->id) }}" method="post"--}}
-{{--                    id="destroy-{{ $client->id }}">--}}
-{{--                @method('delete')--}}
-{{--                @csrf--}}
-{{--              </form>--}}
-{{--            </td>--}}
 
           </tr>
         @endforeach
@@ -67,7 +62,7 @@
   @include('panel.include.paginate', ['data' => ['items' => $clients, 'limit' => $page_limit]])
 
   @else
-  <p>{{ __('not exist', ['thing' => __('Clients')]) }}</p>
+  <p>{{ __('not exist', ['thing' => __('Birthday')]) }}</p>
   @endif
 </div>
 
