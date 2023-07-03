@@ -31,6 +31,11 @@
             <em class="icon ni ni-download"></em><span class="d-none d-sm-inline-block">{{ __('Download') }}</span>
           </a>
         </li>
+        <li>
+          <a href="{{ route('panel.export-mailchimp') }}" class="btn btn-white btn-dim btn-outline-primary">
+            <em class="icon ni ni-download"></em><span class="d-none d-sm-inline-block">{{ __('Download for Mailchimp') }}</span>
+          </a>
+        </li>
       </ul>
     </div>
   </div>

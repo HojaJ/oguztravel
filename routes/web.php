@@ -91,6 +91,7 @@ Route::group(
 
                     Route::post('/import',[ClientController::class, 'importClients'])->name('import');
                     Route::get('/export-clients',[ClientController::class, 'exportClients'])->name('export-clients');
+                    Route::get('/export-mailchimp',[ClientController::class, 'exportMailchimp'])->name('export-mailchimp');
 
                     Route::resource('categories', CategoryController::class)->except('show');
 

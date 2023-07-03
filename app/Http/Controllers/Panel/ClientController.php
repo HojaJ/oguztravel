@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Exports\ExportClient;
+use App\Exports\ExportMailchimp;
 use App\Http\Controllers\Controller;
 use App\Imports\ImportClient;
 use App\Models\Person;
@@ -66,6 +67,11 @@ class ClientController extends Controller
     public function exportClients(Request $request)
     {
         return Excel::download(new ExportClient,'clients.xlsx');
+    }
+
+    public function exportMailchimp(Request $request)
+    {
+        return Excel::download(new ExportMailchimp(),'mailchimp.xlsx');
     }
 
     public function importClients(Request $request)
