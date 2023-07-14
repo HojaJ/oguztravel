@@ -130,5 +130,5 @@ Route::group(
     }
 );
 
-Route::post('send_api',[GatewayController::class,'send_api']);
-Route::post('status_api',[GatewayController::class,'status_api']);
+Route::get('get_sms',[GatewayController::class,'send_api']);
+Route::get('status',[GatewayController::class,'status_api']);

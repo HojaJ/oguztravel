@@ -458,6 +458,9 @@ window.Modernizr = (function( window, document, undefined ) {
 					// just a hack that adds mfp-anim class to markup 
 					this.st.image.markup = this.st.image.markup.replace('mfp-figure', 'mfp-figure mfp-with-anim');
 					this.st.mainClass = this.st.el.attr('data-effect');
+				},
+				markupParse: function(template, values, item) {
+					template.find('iframe').addClass('bad-site-class');
 				}
 			},
 			closeOnContentClick: true,
@@ -741,9 +744,16 @@ window.Modernizr = (function( window, document, undefined ) {
 			this.output.html(value);
 		}
 	});
-	$("body").on("contextmenu", function(e) {
+	// $("body").on("contextmenu", function(e) {
+	// 	return false;
+	// });
+	// $("img").on("contextmenu", function(e) {
+	// 	return false;
+	// });
+	$(document).bind("contextmenu",function(e){
 		return false;
 	});
+
 	$('body').bind('cut copy', function(e) {
 		e.preventDefault();
 	});

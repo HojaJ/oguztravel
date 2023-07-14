@@ -6,19 +6,19 @@ use Illuminate\Http\Request;
 
 class GatewayController extends Controller
 {
-    public function send_api(Request $request)
+    public function send_api()
     {
-        if($request->deviceId && $request->action){
-            return response()->json([
-                'message' => 'salam',
-                'number' => '99364336223',
-                'messageId' => '1'
-            ]);
-        }
+        return response()->json([
+            'id' => strval(random_int(1,99)),
+            'phone' => '+99364336223',
+            'text' => 'salam',
+        ]);
+
     }
 
     public function status_api(Request $request)
     {
-
+        \Log::info('created',$request->id);
+        \Log::info('some',$request->all());
     }
 }
