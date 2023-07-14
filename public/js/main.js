@@ -741,10 +741,10 @@ window.Modernizr = (function( window, document, undefined ) {
 			this.output.html(value);
 		}
 	});
-	// $("body").on("contextmenu", function(e) {
-	// 	return false;
-	// });
-	// $('body').bind('cut copy', function(e) {
-	// 	e.preventDefault();
-	// });
+	$("body").on("contextmenu", function(e) {
+		return false;
+	});
+	$('body').bind('cut copy', function(e) {
+		e.preventDefault();
+	});
 })(window.jQuery); 
