@@ -228,6 +228,8 @@
               @endif
             @endif
 
+            <label class="d-flex justify-content-start mt-2 mb-4 align-items-baseline" for="terms"><input id="terms" class="h-auto mr-2" type="checkbox" required /><p class="mb-0">{{ __('Check here to indicate that you have read and agree to the terms of the') }} Oguztravel <a target="_blank" href="{{ route('privacy') }}"> {{ __("Privacy Policy") }}</a></p>
+            </label>
 
             <button class="btn_1 full-width purchase">{{ __("Send inquiry") }}</button>
           </form>

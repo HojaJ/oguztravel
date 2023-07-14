@@ -12,6 +12,7 @@
   <title>@yield('title') | {{ __('app') }}</title>
 
   <link rel="shortcut icon" href="{{ asset('images/favicon/favicon.ico') }}" type="image/x-icon" />
+  <meta http-equiv="imagetoolbar" content="no" />
   <link rel="apple-touch-icon" href="{{ asset('images/favicon/apple-touch-icon.png') }}" />
   <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('images/favicon/apple-touch-icon-57x57.png') }}" />
   <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('images/favicon/apple-touch-icon-72x72.png') }}" />
@@ -29,10 +30,15 @@
 {{--  <script src="{{ asset('js/modernizr.js') }}"></script>--}}
 
   @yield('css')
-
+  <style>
+    img {
+      pointer-events: none;
+    }
+  </style>
 </head>
 
 <body>
+{{--<body onmousedown="return false" onselectstart="return false">--}}
   @yield('messages')
   <div id="page" class="theia-exception">
 

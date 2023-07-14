@@ -33,4 +33,12 @@ class WebController extends Controller
         
         return view('web.about', compact('cover', 'about'));
     }
+
+    public function privacy()
+    {
+        $about = About::where('page','Privacy')->first();
+        $cover = Cover::whereSlug('about')->whereIsActive(true)->first();
+        return view('web.privacy', compact('about','cover'));
+
+    }
 }

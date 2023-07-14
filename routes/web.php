@@ -15,6 +15,7 @@ use App\Http\Controllers\Panel\CountryController;
 use App\Http\Controllers\Panel\CoverController;
 use App\Http\Controllers\Panel\DashboardController;
 use App\Http\Controllers\Panel\MessageController;
+use App\Http\Controllers\Panel\PrivacyController;
 use App\Http\Controllers\Panel\ServiceController;
 use App\Http\Controllers\Panel\ServiceRequestController;
 use App\Http\Controllers\Panel\SubjectController;
@@ -48,6 +49,7 @@ Route::group(
         Route::get('contacts', [App\Http\Controllers\Front\ContactController::class, 'index'])->name('contact.index');
         Route::post('contacts/message', [App\Http\Controllers\Front\ContactController::class, 'send'])->name('contact.message');
         Route::get('about', [WebController::class, 'about'])->name('about.index');
+        Route::get('privacy', [WebController::class, 'privacy'])->name('privacy');
         Route::get('turkmenistan', [TurkmenistanController::class, 'index'])->name('turkmenistan.index');
         Route::get('turkmenistan/{tour}', [TurkmenistanController::class, 'show'])->name('turkmenistan.show');
         Route::post('turkmenistan', [App\Http\Controllers\Front\TurkmenistanController::class, 'store'])->name('turkmenistan.store');
@@ -72,6 +74,7 @@ Route::group(
                     Route::resource('banners', BannerController::class)->except('show');
 
                     Route::resource('about', AboutController::class)->except('show');
+                    Route::resource('privacy', PrivacyController::class)->except('show');
                     Route::get('tours_index',[AboutController::class,'tours_index'])->name('tours_index');
                     Route::get('turkmenistan_index',[AboutController::class,'turkmenistan_index'])->name('turkmenistan_index');
                     Route::get('about/{about}/images', [AboutImageController::class, 'create'])->name('about.images.create');

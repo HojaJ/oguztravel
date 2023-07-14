@@ -310,6 +310,12 @@
                       </a>
                     </li>
 
+                    <li class="nk-menu-item {{ request()->is('privacy*') ? 'active' : '' }}">
+                      <a href="{{ route('panel.privacy.index') }}" class="nk-menu-link">
+                        <span class="nk-menu-icon"><em class="icon ni ni-policy"></em></span><span class="nk-menu-text">{{ __('Privacy Policy') }}</span>
+                      </a>
+                    </li>
+
                     <li class="nk-menu-heading">
                       <h6 class="overline-title">{{ __('Languages') }}</h6>
                     </li>
