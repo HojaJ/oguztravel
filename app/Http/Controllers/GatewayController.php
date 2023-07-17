@@ -20,5 +20,6 @@ class GatewayController extends Controller
     {
         \Log::info('created',$request->id);
         \Log::info('some',$request->all());
+        return 'successed';
     }
 }

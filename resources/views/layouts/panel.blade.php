@@ -303,12 +303,25 @@
                         <span class="nk-menu-icon"><em class="icon ni ni-browser"></em></span><span class="nk-menu-text">{{ __('Subjects') }}</span>
                       </a>
                     </li>
+                    <li class="nk-menu-item {{ request()->is('mailing*') ? 'active' : '' }}">
+                      <a href="{{ route('panel.mailing.index') }}" class="nk-menu-link">
+                        <span class="nk-menu-icon"><em class="icon ni ni-emails"></em></span><span class="nk-menu-text">{{ __('Mailing') }}</span>
+                      </a>
+                    </li>
 
                     <li class="nk-menu-item {{ request()->is('messages*') ? 'active' : '' }}">
                       <a href="{{ route('panel.messages.index') }}" class="nk-menu-link">
                         <span class="nk-menu-icon"><em class="icon ni ni-msg"></em></span><span class="nk-menu-text">{{ __('Messages') }}</span>
                       </a>
                     </li>
+
+                    <li class="nk-menu-item {{ request()->is('emails*') ? 'active' : '' }}">
+                      <a href="{{ route('panel.emails.index') }}" class="nk-menu-link">
+                        <span class="nk-menu-icon"><em class="icon ni ni-emails-fill"></em></span><span class="nk-menu-text">{{ __('Emails') }}</span>
+                      </a>
+                    </li>
+
+
 
                     <li class="nk-menu-item {{ request()->is('privacy*') ? 'active' : '' }}">
                       <a href="{{ route('panel.privacy.index') }}" class="nk-menu-link">

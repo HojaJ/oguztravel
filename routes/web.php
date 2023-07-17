@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CompainController;
 use App\Http\Controllers\Front\TurkmenistanController;
 use App\Http\Controllers\Front\WebController;
 use App\Http\Controllers\GatewayController;
@@ -14,6 +15,8 @@ use App\Http\Controllers\Panel\ContactController;
 use App\Http\Controllers\Panel\CountryController;
 use App\Http\Controllers\Panel\CoverController;
 use App\Http\Controllers\Panel\DashboardController;
+use App\Http\Controllers\Panel\EmailController;
+use App\Http\Controllers\Panel\MailingController;
 use App\Http\Controllers\Panel\MessageController;
 use App\Http\Controllers\Panel\PrivacyController;
 use App\Http\Controllers\Panel\ServiceController;
@@ -90,6 +93,7 @@ Route::group(
                     Route::resource('covers', CoverController::class)->only('index', 'edit', 'update');
 
                     Route::resource('clients', ClientController::class)->except('show');
+                    Route::resource('emails', EmailController::class);
 
 
                     Route::post('/import',[ClientController::class, 'importClients'])->name('import');
@@ -108,6 +112,7 @@ Route::group(
                     Route::resource('subjects', SubjectController::class)->except('show');
                     Route::resource('messages', MessageController::class)->only('index', 'show', 'destroy');
 
+                    Route::resource('mailing', MailingController::class);
                     Route::get('tour_requests', [TourRequestController::class, 'index'])->name('tour_requests.index');
                     Route::get('tour_requests/{tour}', [TourRequestController::class, 'show'])->name('tour_requests.show');
                     Route::delete('tour_requests/{tour}', [TourRequestController::class, 'delete'])->name('tour_requests.destroy');

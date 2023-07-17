@@ -56,6 +56,17 @@ return [
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
 
+        'private' => [
+            'transport' => 'smtp',
+            'host' => env('MAIL_HOST3', 'mail.privateemail.com'),
+            'port' => env('MAIL_PORT3', 465),
+            'encryption' => env('MAIL_ENCRYPTION3', 'ssl'),
+            'username' => env('MAIL_USERNAME3'),
+            'password' => env('MAIL_PASSWORD3'),
+            'timeout' => null,
+            'local_domain' => env('MAIL_FROM_NAME3'),
+        ],
+
         'ses' => [
             'transport' => 'ses',
         ],
