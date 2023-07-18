@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendEmailJob;
 use App\Models\Email;
 use App\Models\Mailing;
+use App\Models\Person;
 use Illuminate\Http\Request;
 
 class MailingController extends Controller
@@ -34,13 +36,24 @@ class MailingController extends Controller
      */
     public function store(Request $request)
     {
-        Mailing::create([
-            'name' => $request->name,
-            'mail' => $request->mail,
-            'category' => $request->client_type,
-        ]);
-
-        return redirect()->back()->with('success', __('Created msg', ['name' => __('Mailing')]));
+        try {
+            $mailing = Mailing::create([
+                'name' => $request->name,
+                'mail' => $request->mail,
+                'category' => $request->client_type,
+            ]);
+            $persons =  Person::select('email');
+            if($mailing->category !== 'all'){
+                $persons->where('gender',$mailing->category);
+            }
+            $persons = $persons->get();
+            foreach ($persons as $person){
+                dispatch(new SendEmailJob($person->email,$mailing->email->html));
+            }
+            return redirect()->back()->with('success', __('Created msg', ['name' => __('Mailing')]));
+        }catch (\Exception $e){
+            dd($e->getMessage());
+        }
     }
 
     /**
@@ -88,5 +101,14 @@ class MailingController extends Controller
         $mailing->delete();
 
         return redirect()->route('panel.mailing.index')->with('danger', __('Deleted msg', ['name' => __('Mailing')]));
+    }
+
+    public function start(Request $request, Mailing $mailing)
+    {
+        $mailing->update([
+            'status'=> true
+        ]);
+        \Artisan::call('queue:work --stop-when-empty', []);
+
     }
 }

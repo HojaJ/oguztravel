@@ -31,6 +31,7 @@
               <th>{{ __('Name') }}</th>
               <th>{{ __('Emails') }}</th>
               <th>{{ __('Category') }}</th>
+              <th>{{ __('Status') }}</th>
               <th>{{ __('Action') }}</th>
             </tr>
           </thead>
@@ -44,6 +45,16 @@
                   {{ $mailing->email->id }} {{ $mailing->email->name }}
                 </td>
                 <td>{{ $mailing->category }}</td>
+                <td>
+                  @if($mailing->status)
+                    Sent
+                  @else
+                    <form action="{{ route('panel.mailing.start', $mailing->id) }}" method="post">
+                      @csrf
+                      <button type="submit" class="btn-warning btn-sm">Start</button>
+                    </form>
+                  @endif
+                </td>
                 <td class="tb-col-action">
                   <a href="#"
                     onclick="if (confirm('{{ __('want to remove') }}')) { document.getElementById('destroy-{{ $mailing->id }}').submit(); }"

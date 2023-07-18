@@ -113,6 +113,7 @@ Route::group(
                     Route::resource('messages', MessageController::class)->only('index', 'show', 'destroy');
 
                     Route::resource('mailing', MailingController::class);
+                    Route::post('mailing_start/{mailing}',[MailingController::class,'start'])->name('mailing.start');
                     Route::get('tour_requests', [TourRequestController::class, 'index'])->name('tour_requests.index');
                     Route::get('tour_requests/{tour}', [TourRequestController::class, 'show'])->name('tour_requests.show');
                     Route::delete('tour_requests/{tour}', [TourRequestController::class, 'delete'])->name('tour_requests.destroy');

@@ -60,7 +60,7 @@ return [
             'transport' => 'smtp',
             'host' => env('MAIL_HOST3', 'mail.privateemail.com'),
             'port' => env('MAIL_PORT3', 465),
-            'encryption' => env('MAIL_ENCRYPTION3', 'ssl'),
+            'encryption' => env('MAIL_ENCRYPTION3', 'tls'),
             'username' => env('MAIL_USERNAME3'),
             'password' => env('MAIL_PASSWORD3'),
             'timeout' => null,
