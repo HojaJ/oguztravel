@@ -21,6 +21,7 @@ use App\Http\Controllers\Panel\MessageController;
 use App\Http\Controllers\Panel\PrivacyController;
 use App\Http\Controllers\Panel\ServiceController;
 use App\Http\Controllers\Panel\ServiceRequestController;
+use App\Http\Controllers\Panel\SMSController;
 use App\Http\Controllers\Panel\SubjectController;
 use App\Http\Controllers\Panel\TourController;
 use App\Http\Controllers\Panel\TourImageController;
@@ -113,7 +114,7 @@ Route::group(
                     Route::resource('messages', MessageController::class)->only('index', 'show', 'destroy');
 
                     Route::resource('mailing', MailingController::class);
-                    Route::post('mailing_start/{mailing}',[MailingController::class,'start'])->name('mailing.start');
+                    Route::post('mailing_start',[MailingController::class,'start'])->name('mailing.start');
                     Route::get('tour_requests', [TourRequestController::class, 'index'])->name('tour_requests.index');
                     Route::get('tour_requests/{tour}', [TourRequestController::class, 'show'])->name('tour_requests.show');
                     Route::delete('tour_requests/{tour}', [TourRequestController::class, 'delete'])->name('tour_requests.destroy');
@@ -124,9 +125,10 @@ Route::group(
                     Route::get('service_requests-download-zip-file/{service}/{file_type}', [ServiceRequestController::class, 'downloadZip'])->name('service_requests.download.zip');
 
                     Route::resource('countries', CountryController::class)->except('show');
+                    Route::resource('sms', SmsController::class);
 
                     Route::get('/birthday',[BirthdayController::class,'index'])->name('birthday.index');
-                    Route::put('/birthday/{person}',[BirthdayController::class,'send'])->name('birthday.send');
+                    Route::post('/birthday',[BirthdayController::class,'send'])->name('birthday.send');
 
                     Route::post('/mark-as-read', [DashboardController::class, 'markNotification'])->name('admin.markNotification');
 
@@ -136,5 +138,5 @@ Route::group(
     }
 );
 
-Route::get('get_sms',[GatewayController::class,'send_api']);
-Route::get('status',[GatewayController::class,'status_api']);
+Route::get('sms',[GatewayController::class,'sms_get']);
+Route::post('sms',[GatewayController::class,'sms_post']);

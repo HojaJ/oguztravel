@@ -103,12 +103,15 @@ class MailingController extends Controller
         return redirect()->route('panel.mailing.index')->with('danger', __('Deleted msg', ['name' => __('Mailing')]));
     }
 
-    public function start(Request $request, Mailing $mailing)
+    public function start(Request $request)
     {
-        $mailing->update([
-            'status'=> true
-        ]);
-        \Artisan::call('queue:work --stop-when-empty', []);
-
+        if($request->ajax()){
+            if($request->start){
+                Mailing::query()->update([
+                    'status'=> true
+                ]);
+            }
+            \Artisan::call('queue:work --stop-when-empty', []);
+        }
     }
 }

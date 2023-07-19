@@ -49,7 +49,7 @@
                   @if($mailing->status)
                     Sent
                   @else
-                    <form action="{{ route('panel.mailing.start', $mailing->id) }}" method="post">
+                    <form id="start"  method="post">
                       @csrf
                       <button type="submit" class="btn-warning btn-sm">Start</button>
                     </form>
@@ -137,6 +137,20 @@
   </div>
 
 @endsection
-
 @section('js')
+  <script>
+    $(document).ready(function() {
+      $('#start').submit(function(e){
+        e.preventDefault();
+          $.ajax("{{ route('panel.mailing.start') }}", {
+            method: 'POST',
+            data: {
+              _token: "{{ csrf_token() }}",
+              start:true,
+            }
+          });
+      });
+    });
+  </script>
+
 @endsection
