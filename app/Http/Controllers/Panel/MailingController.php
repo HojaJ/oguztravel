@@ -7,7 +7,9 @@ use App\Jobs\SendEmailJob;
 use App\Models\Email;
 use App\Models\Mailing;
 use App\Models\Person;
+use App\Models\SMS;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class MailingController extends Controller
 {
@@ -41,14 +43,18 @@ class MailingController extends Controller
                 'name' => $request->name,
                 'mail' => $request->mail,
                 'category' => $request->client_type,
+                'type' => $request->type,
+                'message' => $request->message
             ]);
-            $persons =  Person::select('email');
-            if($mailing->category !== 'all'){
-                $persons->where('gender',$mailing->category);
-            }
-            $persons = $persons->get();
-            foreach ($persons as $person){
-                dispatch(new SendEmailJob($person->email,$mailing->email->html));
+            if($request->type === 'email'){
+                $persons =  Person::select('email');
+                if($mailing->category !== 'all'){
+                    $persons->where('gender',$mailing->category);
+                }
+                $persons = $persons->get();
+                foreach ($persons as $person){
+                    dispatch(new SendEmailJob($person->email,$mailing->email->html));
+                }
             }
             return redirect()->back()->with('success', __('Created msg', ['name' => __('Mailing')]));
         }catch (\Exception $e){
@@ -103,15 +109,39 @@ class MailingController extends Controller
         return redirect()->route('panel.mailing.index')->with('danger', __('Deleted msg', ['name' => __('Mailing')]));
     }
 
-    public function start(Request $request)
+    public function start(Request $request, Mailing $mailing)
     {
         if($request->ajax()){
-            if($request->start){
-                Mailing::query()->update([
-                    'status'=> true
-                ]);
+            if($mailing->type === 'email'){
+                \Artisan::call('queue:work --stop-when-empty', []);
+            }else{
+                $persons =  Person::select('phone');
+                if($mailing->category !== 'all'){
+                    $persons->where('gender',$mailing->category);
+                }
+                $persons = $persons->get();
+                foreach ($persons as $phone){
+                    $to = null;
+                    if(Str::startsWith($phone->phone,'+993')){
+                        $to = $phone->phone;
+                    } else if(Str::startsWith($phone->phone,'993')){
+                        $to = '+'. $phone->phone;
+                    }else if(Str::startsWith($phone->phone,'86')){
+                        $to = '+993'. substr($phone->phone,1);
+                    }
+                    if($to){
+                        SMS::create([
+                            'type' => 'mailing',
+                            'to' => $to,
+                            'uuid'=> uuid_create(),
+                            'content' => $mailing->message,
+                        ]);
+                    }
+                }
             }
-            \Artisan::call('queue:work --stop-when-empty', []);
+            $mailing->update([
+                'status'=> true
+            ]);
         }
     }
 }

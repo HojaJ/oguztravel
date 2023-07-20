@@ -9,17 +9,19 @@ class GatewayController extends Controller
 {
     public function sms_get(Request $request){
         if (isset($request->task) and $request->task === 'send') {
-            $m = "test 10" ;
-            $f = "+99364336223";
-            $s = "true";
-            $reply[0] = [
-                "to" => $f,
-                "message" => $m,
-                "uuid" => "3ba368bd-c595-6084-cf38"
-            ];
+            $messages = Sms::where('status',0)->get();
+            $reply = [];
+            foreach ($messages as $message){
+                $reply[] = [
+                    'to'=> $message->to,
+                    "message" => $message->content,
+                    'uuid' => $message->uuid
+                ];
+            }
+
             $response = json_encode(
                 ["payload" => [
-                    "success" => $s,
+                    "success" => true,
                     "task" => "send",
                     "secret" => "123456",
                     "messages" => array_values($reply)]
@@ -28,9 +30,11 @@ class GatewayController extends Controller
         }
 
         if (isset($request->task) and $request->task == 'result') {
+            $messages = Sms::where('status',0)->get()->pluck('uuid');
+
             $response = json_encode(
                 [
-                    "message_uuids" => ['1ba368bd-c467-4374-bf28']
+                    "message_uuids" => $messages
                 ]);
             $this->send_response($response);
         }
@@ -44,8 +48,13 @@ class GatewayController extends Controller
                 $this->write_message_to_file("message " . $message_results . "\n\n");
             }
         } else if (isset($request->task) && $request->task === 'sent') {
-            $queued_messages = file_get_contents('php://input');
-            $this->write_message_to_file($queued_messages . "\n\n");
+            $queued_messages = $request->getContent();
+            $data = clone json_decode($queued_messages);
+            $array = $data->queued_messages;
+             SMS::where('status',0)->whereIn('uuid',$array)->update([
+                'status' => 1
+            ]);
+//            $this->write_message_to_file($queued_messages . "\n\n");
             $this->send_message_uuids_waiting_for_a_delivery_report($queued_messages);
         } else {
             $error = NULL;
@@ -53,16 +62,16 @@ class GatewayController extends Controller
             /**
              *  Get the phone number that sent the SMS.
              */
-            if (isset($_POST['from'])) {
-                $from = $_POST['from'];
+            if (isset($request->from)) {
+                $from = $request->from;
             } else {
                 $error = 'The from variable was not set';
             }
             /**
              * Get the SMS aka the message sent.
              */
-            if (isset($_POST['message'])) {
-                $message = $_POST['message'];
+            if (isset($request->message)) {
+                $message = $request->message;
             } else {
                 $error = 'The message variable was not set';
             }
@@ -70,33 +79,33 @@ class GatewayController extends Controller
              * Get the secret key set on SMSsync side
              * for matching on the server side.
              */
-            if (isset($_POST['secret'])) {
-                $secret = $_POST['secret'];
+            if (isset($request->secret)) {
+                $secret = $request->secret;
             }
             /**
              * Get the timestamp of the SMS
              */
-            if (isset($_POST['sent_timestamp'])) {
-                $sent_timestamp = $_POST['sent_timestamp'];
+            if (isset($request->sent_timestamp)) {
+                $sent_timestamp = $request->sent_timestamp;
             }
             /**
              * Get the phone number of the device SMSsync is
              * installed on.
              */
-            if (isset($_POST['sent_to'])) {
-                $sent_to = $_POST['sent_to'];
+            if (isset($request->sent_to)) {
+                $sent_to = $request->sent_to;
             }
             /**
              * Get the unique message id
              */
-            if (isset($_POST['message_id'])) {
-                $message_id = $_POST['message_id'];
+            if (isset($request->message_id)) {
+                $message_id = $request->message_id;
             }
             /**
              * Get device ID
              */
-            if (isset($_POST['device_id'])) {
-                $device_id = $_POST['device_id'];
+            if (isset($request->device_id)) {
+                $device_id = $request->device_id;
             }
             /**
              * Now we have retrieved the data sent over by SMSsync

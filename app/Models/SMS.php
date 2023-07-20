@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class SMS extends Model
 {
     use HasFactory;
-    protected $fillable = ['to','content','status'];
+    protected $fillable = ['to','content','status','uuid','type'];
 }

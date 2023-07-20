@@ -29,6 +29,8 @@
           <thead>
             <tr class="tb-tnx-head">
               <th>{{ __('Name') }}</th>
+              <th>{{ __('Type') }}</th>
+              <th>{{ __('Message') }}</th>
               <th>{{ __('Emails') }}</th>
               <th>{{ __('Category') }}</th>
               <th>{{ __('Status') }}</th>
@@ -38,9 +40,9 @@
           <tbody>
             @foreach ($mailings as $mailing)
               <tr class="tb-tnx-item">
-                <td>
-                  {{ $mailing->name }}
-                </td>
+                <td>{{ $mailing->name }}</td>
+                <td>{{ $mailing->type }}</td>
+                <td>{{ $mailing->message }}</td>
                 <td>
                   {{ $mailing->email->id }} {{ $mailing->email->name }}
                 </td>
@@ -49,8 +51,9 @@
                   @if($mailing->status)
                     Sent
                   @else
-                    <form id="start"  method="post">
+                    <form id="start"  method="post" action="{{ route('panel.mailing.start',$mailing->id) }}">
                       @csrf
+                      <input name="mailing_id" type="hidden" value="{{$mailing->id}}">
                       <button type="submit" class="btn-warning btn-sm">Start</button>
                     </form>
                   @endif
@@ -91,6 +94,25 @@
                 @enderror
               </div>
 
+            <div class="form-group">
+              <label class="form-label" for="message">{{ __('Message') }}</label>
+              <textarea class="form-control form-control-lg @error('name') is-invalid @enderror" id="message" name="message" required></textarea>
+              @error ('message')
+              <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+              @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="type">{{ __('Select type') }}</label>
+              <select class="form-control form-control-lg @error('type') is-invalid @enderror" name="type" required>
+                  <option value="email">Email</option>
+                  <option value="sms">SMS</option>
+              </select>
+              @error ('type')
+              <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+              @enderror
+            </div>
+
 
             <div class="form-group">
                   <label class="form-label" for="email_design">{{ __('Select email design') }}</label>
@@ -99,7 +121,6 @@
                       <option value="{{$email->id}}">{{$email->id}} {{$email->name}}</option>
                     @endforeach
                   </select>
-
                   @error ('email_design')
                   <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                   @enderror
@@ -142,7 +163,9 @@
     $(document).ready(function() {
       $('#start').submit(function(e){
         e.preventDefault();
-          $.ajax("{{ route('panel.mailing.start') }}", {
+        let form = $(this);
+        let actionUrl = form.attr('action');
+          $.ajax(actionUrl, {
             method: 'POST',
             data: {
               _token: "{{ csrf_token() }}",

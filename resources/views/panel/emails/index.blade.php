@@ -35,7 +35,7 @@
           <tr class="tb-tnx-item">
             <td>{{ $data->name }}</td>
             <td class="tb-col-action">
-              <a href="{{ route('panel.emails.edit', $data->id) }}"
+              <a target="_blank" href="{{ route('panel.emails.edit', $data->id) }}"
                  class="link-cross d-inline-bl  ock link-edit mr-2"><em class="icon ni ni-edit-alt"></em></a>
 
               <a href="#"

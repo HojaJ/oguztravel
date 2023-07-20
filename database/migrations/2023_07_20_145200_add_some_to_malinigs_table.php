@@ -13,14 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('s_m_s', function (Blueprint $table) {
-            $table->id();
-            $table->string('to')->nullable();
+        Schema::table('mailings', function (Blueprint $table) {
+            $table->text('message')->nullable();
             $table->string('type')->nullable();
-            $table->uuid('uuid')->unique();
-            $table->string('content')->nullable();
-            $table->tinyInteger('status')->default(0);
-            $table->timestamps();
         });
     }
 
@@ -31,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('s_m_s');
+        Schema::table('malinigs', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -8,15 +8,17 @@
     <div class="nk-block-head-content">
       <h2 class="nk-block-title fw-normal">{{ __('Birthday') }}</h2>
     </div>
-    <div class="nk-block-head-content">
-      <ul class="nk-block-tools gx-3">
-        <li>
-          <a data-toggle="modal" data-target="#add" class="btn btn-white btn-dim btn-outline-primary">
-            <em class="icon ni ni-edit"></em><span class="d-none d-sm-inline-block">{{ __('Send sms to number') }}</span>
-          </a>
-        </li>
-      </ul>
-    </div>
+
+{{--    <div class="nk-block-head-content">--}}
+{{--      <ul class="nk-block-tools gx-3">--}}
+{{--        <li>--}}
+{{--          <a data-toggle="modal" data-target="#add" class="btn btn-white btn-dim btn-outline-primary">--}}
+{{--            <em class="icon ni ni-edit"></em><span class="d-none d-sm-inline-block">{{ __('Send sms to number') }}</span>--}}
+{{--          </a>--}}
+{{--        </li>--}}
+{{--      </ul>--}}
+{{--    </div>--}}
+
   </div>
 </div>
 
