@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('s_m_s', function (Blueprint $table) {
             $table->id();
             $table->string('to')->nullable();
-            $table->uuid('uuid')->default(uuid_create());
+            $table->uuid('uuid')->default(uuid_create())->unique();
             $table->string('content')->nullable();
-            $table->boolean('status')->default(0);
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }

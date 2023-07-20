@@ -3,68 +3,58 @@
  * Gets the messages(SMSs) sent by SMSsync as a POST request.
  *
  */
+error_reporting(E_ERROR | E_PARSE);
 function get_message()
 {
     $error = NULL;
-    // Set success to false as the default success status
+// Set success to false as the default success status
     $success = false;
     /**
      *  Get the phone number that sent the SMS.
      */
-    if (isset($_POST['from']))
-    {
+    if (isset($_POST['from'])) {
         $from = $_POST['from'];
-    }
-    else
-    {
+    } else {
         $error = 'The from variable was not set';
     }
     /**
      * Get the SMS aka the message sent.
      */
-    if (isset($_POST['message']))
-    {
+    if (isset($_POST['message'])) {
         $message = $_POST['message'];
-    }
-    else
-    {
+    } else {
         $error = 'The message variable was not set';
     }
     /**
      * Get the secret key set on SMSsync side
      * for matching on the server side.
      */
-    if (isset($_POST['secret']))
-    {
+    if (isset($_POST['secret'])) {
         $secret = $_POST['secret'];
     }
     /**
      * Get the timestamp of the SMS
      */
-    if(isset($_POST['sent_timestamp']))
-    {
+    if (isset($_POST['sent_timestamp'])) {
         $sent_timestamp = $_POST['sent_timestamp'];
     }
     /**
      * Get the phone number of the device SMSsync is
      * installed on.
      */
-    if (isset($_POST['sent_to']))
-    {
+    if (isset($_POST['sent_to'])) {
         $sent_to = $_POST['sent_to'];
     }
     /**
      * Get the unique message id
      */
-    if (isset($_POST['message_id']))
-    {
+    if (isset($_POST['message_id'])) {
         $message_id = $_POST['message_id'];
     }
     /**
      * Get device ID
      */
-    if (isset($_POST['device_id']))
-    {
+    if (isset($_POST['device_id'])) {
         $device_id = $_POST['device_id'];
     }
     /**
@@ -79,28 +69,25 @@ function get_message()
      * received into a text file.
      *
      */
-    if ((strlen($from) > 0) AND (strlen($message) > 0) AND
-        (strlen($sent_timestamp) > 0 )
-        AND (strlen($message_id) > 0))
-    {
+    if ((strlen($from) > 0) and (strlen($message) > 0) and
+        (strlen($sent_timestamp) > 0)
+        and (strlen($message_id) > 0)) {
         /* The screte key set here is 123456. Make sure you enter
-         * that on SMSsync.
-         */
-        if ( ( $secret == '123456'))
-        {
+        * that on SMSsync.
+        */
+        if (($secret == '123456')) {
             $success = true;
-        } else
-        {
+        } else {
             $error = "The secret value sent from the device does not match the one on the server";
         }
-        // now let's write the info sent by SMSsync
-        //to a file called test.txt
-        $string = "From: ".$from."\n";
-        $string .= "Message: ".$message."\n";
-        $string .= "Timestamp: ".$sent_timestamp."\n";
-        $string .= "Messages Id:" .$message_id."\n";
-        $string .= "Sent to: ".$sent_to."\n";
-        $string .= "Device ID: ".$device_id."\n\n\n";
+// now let's write the info sent by SMSsync
+//to a file called test.txt
+        $string = "From: " . $from . "\n";
+        $string .= "Message: " . $message . "\n";
+        $string .= "Timestamp: " . $sent_timestamp . "\n";
+        $string .= "Messages Id:" . $message_id . "\n";
+        $string .= "Sent to: " . $sent_to . "\n";
+        $string .= "Device ID: " . $device_id . "\n\n\n";
         write_message_to_file($string);
     }
     /**
@@ -109,18 +96,18 @@ function get_message()
      *
      * This feature requires the "Get reply from server" checked on SMSsync.
      */
-    send_instant_message($from);
+//    send_instant_message($from);
     /**
      * Now send a JSON formatted string to SMSsync to
      * acknowledge that the web service received the message
      */
     $response = json_encode([
-        "payload"=> [
-            "success"=>$success,
+        "payload" => [
+            "success" => $success,
             "error" => $error
         ]
     ]);
-    //send_response($response);
+    send_response($response);
 }
 
 /**
@@ -146,23 +133,22 @@ function send_task()
      *
      * This feature requires the "Get reply from server" checked on SMSsync.
      */
-    if (isset($_GET['task']) AND $_GET['task'] === 'send')
-    {
-        $m = "Sample Task Message";
-        $f = "+99365309879";
+    if (isset($_GET['task']) and $_GET['task'] === 'send') {
+        $m = "test 9" ;
+        $f = "+99364336223";
         $s = "true";
         $reply[0] = [
             "to" => $f,
             "message" => $m,
-            "uuid" => "1ba488bd-c467-4374-bf28"
+            "uuid" => "1ba368bd-c595-6084-cf38"
         ];
-        // Send JSON response back to SMSsync
+// Send JSON response back to SMSsync
         $response = json_encode(
-            ["payload"=>[
-                "success"=>true,
-                "task"=>"send",
+            ["payload" => [
+                "success" => $s,
+                "task" => "send",
                 "secret" => "123456",
-                "messages"=>array_values($reply)]
+                "messages" => array_values($reply)]
             ]);
         send_response($response);
     }
@@ -181,22 +167,22 @@ function send_instant_message($to)
     $reply[0] = [
         "to" => $to,
         "message" => $m,
-        "uuid" => "1ba368bd-c467-4374-bf28"
+        "uuid" => "1ba368bd-c467-4374-b228"
     ];
-    // Send JSON response back to SMSsync
+// Send JSON response back to SMSsync
     $response = json_encode(
-        ["payload"=>[
-            "success"=>$s,
-            "task"=>"send",
+        ["payload" => [
+            "success" => $s,
+            "task" => "send",
             "secret" => "123456",
-            "messages"=>array_values($reply)]
+            "messages" => array_values($reply)]
         ]);
     send_response($response);
 }
 
 function send_response($response)
 {
-    // Avoid caching
+// Avoid caching
     header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
     header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
     header("Content-type: application/json; charset=utf-8");
@@ -207,12 +193,12 @@ function get_sent_message_uuids()
 {
     $data = file_get_contents('php://input');
     $queued_messages = file_get_contents('php://input');
-    // Writing this to a file for demo purposes.
-    // In production, you will have to process the JSON string
-    // and remove the messages from the database or where ever the
-    // messages are stored so the next Task run, the server won't add
-    // these messages.
-    write_message_to_file($queued_messages."\n\n");
+// Writing this to a file for demo purposes.
+// In production, you will have to process the JSON string
+// and remove the messages from the database or where ever the
+// messages are stored so the next Task run, the server won't add
+// these messages.
+    write_message_to_file($queued_messages . "\n\n");
     send_message_uuids_waiting_for_a_delivery_report($queued_messages);
 
 }
@@ -224,18 +210,18 @@ function get_sent_message_uuids()
  */
 function send_message_uuids_waiting_for_a_delivery_report($queued_messages)
 {
-    // Send back the received messages UUIDs back to SMSsync
+// Send back the received messages UUIDs back to SMSsync
     $json_obj = json_decode($queued_messages);
     $response = json_encode(
         [
-            "message_uuids"=>$json_obj->queued_messages
+            "message_uuids" => $json_obj->queued_messages
         ]);
     send_response($response);
 }
 
 function send_messages_uuids_for_sms_delivery_report()
 {
-    if(isset($_GET['task']) AND $_GET['task'] == 'result'){
+    if (isset($_GET['task']) and $_GET['task'] == 'result') {
         $response = json_encode(
             [
                 "message_uuids" => ['1ba368bd-c467-4374-bf28']
@@ -251,30 +237,22 @@ function send_messages_uuids_for_sms_delivery_report()
  */
 function get_sms_delivery_report()
 {
-    if($_GET['task'] === 'result' AND $_GET['secret']=== '123456')
-    {
+    if ($_GET['task'] === 'result' and $_GET['secret'] === '123456') {
         $message_results = file_get_contents('php://input');
-        write_message_to_file("message ".$message_results."\n\n");
+        write_message_to_file("message " . $message_results . "\n\n");
     }
 }
 
 // Execute functions above
-if($_SERVER['REQUEST_METHOD'] === 'POST')
-{
-    if(isset($_GET['task']) AND $_GET['task'] === 'result'){
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_GET['task']) and $_GET['task'] === 'result') {
         get_sms_delivery_report();
-    }
-    else if( isset($_GET['task']) && $_GET['task'] === 'sent')
-    {
+    } else if (isset($_GET['task']) && $_GET['task'] === 'sent') {
         get_sent_message_uuids();
-    }
-    else
-    {
+    } else {
         get_message();
     }
-}
-else
-{
+} else {
     send_task();
     send_messages_uuids_for_sms_delivery_report();
 }
