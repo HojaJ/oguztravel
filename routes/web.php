@@ -9,6 +9,7 @@ use App\Http\Controllers\Panel\AboutController;
 use App\Http\Controllers\Panel\AboutImageController;
 use App\Http\Controllers\Panel\BannerController;
 use App\Http\Controllers\Panel\BirthdayController;
+use App\Http\Controllers\Panel\BirthdayMessageController;
 use App\Http\Controllers\Panel\CategoryController;
 use App\Http\Controllers\Panel\ClientController;
 use App\Http\Controllers\Panel\ContactController;
@@ -127,6 +128,7 @@ Route::group(
                     Route::resource('countries', CountryController::class)->except('show');
                     Route::resource('sms', SmsController::class);
 
+                    Route::resource('birthday_messages', BirthdayMessageController::class);
                     Route::get('/birthday',[BirthdayController::class,'index'])->name('birthday.index');
                     Route::post('/birthday',[BirthdayController::class,'send'])->name('birthday.send');
 

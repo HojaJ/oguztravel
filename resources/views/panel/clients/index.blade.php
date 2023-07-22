@@ -31,11 +31,11 @@
             <em class="icon ni ni-download"></em><span class="d-none d-sm-inline-block">{{ __('Download') }}</span>
           </a>
         </li>
-        <li>
-          <a href="{{ route('panel.export-mailchimp') }}" class="btn btn-white btn-dim btn-outline-primary">
-            <em class="icon ni ni-download"></em><span class="d-none d-sm-inline-block">{{ __('Download for Mailchimp') }}</span>
-          </a>
-        </li>
+{{--        <li>--}}
+{{--          <a href="{{ route('panel.export-mailchimp') }}" class="btn btn-white btn-dim btn-outline-primary">--}}
+{{--            <em class="icon ni ni-download"></em><span class="d-none d-sm-inline-block">{{ __('Download for Mailchimp') }}</span>--}}
+{{--          </a>--}}
+{{--        </li>--}}
       </ul>
     </div>
   </div>
@@ -62,6 +62,7 @@
           <th>{{ __('Gender') }}</th>
           <th>{{ __('Date of birth') }}</th>
           <th>{{ __('Date') }}</th>
+          <th>{{ __('Lang') }}</th>
           <th>{{ __('Action') }}</th>
         </tr>
       </thead>
@@ -76,6 +77,7 @@
             <td>{{ $client->gender }}</td>
             <td>{{ $client->date_of_birth }}</td>
             <td>{{ $client->created_at->format('Y-m-d') }}</td>
+            <td>{{ $client->lang }}</td>
             <td class="tb-col-action">
               <a href="{{ route('panel.clients.edit', $client->id) }}"
                  class="link-cross d-inline-bl  ock link-edit mr-2"><em class="icon ni ni-edit-alt"></em></a>

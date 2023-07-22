@@ -286,17 +286,35 @@
                     </li>
                     <!-- End Requests -->
 
+                    <!-- Requests -->
+                    <li class="nk-menu-item has-sub" data-active="{{ request()->is('birthday*')  ||  request()->is('birthday_messages*') }}">
+                      <a href="#" class="nk-menu-link nk-menu-toggle">
+                        <span class="nk-menu-icon"><em class="icon ni ni-happy"></em></span>
+                        <span class="nk-menu-text">{{ __('Birthday') }}</span>
+                      </a>
+
+                      <ul class="nk-menu-sub" style="display: {{ request()->is('birthday*')  ||  request()->is('birthday_messages*') }}">
+                        <li class="nk-menu-item" data-active="{{ request()->is('birthday*') ? 'active' : '' }}">
+                          <a href="{{ route('panel.birthday.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('Client Birthday') }}</span>
+                          </a>
+                        </li>
+                        <li class="nk-menu-item" data-active="{{ request()->is('birthday_messages*') ? 'active' : '' }}">
+                          <a href="{{ route('panel.birthday_messages.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('Client Messages') }}</span>
+                          </a>
+                        </li>
+
+                      </ul>
+                    </li>
+
                     <li class="nk-menu-item {{ request()->is('clients*') ? 'active' : '' }}">
                       <a href="{{ route('panel.clients.index') }}" class="nk-menu-link">
                         <span class="nk-menu-icon"><em class="icon ni ni-user"></em></span><span class="nk-menu-text">{{ __('Clients') }}</span>
                       </a>
                     </li>
 
-                    <li class="nk-menu-item {{ request()->is('birthday*') ? 'active' : '' }}">
-                      <a href="{{ route('panel.birthday.index') }}" class="nk-menu-link">
-                        <span class="nk-menu-icon"><em class="icon ni ni-happy"></em></span><span class="nk-menu-text">{{ __('Birthday') }}</span>
-                      </a>
-                    </li>
+
 
                     <li class="nk-menu-item {{ request()->is('subjects*') ? 'active' : '' }}">
                       <a href="{{ route('panel.subjects.index') }}" class="nk-menu-link">

@@ -77,6 +77,7 @@
       <p>{{ __('not exist', ['thing' => __('Mailing')]) }}</p>
     @endif
   </div>
+
   <div class="modal fade show" tabindex="-1" role="dialog" id="add">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <div class="modal-content">
@@ -95,24 +96,24 @@
               </div>
 
             <div class="form-group">
-              <label class="form-label" for="message">{{ __('Message') }}</label>
-              <textarea class="form-control form-control-lg @error('name') is-invalid @enderror" id="message" name="message" required></textarea>
-              @error ('message')
-              <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-              @enderror
-            </div>
-
-            <div class="form-group">
               <label class="form-label" for="type">{{ __('Select type') }}</label>
-              <select class="form-control form-control-lg @error('type') is-invalid @enderror" name="type" required>
-                  <option value="email">Email</option>
-                  <option value="sms">SMS</option>
+              <select id="type" class="form-control form-control-lg @error('type') is-invalid @enderror" name="type" required>
+                <option value="email">Email</option>
+                <option value="sms">SMS</option>
               </select>
               @error ('type')
               <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
               @enderror
             </div>
 
+
+            <div class="form-group">
+              <label class="form-label" for="message">{{ __('Message') }}</label>
+              <textarea class="form-control form-control-lg @error('name') is-invalid @enderror" id="message" name="message" required></textarea>
+              @error ('message')
+              <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+              @enderror
+            </div>
 
             <div class="form-group">
                   <label class="form-label" for="email_design">{{ __('Select email design') }}</label>
@@ -161,6 +162,15 @@
 @section('js')
   <script>
     $(document).ready(function() {
+      $('#type').on('change', function() {
+        if(this.value === 'sms'){
+
+        }else{
+
+        }
+
+      });
+
       $('#start').submit(function(e){
         e.preventDefault();
         let form = $(this);

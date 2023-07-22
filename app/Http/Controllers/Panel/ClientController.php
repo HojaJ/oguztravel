@@ -39,7 +39,6 @@ class ClientController extends Controller
 
     public function store(Request $request)
     {
-
         Person::create($request->all());
 
         return redirect()->route('panel.clients.index')->with('success', __('Created msg', ['name' => __('Client')]));

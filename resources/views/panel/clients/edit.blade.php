@@ -124,11 +124,29 @@
             </div>
           </div>
         </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="lang" class="form-label">{{ __('Language') }}</label>
+            <div class="form-control-wrap">
+              <select class="form-control @error('lang') is-invalid @enderror" name="lang" id="lang" required>
+                <option value="ru" @if($client->lang === 'ru') selected @endif>RU</option>
+                <option value="en" @if($client->lang === 'en') selected @endif>EN</option>
+                <option value="tm" @if($client->lang === 'tm') selected @endif>TM</option>
+                <option value="zh" @if($client->lang === 'zh') selected @endif>ZH</option>
+              </select>
+              @if ($errors->has('lang'))
+                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('lang') }}</strong></span>
+              @else
+                <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
+              @endif
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+    <button class="btn btn-primary">{{ __('Submit') }}</button>
 
-  <button class="btn btn-primary">{{ __('Submit') }}</button>
 </form>
 @endsection
 

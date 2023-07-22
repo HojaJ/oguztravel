@@ -23,7 +23,8 @@ class ImportClient implements ToCollection
                 'email' => $row[3],
                 'phone' => $row[4],
                 'gender' => $row[5],
-                'date_of_birth' => $row[6]
+                'date_of_birth' => $row[6],
+                'lang' => $row[7],
             ]);
         }
     }

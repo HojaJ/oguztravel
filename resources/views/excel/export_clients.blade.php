@@ -8,6 +8,7 @@
             <th>Phone</th>
             <th>Gender</th>
             <th>Date of birth</th>
+            <th>Language</th>
             <th>Saved Date</th>
         </tr>
     </thead>
@@ -21,6 +22,7 @@
             <td>{{ $client->phone }}</td>
             <td>{{ $client->gender }}</td>
             <td>{{ $client->date_of_birth }}</td>
+            <td>{{ $client->lang }}</td>
             <td>{{ $client->created_at->format('Y-m-d H:i:s') }}</td>
         </tr>
     @endforeach
