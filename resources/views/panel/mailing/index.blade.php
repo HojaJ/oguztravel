@@ -30,7 +30,7 @@
             <tr class="tb-tnx-head">
               <th>{{ __('Name') }}</th>
               <th>{{ __('Type') }}</th>
-              <th>{{ __('Message') }}</th>
+              <th>{{ __('SMS') }}</th>
               <th>{{ __('Emails') }}</th>
               <th>{{ __('Category') }}</th>
               <th>{{ __('Status') }}</th>
@@ -42,9 +42,15 @@
               <tr class="tb-tnx-item">
                 <td>{{ $mailing->name }}</td>
                 <td>{{ $mailing->type }}</td>
-                <td>{{ $mailing->message }}</td>
                 <td>
-                  {{ $mailing->email->id }} {{ $mailing->email->name }}
+                  @if(isset($mailing->sms->id))
+                    {{ $mailing->sms->id }} {{ $mailing->sms->name }}
+                  @endif
+                </td>
+                <td>
+                  @if(isset($mailing->email->id))
+                    {{ $mailing->email->id }} {{ $mailing->email->name }}
+                  @endif
                 </td>
                 <td>{{ $mailing->category }}</td>
                 <td>
@@ -107,17 +113,17 @@
             </div>
 
 
-            <div class="form-group">
-              <label class="form-label" for="message">{{ __('Message') }}</label>
-              <textarea class="form-control form-control-lg @error('name') is-invalid @enderror" id="message" name="message" required></textarea>
-              @error ('message')
-              <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-              @enderror
-            </div>
+{{--            <div class="form-group">--}}
+{{--              <label class="form-label" for="message">{{ __('Message') }}</label>--}}
+{{--              <textarea class="form-control form-control-lg @error('name') is-invalid @enderror" id="message" name="message" required></textarea>--}}
+{{--              @error ('message')--}}
+{{--              <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>--}}
+{{--              @enderror--}}
+{{--            </div>--}}
 
             <div class="form-group">
                   <label class="form-label" for="email_design">{{ __('Select email design') }}</label>
-                  <select class="form-control form-control-lg @error('email_design') is-invalid @enderror" name="mail" required>
+                  <select id="email_select" class="form-control form-control-lg @error('email_design') is-invalid @enderror" name="mail" required>
                     @foreach($emails as $email)
                       <option value="{{$email->id}}">{{$email->id}} {{$email->name}}</option>
                     @endforeach
@@ -128,8 +134,20 @@
               </div>
 
             <div class="form-group">
+              <label class="form-label" for="sms">{{ __('Select SMS') }}</label>
+              <select id="sms_select" class="form-control form-control-lg @error('sms') is-invalid @enderror" name="sms" required disabled>
+                @foreach($smss as $sms)
+                  <option value="{{$sms->id}}">{{$sms->id}} {{$sms->name}}</option>
+                @endforeach
+              </select>
+              @error ('email_design')
+              <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+              @enderror
+            </div>
+
+            <div class="form-group">
               <label class="form-label" for="client_type">{{ __('Select Client Type') }}</label>
-              <select class="form-control form-control-lg @error('client_type') is-invalid @enderror" name="client_type" required>
+              <select  class="form-control form-control-lg @error('client_type') is-invalid @enderror" name="client_type" required>
                 <option value="all">All</option>
                 <option value="female">Female</option>
                 <option value="male">male</option>
@@ -162,11 +180,15 @@
 @section('js')
   <script>
     $(document).ready(function() {
+      let sms_select = $('#sms_select');
+      let email_select = $('#email_select');
       $('#type').on('change', function() {
         if(this.value === 'sms'){
-
+          email_select.prop('disabled', true);
+          sms_select.prop('disabled', false);
         }else{
-
+          email_select.prop('disabled', false);
+          sms_select.prop('disabled',true);
         }
 
       });

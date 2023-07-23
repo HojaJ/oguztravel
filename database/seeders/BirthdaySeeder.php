@@ -17,21 +17,12 @@ class BirthdaySeeder extends Seeder
     {
         $arr = [
             [
-                'lang' => 'ru',
-                'content' => 'Happy Birthday',
+                'name' => 'Birthday',
+                'en' => 'Happy Birthday',
+                'tm' => 'Happy Birthday',
+                'ru' => 'Happy Birthday',
+                'zh' => 'Happy Birthday',
             ],
-            [
-                'lang' => 'en',
-                'content' => 'Happy Birthday',
-            ],
-            [
-                'lang' => 'tm',
-                'content' => 'Happy Birthday',
-            ],
-            [
-                'lang' => 'zh',
-                'content' => 'Happy Birthday',
-            ]
         ];
 
         foreach ($arr as $item) {

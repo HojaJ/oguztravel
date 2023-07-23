@@ -296,7 +296,7 @@
                       <ul class="nk-menu-sub" style="display: {{ request()->is('birthday*')  ||  request()->is('birthday_messages*') }}">
                         <li class="nk-menu-item" data-active="{{ request()->is('birthday*') ? 'active' : '' }}">
                           <a href="{{ route('panel.birthday.index') }}" class="nk-menu-link">
-                            <span class="nk-menu-text">{{ __('Client Birthday') }}</span>
+                            <span class="nk-menu-text">{{ __('Today Birthday') }}</span>
                           </a>
                         </li>
                         <li class="nk-menu-item" data-active="{{ request()->is('birthday_messages*') ? 'active' : '' }}">

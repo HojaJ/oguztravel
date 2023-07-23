@@ -65,7 +65,7 @@
   @include('panel.include.paginate', ['data' => ['items' => $clients, 'limit' => $page_limit]])
 
   @else
-  <p>{{ __('not exist', ['thing' => __('Birthday')]) }}</p>
+  <p>{{ __('not exist', ['thing' => __('Today Birthday')]) }}</p>
   @endif
 </div>
 <div class="modal fade show" tabindex="-1" role="dialog" id="add">

@@ -13,14 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('birthday_messages', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->text('tm')->nullable();
-            $table->text('ru')->nullable();
-            $table->text('en')->nullable();
-            $table->text('zh')->nullable();
-            $table->timestamps();
+        Schema::table('mailings', function (Blueprint $table) {
+            $table->integer('sms_id')->nullable();
         });
     }
 
@@ -31,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('birthday_messages');
+        Schema::table('mailings', function (Blueprint $table) {
+            $table->dropColumn('sms_id');
+        });
     }
 };

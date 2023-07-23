@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Jobs\BirthdayEmailJob;
+use App\Models\BirthdayMessage;
 use App\Models\Person;
 use App\Models\SMS;
 use Illuminate\Console\Command;
@@ -33,8 +34,9 @@ class BirthdayCommand extends Command
     {
         SMS::where('type','birthday')->delete();
         $today=now();
-        $persons = Person::select('phone')->whereMonth('date_of_birth',$today->month)
+        $persons = Person::select('phone','lang')->whereMonth('date_of_birth',$today->month)
             ->whereDay('date_of_birth',$today->day)->get();
+
         foreach ($persons as $phone){
             $to = null;
             if(Str::startsWith($phone->phone,'+993')){
@@ -44,12 +46,13 @@ class BirthdayCommand extends Command
             }else if(Str::startsWith($phone->phone,'86')){
                 $to = '+993'. substr($phone->phone,1);
             }
+            $message = BirthdayMessage::where('name','Birthday')->first();
             if($to){
                 SMS::create([
                     'type' => 'birthday',
                     'to' => $to,
                     'uuid'=> uuid_create(),
-                    'content' => 'Doglan gunun gutly bolsyn',
+                    'content' => $message->{$phone->lang},
                 ]);
             }
         }

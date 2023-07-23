@@ -8,10 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Mailing extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','mail','date','category','status','type','message'];
+    protected $fillable = ['name','mail','date','category','status','type','message','sms_id'];
 
     public function email()
     {
         return $this->belongsTo(Email::class,'mail','id');
+    }
+
+    public function sms()
+    {
+        return $this->belongsTo(BirthdayMessage::class,'sms_id','id');
     }
 }

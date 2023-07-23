@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SendEmailJob;
+use App\Models\BirthdayMessage;
 use App\Models\Email;
 use App\Models\Mailing;
 use App\Models\Person;
@@ -16,8 +17,9 @@ class MailingController extends Controller
     public function index()
     {
         $emails = Email::get();
+        $smss = BirthdayMessage::get();
         $mailings = Mailing::with('email')->get();
-        return view('panel.mailing.index', compact('mailings','emails' ));
+        return view('panel.mailing.index', compact('mailings','emails','smss' ));
     }
 
     /**
@@ -41,10 +43,10 @@ class MailingController extends Controller
         try {
             $mailing = Mailing::create([
                 'name' => $request->name,
-                'mail' => $request->mail,
+                'mail' => $request->mail ?? 1,
                 'category' => $request->client_type,
                 'type' => $request->type,
-                'message' => $request->message
+                'sms_id' => $request->sms
             ]);
             if($request->type === 'email'){
                 $persons =  Person::select('email');
@@ -115,7 +117,7 @@ class MailingController extends Controller
             if($mailing->type === 'email'){
                 \Artisan::call('queue:work --stop-when-empty', []);
             }else{
-                $persons =  Person::select('phone');
+                $persons =  Person::select('phone','lang');
                 if($mailing->category !== 'all'){
                     $persons->where('gender',$mailing->category);
                 }
@@ -129,12 +131,13 @@ class MailingController extends Controller
                     }else if(Str::startsWith($phone->phone,'86')){
                         $to = '+993'. substr($phone->phone,1);
                     }
+                    $message = BirthdayMessage::where('id',$mailing->sms_id)->first();
                     if($to){
                         SMS::create([
                             'type' => 'mailing',
                             'to' => $to,
                             'uuid'=> uuid_create(),
-                            'content' => $mailing->message,
+                            'content' => $message->{$phone->lang},
                         ]);
                     }
                 }
