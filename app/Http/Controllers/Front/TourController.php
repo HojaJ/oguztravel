@@ -12,6 +12,7 @@ use App\Models\Subject;
 use App\Models\Tour;
 use App\Models\TourRequest;
 use App\Models\User;
+use App\Rules\ReCaptcha;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Notification;
@@ -81,6 +82,7 @@ class TourController extends Controller
             'date_of_birth' => 'required',
             'scanned_passport' => 'nullable',
             'tour_id' => 'required|exists:tours,id',
+            'g-recaptcha-response' => ['required', new ReCaptcha]
         ]);
 
         $request->merge([

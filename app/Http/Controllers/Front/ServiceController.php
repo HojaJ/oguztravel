@@ -12,6 +12,7 @@ use App\Models\ServiceRequest;
 use App\Models\ServiceRequestFile;
 use App\Models\Subject;
 use App\Models\User;
+use App\Rules\ReCaptcha;
 use Illuminate\Http\Request;
 use Notification;
 
@@ -42,6 +43,8 @@ class ServiceController extends Controller
                 'gender' => 'required',
                 'phone' => 'required',
                 'note' => 'nullable',
+                'g-recaptcha-response' => ['required', new ReCaptcha]
+
             ];
 
             if ($service->slug == 'visa') {

@@ -9,6 +9,7 @@ use App\Models\Cover;
 use App\Models\Message;
 use App\Models\Person;
 use App\Models\Subject;
+use App\Rules\ReCaptcha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
@@ -34,6 +35,7 @@ class ContactController extends Controller
             'phone' => 'required',
             'message' => 'required',
             'subject_id' => 'required|exists:subjects,id',
+            'g-recaptcha-response' => ['required', new ReCaptcha]
         ]);
 
         $data['phone'] = $request->get('full_number');
@@ -43,7 +45,7 @@ class ContactController extends Controller
             'email' => $data['email'],
             'name' => $data['name'],
             'surname' => $data['surname'],
-            'gender' => $data['gender']
+            'gender' => $data['gender'],
         ];
 
         $person = Person::wherePhone($data['phone'])->whereEmail($data['email'])->first();

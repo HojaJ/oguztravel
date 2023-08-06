@@ -6,6 +6,9 @@
 
 @section('css')
   <link rel="stylesheet" href="{{ asset('css/intlTelInput.min.css') }}">
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+
+
 
   <style>
     .hide {
@@ -166,6 +169,13 @@
                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('message') }}</strong></span>
               @else
                 <span class="invalid-feedback" role="alert"><strong>{{ __('Field required') }}</strong></span>
+              @endif
+            </div>
+            <div class="form-group">
+              <strong>ReCaptcha:</strong>
+              <div class="g-recaptcha" data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY') }}"></div>
+              @if ($errors->has('g-recaptcha-response'))
+                <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span>
               @endif
             </div>
             <p class="add_top_30">

@@ -4,7 +4,9 @@
   <link rel="stylesheet" href="{{ asset('css/intlTelInput.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/datepicker.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
-<style>
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+
+  <style>
   .box_grid {
     box-shadow: none;
   }
@@ -240,6 +242,13 @@
 
             <label class="d-flex justify-content-start mt-2 mb-4 align-items-baseline" for="terms"><input id="terms" class="h-auto mr-2" type="checkbox" required /><p class="mb-0">{{ __('Check here to indicate that you have read and agree to the terms of the') }} Oguztravel <a target="_blank" href="{{ route('privacy') }}"> {{ __("Privacy Policy") }}</a></p>
             </label>
+            <div class="form-group">
+              <strong>ReCaptcha:</strong>
+              <div class="g-recaptcha" data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY') }}"></div>
+              @if ($errors->has('g-recaptcha-response'))
+                <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span>
+              @endif
+            </div>
 
             <button class="btn_1 full-width purchase">{{ __("Send inquiry") }}</button>
           </form>

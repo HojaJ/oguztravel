@@ -7,6 +7,8 @@
 @section('css')
   <link rel="stylesheet" href="{{ asset('css/intlTelInput.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/datepicker.min.css') }}">
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+
   <style>
     .hero_in.general::before {
       background-image: url('{{ $service->getImage() }}');
@@ -469,6 +471,13 @@
             </div>
             <label class="d-flex justify-content-start mt-2 mb-4 align-items-baseline" for="terms"><input id="terms" class="h-auto mr-2" type="checkbox" required /><p class="mb-0">{{ __('Check here to indicate that you have read and agree to the terms of the') }} Oguztravel <a target="_blank" href="{{ route('privacy') }}"> {{ __("Privacy Policy") }}</a></p>
             </label>
+            <div class="form-group">
+              <strong>ReCaptcha:</strong>
+              <div class="g-recaptcha" data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY') }}"></div>
+              @if ($errors->has('g-recaptcha-response'))
+                <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span>
+              @endif
+            </div>
             <p class="add_top_30">
               <button class="btn_1 rounded" type="submit" id="submit-service">{{ __('Send') }}</button>
             </p>
