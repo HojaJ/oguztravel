@@ -9,6 +9,6 @@ class BirthdayMessage extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','tm', 'ru','en','zh'];
+    protected $fillable = ['name','lang','content'];
     protected $table = 'birthday_messages';
 }

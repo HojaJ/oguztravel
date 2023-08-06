@@ -8,13 +8,13 @@
   <div class="nk-block-head nk-block-head-sm mt-4">
     <div class="nk-block-between-md g-4">
       <div class="nk-block-head-content">
-        <h2 class="nk-block-title fw-normal">{{ __('Mailing') }}</h2>
+        <h2 class="nk-block-title fw-normal">{{ __('Bulk Send') }}</h2>
       </div>
       <div class="nk-block-head-content">
         <ul class="nk-block-tools gx-3">
           <li>
             <a data-toggle="modal" data-target="#add" class="btn btn-white btn-dim btn-outline-primary">
-              <em class="icon ni ni-edit"></em><span class="d-none d-sm-inline-block">{{ __('Set new Mailing') }}</span>
+              <em class="icon ni ni-edit"></em><span class="d-none d-sm-inline-block">{{ __('Set Bulk Send') }}</span>
             </a>
           </li>
         </ul>
@@ -89,7 +89,7 @@
       <div class="modal-content">
         <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
         <div class="modal-body modal-body-lg">
-          <h5 class="title">{{ __('Set new Mailing') }}</h5>
+          <h5 class="title">{{ __('Set Bulk Send') }}</h5>
           <form action="{{ route('panel.mailing.store') }}" method="POST">
             @csrf
 
@@ -154,6 +154,19 @@
               </select>
 
               @error ('client_type')
+              <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+              @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="lang_type">{{ __('Client Language') }}</label>
+              <select  class="form-control form-control-lg @error('lang_type') is-invalid @enderror" name="lang_type" id="lang_type" required>
+                <option value="tm">Tm</option>
+                <option value="ru">Ru</option>
+                <option value="en">En</option>
+                <option value="zh">Zh</option>
+              </select>
+              @error ('lang_type')
               <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
               @enderror
             </div>

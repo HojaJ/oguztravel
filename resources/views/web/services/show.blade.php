@@ -67,7 +67,7 @@
             enctype="multipart/form-data">
             @csrf
             <div class="row">
-              @if ($service->slug != 'translation')
+              @if (($service->slug == 'visa') || ($service->slug == 'hotel'))
                 <div class="col-6 mb-4">
                   <div class="form-check">
                     <input class="form-check-input @error('applicant_type') is-invalid @enderror" type="radio" name="applicant_type" id="outbound_applicant" value="outbound"

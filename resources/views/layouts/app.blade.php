@@ -37,7 +37,7 @@
   </style>
 </head>
 
-<body onmousedown="return false" onselectstart="return false">
+<body onselectstart="return false">
   @yield('messages')
   <div id="page" class="theia-exception">
 

@@ -46,10 +46,11 @@ class MailingController extends Controller
                 'mail' => $request->mail ?? 1,
                 'category' => $request->client_type,
                 'type' => $request->type,
-                'sms_id' => $request->sms
+                'sms_id' => $request->sms,
+                'lang_type' => $request->lang_type,
             ]);
             if($request->type === 'email'){
-                $persons =  Person::select('email');
+                $persons =  Person::select('email')->where('lang',$mailing->lang_type);
                 if($mailing->category !== 'all'){
                     $persons->where('gender',$mailing->category);
                 }
@@ -117,7 +118,7 @@ class MailingController extends Controller
             if($mailing->type === 'email'){
                 \Artisan::call('queue:work --stop-when-empty', []);
             }else{
-                $persons =  Person::select('phone','lang');
+                $persons =  Person::select('phone','lang')->where('lang',$mailing->lang_type);
                 if($mailing->category !== 'all'){
                     $persons->where('gender',$mailing->category);
                 }

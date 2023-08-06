@@ -18,25 +18,27 @@ class BirthdayMessageController extends Controller
     public function store(Request $request)
     {
         BirthdayMessage::create($request->all());
-        return redirect()->route('panel.birthday_messages.index')->with('success', __('Created message'));
+        return redirect()->route('panel.sms_messages.index')->with('success', __('Created message'));
     }
 
-    public function edit(BirthdayMessage $birthday_message)
+    public function edit(BirthdayMessage $sms_message)
     {
-        return view('panel.birthday_messages.edit', compact('birthday_message'));
+        return view('panel.birthday_messages.edit', compact('sms_message'));
     }
 
-    public function update( Request $request, BirthdayMessage $birthday_message)
+    public function update( Request $request, BirthdayMessage $sms_message)
     {
-        $birthday_message->update([
-            'content' => $request->message
+        $sms_message->update([
+            'name' => $request->name,
+            'lang' => $request->lang,
+            'content' => $request->message,
         ]);
-        return redirect()->route('panel.birthday_messages.index')->with('success', __('Updated message'));
+        return redirect()->route('panel.sms_messages.index')->with('success', __('Updated message'));
     }
 
-    public function destroy(BirthdayMessage $birthday_message)
+    public function destroy(BirthdayMessage $sms_message)
     {
-        $birthday_message->delete();
+        $sms_message->delete();
         return redirect()->back()->with('danger', __('Deleted msg', ['name' => __('Birthday message')]));
 
     }

@@ -128,7 +128,7 @@ Route::group(
                     Route::resource('countries', CountryController::class)->except('show');
                     Route::resource('sms', SmsController::class);
 
-                    Route::resource('birthday_messages', BirthdayMessageController::class);
+                    Route::resource('sms_messages', BirthdayMessageController::class);
                     Route::get('/birthday',[BirthdayController::class,'index'])->name('birthday.index');
                     Route::post('/birthday',[BirthdayController::class,'send'])->name('birthday.send');
 
