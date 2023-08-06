@@ -11,6 +11,7 @@ use App\Models\Person;
 use App\Models\Subject;
 use App\Models\Tour;
 use App\Models\TourRequest;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Notification;
@@ -139,7 +140,7 @@ class TourController extends Controller
         $email = Subject::where('type','World Tours')->first()->email;
 
         \Mail::to($email)->send(new TourMessage($tour_request->toArray()));
-        Notification::send(auth()->user(),new \App\Notifications\ServiceRequest($tour_request));
+        Notification::send(User::get(),new \App\Notifications\ServiceRequest($tour_request));
 
         return back()->with('success', __('Request has been sent'));
     }

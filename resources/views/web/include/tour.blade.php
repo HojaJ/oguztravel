@@ -1,11 +1,21 @@
 @section('title') {{ $tour->title . ' - ' . __($data['type']) }} @endsection
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/datepicker.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/intlTelInput.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/datepicker.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
 <style>
   .box_grid {
     box-shadow: none;
+  }
+  .hide {
+    display: none;
+  }
+  .iti.iti--allow-dropdown.iti--separate-dial-code {
+    width: 100%
+  }
+  .iti__country-list {
+    z-index: 10;
   }
 </style>
 @endsection
@@ -241,15 +251,41 @@
 @endsection
 
 @section('js')
-<script src="{{ asset('js/datepicker.min.js') }}"></script>
+  <script src="{{ asset('js/intlTelInput.min.js') }}"></script>
+
+  <script src="{{ asset('js/datepicker.min.js') }}"></script>
 <script src="{{ asset('js/datepicker.en.js') }}"></script>
 <script src="{{ asset('js/datepicker.tm.js') }}"></script>
 <script src="{{ asset('js/datepicker.zh.js') }}"></script>
 <script src="{{ asset('js/magnific-popup.min.js') }}"></script>
+  <script src="{{ asset('js/input_qty.js') }}"></script>
 
 <script>
   $(document).ready(function() {
     const currentLang = '{{ LaravelLocalization::getCurrentLocale() }}';
+
+    const telInput = document.querySelector("#phone"),
+            errorMsg = document.querySelector("#error-msg"),
+            validMsg = document.querySelector("#valid-msg");
+
+    const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+    const iti = window.intlTelInput(telInput, {
+      nationalMode: true,
+      initialCountry: "auto",
+      autoHideDialCode: true,
+      hiddenInput: "full_number",
+      preferredCountries: ['cn', 'ru', 'tm'],
+      separateDialCode: true,
+      utilsScript: "{{ asset('js/utils.js') }}"
+    });
+
+    $.get('https://ipinfo.io', function() {}, "jsonp").always(function(resp) {
+      const countryCode = (resp && resp.country) ? resp.country : "ru";
+      iti.setCountry(countryCode)
+    });
+
+
 
     $('.air-pick').datepicker({
       language: currentLang,
