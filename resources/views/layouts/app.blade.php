@@ -34,6 +34,10 @@
     img {
       pointer-events: none;
     }
+    button {
+      z-index: 999;
+      position: relative;
+    }
   </style>
 </head>
 

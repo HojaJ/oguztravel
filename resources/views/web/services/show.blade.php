@@ -74,14 +74,14 @@
                   <div class="form-check">
                     <input class="form-check-input @error('applicant_type') is-invalid @enderror" type="radio" name="applicant_type" id="outbound_applicant" value="outbound"
                       {{ !old('applicant_type') || old('applicant_type') == 'outbound' ? 'checked' : '' }} onfocus="this.setAttribute('autocomplete', 'none');" required>
-                    <label class="form-check-label" for="outbound_applicant">{{ __('Outbound') }}</label>
+                    <label class="form-check-label" for="outbound_applicant">{{ __('Inbound') }}</label>
                   </div>
                 </div>
                 <div class="col-6 mb-4">
                   <div class="form-check">
                     <input class="form-check-input @error('applicant_type') is-invalid @enderror" type="radio" name="applicant_type" onfocus="this.setAttribute('autocomplete', 'none');" id="inbound_applicant" value="inbound"
                       {{ old('applicant_type') == 'inbound' ? 'checked' : '' }} required>
-                    <label class="form-check-label" for="inbound_applicant">{{ __('Inbound') }}</label>
+                    <label class="form-check-label" for="inbound_applicant">{{ __('Outbound' ) }}</label>
                   </div>
                 </div>
               @endif

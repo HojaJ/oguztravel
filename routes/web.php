@@ -89,11 +89,8 @@ Route::group(
                     Route::delete('about/images/{image}', [AboutImageController::class, 'destroy'])->name('about.images.destroy');
 
                     Route::resource('contact', ContactController::class)->except('show');
-
                     Route::resource('services', ServiceController::class)->only('index', 'edit', 'update');
-
                     Route::resource('covers', CoverController::class)->only('index', 'edit', 'update');
-
                     Route::resource('clients', ClientController::class)->except('show');
                     Route::resource('emails', EmailController::class);
 

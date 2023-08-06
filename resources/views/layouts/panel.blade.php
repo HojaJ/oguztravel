@@ -160,6 +160,11 @@
                         <span class="nk-menu-text">{{ __('Pages') }}</span>
                       </a>
                       <ul class="nk-menu-sub" style="display: none;">
+                        <li class="nk-menu-item {{ request()->is('services*') ? 'active' : '' }}">
+                          <a href="{{ route('panel.services.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('Services') }}</span>
+                          </a>
+                        </li>
                         <li class="nk-menu-item {{ request()->is('banners*') ? 'active' : '' }}">
                           <a href="{{ route('panel.banners.index') }}" class="nk-menu-link">
                             <span class="nk-menu-text">{{ __('Banners') }}</span>
