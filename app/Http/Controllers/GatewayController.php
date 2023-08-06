@@ -119,7 +119,7 @@ class GatewayController extends Controller
              * received into a text file.
              *
              */
-            if (isset($from) AND (strlen($from) > 0) and (strlen($message) > 0) and
+            if (isset($sent_timestamp) AND isset($from) AND isset($message_id) AND (strlen($from) > 0) and (strlen($message) > 0) and
                 (strlen($sent_timestamp) > 0) and (strlen($message_id) > 0)) {
                 /* The screte key set here is 123456. Make sure you enter
                 * that on SMSsync.

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SendEmailJob;
+use App\Mail\DynamicMessage;
 use App\Models\BirthdayMessage;
 use App\Models\Email;
 use App\Models\Mailing;
@@ -56,7 +57,9 @@ class MailingController extends Controller
                 }
                 $persons = $persons->get();
                 foreach ($persons as $person){
-                    dispatch(new SendEmailJob($person->email,$mailing->email->html));
+                    \Mail::mailer('private')->to($person->email)->send(new DynamicMessage($mailing->email->html));
+
+//                    dispatch(new SendEmailJob($person->email,$mailing->email->html));
                 }
             }
             return redirect()->back()->with('success', __('Created msg', ['name' => __('Mailing')]));
