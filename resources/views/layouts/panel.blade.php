@@ -281,6 +281,13 @@
                             <span class="nk-menu-text">{{ __('Today Birthday') }}</span>
                           </a>
                         </li>
+
+                        <li class="nk-menu-item" data-active="{{ request()->is('b_templates*') ? 'active' : '' }}">
+                          <a href="{{ route('panel.birthday_messages') }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('Birthday Template') }}</span>
+                          </a>
+                        </li>
+
                         <li class="nk-menu-item {{ request()->is('subjects*') ? 'active' : '' }}">
                           <a href="{{ route('panel.subjects.index') }}" class="nk-menu-link">
                             <span class="nk-menu-text">{{ __('Subjects') }}</span>

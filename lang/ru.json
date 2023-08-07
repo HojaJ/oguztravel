@@ -202,5 +202,26 @@
     "Discount end time": "Время окончания скидки",
     "Birthday":"День рождения",
     "Privacy Policy": "Политика конфиденциальности",
-    "Check here to indicate that you have read and agree to the terms of the": "Отметьте здесь, чтобы указать, что вы прочитали и согласны с условиями"
+    "Check here to indicate that you have read and agree to the terms of the": "Отметьте здесь, чтобы указать, что вы прочитали и согласны с условиями",
+
+    "To find you a place to stay that fits your entire group along with correct prices, we need to know how old your child will be at check-out": "Чтобы найти подходящий вариант для вашей группы и показать корректные цены, нам нужно знать возраст ваших детей на момент отъезда.",
+    "Age needed": "Укажите возраст",
+    "0 years old": "0 лет",
+    "1 year old": "1 год",
+    "2 years old": "2 года",
+    "3 years old": "3 года",
+    "4 years old": "4 года",
+    "5 years old": "5 лет",
+    "6 years old": "6 лет",
+    "7 years old": "7 лет",
+    "8 years old": "8 лет",
+    "9 years old": "9 лет",
+    "10 years old": "10 лет",
+    "11 years old": "11 лет",
+    "12 years old": "12 лет",
+    "13 years old": "13 лет",
+    "14 years old": "14 лет",
+    "15 years old": "15 лет",
+    "16 years old": "16 лет",
+    "17 years old": "17 лет"
 }

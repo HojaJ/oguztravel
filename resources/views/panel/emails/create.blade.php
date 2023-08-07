@@ -32,7 +32,8 @@
   document.getElementById("save").addEventListener("click",function () {
     unlayer.exportHtml(function(data) {
       let name = prompt("Please enter the name of design", "Birthday");
-      if (name !== null) {
+      let lang = prompt("Please enter the language of design (en/ru/tm)", "en");
+      if (name !== null && lang !== null) {
         $.ajax({
           type:'POST',
           url: '{{ route('panel.emails.store') }}',
@@ -41,6 +42,7 @@
             data: data.design,
             html: data.html,
             name: name,
+            lang:lang
           },
           success: function (data) {
            if(data.success){

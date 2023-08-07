@@ -27,6 +27,7 @@
       <thead>
         <tr class="tb-tnx-head">
           <th>{{ __('Name') }}</th>
+          <th>{{ __('Lang') }}</th>
           <th>{{ __('Action') }}</th>
         </tr>
       </thead>
@@ -34,6 +35,7 @@
         @foreach($datas as $data)
           <tr class="tb-tnx-item">
             <td>{{ $data->name }}</td>
+            <td>{{ $data->lang }}</td>
             <td class="tb-col-action">
               <a target="_blank" href="{{ route('panel.emails.edit', $data->id) }}"
                  class="link-cross d-inline-bl  ock link-edit mr-2"><em class="icon ni ni-edit-alt"></em></a>

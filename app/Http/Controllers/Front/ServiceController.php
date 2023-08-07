@@ -43,7 +43,8 @@ class ServiceController extends Controller
                 'gender' => 'required',
                 'phone' => 'required',
                 'note' => 'nullable',
-                'g-recaptcha-response' => ['required', new ReCaptcha]
+                'age' => 'nullable',
+//                'g-recaptcha-response' => ['required', new ReCaptcha]
 
             ];
 
@@ -130,6 +131,7 @@ class ServiceController extends Controller
 
             if ($service->slug == 'hotel') {
                 $booking_date = $request->get('booking_date');
+                $age =  $request->get('age');
 
                 if (strlen($booking_date) == 10) {
                     $request->merge([
@@ -145,6 +147,9 @@ class ServiceController extends Controller
                         'booking_date_to' => date('Y-m-d', strtotime($range_date[1])),
                     ]);
                 }
+                $request->merge([
+                    'child_ages' => $age
+                ]);
             }
 
 

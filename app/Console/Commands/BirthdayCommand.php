@@ -3,7 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Jobs\BirthdayEmailJob;
+use App\Mail\DynamicMessage;
 use App\Models\BirthdayMessage;
+use App\Models\Email;
 use App\Models\Person;
 use App\Models\SMS;
 use Illuminate\Console\Command;
@@ -33,8 +35,11 @@ class BirthdayCommand extends Command
     public function handle()
     {
         SMS::where('type','birthday')->delete();
+        $sms_tm =  BirthdayMessage::where('name','=', 'Birthday TM')->first();
+        $sms_ru =  BirthdayMessage::orWhere('name','=', 'Birthday RU')->first();
+        $email = Email::where('name','=','Birthday EN')->first();
         $today=now();
-        $persons = Person::select('phone','lang')->whereMonth('date_of_birth',$today->month)
+        $persons = Person::select('phone','lang','email')->whereMonth('date_of_birth',$today->month)
             ->whereDay('date_of_birth',$today->day)->get();
 
         foreach ($persons as $phone){
@@ -45,14 +50,21 @@ class BirthdayCommand extends Command
                 $to = '+'. $phone->phone;
             }else if(Str::startsWith($phone->phone,'86')){
                 $to = '+993'. substr($phone->phone,1);
+            }else{
+                \Mail::mailer('private')->to($phone->email)->send(new DynamicMessage($email->html));
+                continue;
             }
-            $message = BirthdayMessage::where('name','Birthday')->first();
+
             if($to){
+                $content = $sms_ru->content;
+                if($phone->lang === 'tm'){
+                    $content = $sms_tm->content;
+                }
                 SMS::create([
                     'type' => 'birthday',
                     'to' => $to,
                     'uuid'=> uuid_create(),
-                    'content' => $message->{$phone->lang},
+                    'content' => $content,
                 ]);
             }
         }

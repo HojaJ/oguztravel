@@ -160,11 +160,10 @@
 
             <div class="form-group">
               <label class="form-label" for="lang_type">{{ __('Client Language') }}</label>
-              <select  class="form-control form-control-lg @error('lang_type') is-invalid @enderror" name="lang_type" id="lang_type" required>
+              <select multiple class="form-control form-control-lg @error('lang_type') is-invalid @enderror" name="lang_type[]" id="lang_type" required>
                 <option value="tm">Tm</option>
                 <option value="ru">Ru</option>
-                <option value="en">En</option>
-                <option value="zh">Zh</option>
+                <option id="en_option" value="en">En</option>
               </select>
               @error ('lang_type')
               <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
@@ -175,7 +174,7 @@
               <div class="col-12 mt-5">
                 <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                   <li>
-                    <button class="btn btn-lg btn-primary">{{ __('Set new Mailing') }}</button>
+                    <button class="btn btn-lg btn-primary">{{ __('Set Bulk Send') }}</button>
                   </li>
                   <li>
                     <a href="#" data-dismiss="modal" class="link link-light">{{ __('Cancel') }}</a>
@@ -194,12 +193,15 @@
   <script>
     $(document).ready(function() {
       let sms_select = $('#sms_select');
+      let en_option = $('#en_option');
       let email_select = $('#email_select');
       $('#type').on('change', function() {
         if(this.value === 'sms'){
           email_select.prop('disabled', true);
-          sms_select.prop('disabled', false);
+          sms_select.prop('disabled', false)
+          en_option.hide();
         }else{
+          en_option.show();
           email_select.prop('disabled', false);
           sms_select.prop('disabled',true);
         }

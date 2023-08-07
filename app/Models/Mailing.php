@@ -19,4 +19,8 @@ class Mailing extends Model
     {
         return $this->belongsTo(BirthdayMessage::class,'sms_id','id');
     }
+
+    protected $casts = [
+        'lang_type' => 'json'
+    ];
 }

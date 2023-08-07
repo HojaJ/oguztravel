@@ -22,6 +22,14 @@
     .iti__country-list {
       z-index: 10;
     }
+    .age_inptus {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 14px 0;
+    }
   </style>
 @endsection
 
@@ -65,7 +73,7 @@
           <h4>{{ __('Send an inquiry') }}</h4>
           <p>{{ $service->subtitle }}</p>
           <div id="message-contact"></div>
-          <form method="post" action="{{ route('services.store', $service->slug) }}" autocomplete="off" class="oguzform" data-service="{{ $service->slug }}"
+          <form id="form_custom" method="post" action="{{ route('services.store', $service->slug) }}" autocomplete="off" class="oguzform" data-service="{{ $service->slug }}"
             enctype="multipart/form-data">
             @csrf
             <div class="row">
@@ -158,7 +166,7 @@
 
                 <div class="col-md-6">
                   <label for="guests">{{ __('Guests') }}</label>
-                  <div class="panel-dropdown">
+                  <div id="guest_dropdown" class="panel-dropdown">
                     <a href="#">{{ __('Guests') }} <span class="qtyTotal">1</span></a>
                     <div class="panel-dropdown-content right">
                       <div class="qtyButtons">
@@ -167,7 +175,11 @@
                       </div>
                       <div class="qtyButtons">
                         <label>{{ __('Children') }}</label>
-                        <input type="text" name="child_qty" data-guest="qtyInput" value="{{ old('adult_qty', '0') }}">
+                        <input id="child_qty" type="text" name="child_qty" data-guest="qtyInput" value="{{ old('adult_qty', '0') }}">
+                      </div>
+                      <div id="child_ages" style="display: none;">
+                        <p class="mb-1" style="font-size: 12px">{{ __('To find you a place to stay that fits your entire group along with correct prices, we need to know how old your child will be at check-out') }}</p>
+                        <div id="age_selects" class="age_inptus"></div>
                       </div>
                     </div>
                   </div>
@@ -503,6 +515,69 @@
       const telInput = document.querySelector("#phone"),
         errorMsg = document.querySelector("#error-msg"),
         validMsg = document.querySelector("#valid-msg");
+
+      let age_selects = $('#age_selects');
+
+      @if ($service->slug == 'hotel')
+      $('#form_custom').submit(function(e) {
+        let not_valid = false;
+
+        $('#age_selects').children('select').each(function () {
+          if($(this).val() === '-1'){
+            not_valid = true;
+          }
+        });
+        if(not_valid){
+          e.preventDefault();
+          $('#guest_dropdown').addClass('active');
+          $([document.documentElement, document.body]).animate({
+            scrollTop: $("#child_ages").offset().top - 200
+          },1000)
+        }
+      });
+        @endif
+
+
+      $('#child_qty').change(function () {
+        let val = $(this).val();
+        let child_ages = $('#child_ages');
+
+        if(val > 0){
+          child_ages.show();
+          if(age_selects.children('select').length < val){
+            age_selects.append(appendSelect(val));
+          }else{
+            age_selects.children().last().remove();
+          }
+        }else{
+          age_selects.empty();
+          child_ages.hide();
+        }
+      })
+
+      function appendSelect(value) {
+        return `<select name="age[]" required>
+                <option value="-1">{{ __("Age needed") }}</option>
+        <option value="0">{{ __('0 years old') }}</option>
+        <option value="1">{{ __('1 year old') }}</option>
+        <option value="2">{{ __('2 years old') }}</option>
+        <option value="3">{{ __('3 years old') }}</option>
+        <option value="4">{{ __('4 years old') }}</option>
+        <option value="5">{{ __('5 years old') }}</option>
+        <option value="6">{{ __('6 years old') }}</option>
+        <option value="7">{{ __('7 years old') }}</option>
+        <option value="8">{{ __('8 years old') }}</option>
+        <option value="9">{{ __('9 years old') }}</option>
+        <option value="10">{{ __('10 years old') }}</option>
+        <option value="11">{{ __('11 years old') }}</option>
+        <option value="12">{{ __('12 years old') }}</option>
+        <option value="13">{{ __('13 years old') }}</option>
+        <option value="14">{{ __('14 years old') }}</option>
+        <option value="15">{{ __('15 years old') }}</option>
+        <option value="16" >{{ __('16 years old') }}</option>
+        <option value="17">{{ __('17 years old') }}</option>
+      </select>`;
+      }
 
       const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
 

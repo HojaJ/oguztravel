@@ -45,7 +45,12 @@ class ServiceRequest extends Model
         'is_read',
         'gender',
         'returning_date_from',
+        'child_ages',
         'returning_date_to'
+    ];
+
+    protected $casts = [
+        'child_ages' => 'json'
     ];
 
     public function files()

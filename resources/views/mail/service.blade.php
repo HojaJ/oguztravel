@@ -14,6 +14,10 @@
                     $url = asset('storage/scanned_passport_file/' . $json[0]->filename);
                 @endphp
                 <p style="font-size:1em"><b>{{ $key }}</b>: <a href="{{ $url }}" download>{{ $json[0]->filename }}</a></p>
+            @elseif($key == 'child_ages')
+                @foreach($value as $k => $child)
+                    <p style="font-size:1em"><b>Child-{{ $k + 1 }}</b>: {{ $child }}
+                @endforeach
             @elseif($key == 'attach')
                 @foreach($value as $k => $files)
                     <p style="font-size:1em"><b>{{ $k }}</b>:

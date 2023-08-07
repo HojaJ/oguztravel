@@ -28,6 +28,7 @@
     },
   });
   let design = @php echo $email->data; @endphp;
+  console.log(design);
   unlayer.loadDesign(design);
   document.getElementById("save").addEventListener("click",function () {
     unlayer.exportHtml(function(data) {

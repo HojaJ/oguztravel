@@ -25,6 +25,9 @@ $(function () {
 		var oldValue = $button.parent().find("input").val();
 
 		if ($button.hasClass('qtyInc')) {
+			if(parseFloat(oldValue) >=10){
+				return;
+			}
 			var newVal = parseFloat(oldValue) + 1;
 		} else {
 			// don't allow decrementing below zero
@@ -35,7 +38,7 @@ $(function () {
 			}
 		}
 
-		$button.parent().find("input").val(newVal);
+		$button.parent().find("input").val(newVal).trigger('change');
 		qtySum();
 		$(".qtyTotal").addClass("rotate-x");
 

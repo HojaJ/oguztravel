@@ -202,5 +202,26 @@
     "Discount end time": "折扣結束時間",
     "Birthday":"生日",
     "Privacy Policy": "隱私政策",
-    "Check here to indicate that you have read and agree to the terms of the": "勾選此處表示您已閱讀並同意以下條款"
+    "Check here to indicate that you have read and agree to the terms of the": "勾選此處表示您已閱讀並同意以下條款",
+
+    "To find you a place to stay that fits your entire group along with correct prices, we need to know how old your child will be at check-out": "为了查找适合所有同行客人入住的住宿及其准确价格，我们需要了解您儿童在退房时的年龄",
+    "Age needed": "需提供儿童年龄",
+    "0 years old": "0岁",
+    "1 year old": "1岁",
+    "2 years old": "2岁",
+    "3 years old": "3岁",
+    "4 years old": "4岁",
+    "5 years old": "5岁",
+    "6 years old": "6岁",
+    "7 years old": "7岁",
+    "8 years old": "8岁",
+    "9 years old": "9岁",
+    "10 years old": "10岁",
+    "11 years old": "11岁",
+    "12 years old": "12岁",
+    "13 years old": "13岁",
+    "14 years old": "14岁",
+    "15 years old": "15岁",
+    "16 years old": "16岁",
+    "17 years old": "17岁"
 }

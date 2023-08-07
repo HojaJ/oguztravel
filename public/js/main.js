@@ -750,9 +750,9 @@ window.Modernizr = (function( window, document, undefined ) {
 	// $("img").on("contextmenu", function(e) {
 	// 	return false;
 	// });
-	$(document).bind("contextmenu",function(e){
-		return false;
-	});
+	// $(document).bind("contextmenu",function(e){
+	// 	return false;
+	// });
 
 	$('body').bind('cut copy', function(e) {
 		e.preventDefault();

@@ -11,7 +11,7 @@ class EmailController extends Controller
 
     public function index()
     {
-        $datas = Email::get();
+        $datas = Email::where('name','<>','Birthday EN')->get();
         return view('panel.emails.index', compact('datas'));
     }
 
@@ -38,6 +38,7 @@ class EmailController extends Controller
                 'name' => $request->name,
                 'data' => json_encode($request->data),
                 'html' => $request->html,
+                'lang' => $request->lang
             ]);
             return ['success'=>true];
         }

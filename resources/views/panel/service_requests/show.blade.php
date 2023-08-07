@@ -77,7 +77,14 @@
     <div class="data-item">
       <div class="data-col">
         <span class="data-label">{{ __('Guests') }}</span>
-        <span class="data-value">{{ __('Adults') . ': ' . $service->adult_qty }} <br> {{ __('Children') . ': ' . $service->child_qty }}</span>
+        <span class="data-value">
+          {{ __('Adults') . ': ' . $service->adult_qty }} <br>
+          {{ __('Children') . ': ' . $service->child_qty }} <br>
+          @if(isset($service->child_ages))
+          @foreach($service->child_ages as $k => $child)
+             Child-{{ $k + 1 }} : {{ $child }} &nbsp;&nbsp;&nbsp;
+          @endforeach
+        </span>
       </div>
       <div class="data-col data-col-end"></div>
     </div>
