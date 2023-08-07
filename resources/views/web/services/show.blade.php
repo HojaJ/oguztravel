@@ -30,6 +30,11 @@
       gap: 12px;
       margin: 14px 0;
     }
+    .cus-select {
+      height: 26px;
+      padding: 0px;
+      width: 47%;
+    }
   </style>
 @endsection
 
@@ -556,7 +561,7 @@
       })
 
       function appendSelect(value) {
-        return `<select name="age[]" required>
+        return `<select class="form-control cus-select" name="age[]" required>
                 <option value="-1">{{ __("Age needed") }}</option>
         <option value="0">{{ __('0 years old') }}</option>
         <option value="1">{{ __('1 year old') }}</option>
