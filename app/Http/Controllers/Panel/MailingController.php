@@ -49,8 +49,9 @@ class MailingController extends Controller
                 'sms_id' => $request->sms,
                 'lang_type' => $request->lang_type,
             ]);
+
             if($request->type === 'email'){
-                $persons =  Person::select('email')->where('lang',$mailing->lang_type);
+                $persons =  Person::select('email')->whereIn('lang',$mailing->lang_type);
                 if($mailing->category !== 'all'){
                     $persons->where('gender',$mailing->category);
                 }

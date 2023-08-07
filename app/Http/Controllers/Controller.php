@@ -30,6 +30,17 @@ class Controller extends BaseController
         }
     }
 
-
+    public function checkIfRU($phone)
+    {
+        if(Str::startsWith($phone,'+993')){
+            return true;
+        } else if(Str::startsWith($phone->phone,'993')){
+            return true;
+        }else if(Str::startsWith($phone->phone,'86')){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 }

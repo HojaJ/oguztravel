@@ -46,6 +46,7 @@ class ContactController extends Controller
             'name' => $data['name'],
             'surname' => $data['surname'],
             'gender' => $data['gender'],
+            'lang' => $this->checkIfRU($data['phone']) ? 'ru' : 'en'
         ];
 
         $person = Person::wherePhone($data['phone'])->whereEmail($data['email'])->first();

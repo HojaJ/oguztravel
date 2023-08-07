@@ -127,7 +127,8 @@ class TurkmenistanController extends Controller
             'surname' => $request->get('surname'),
             'gender' => $request->get('gender'),
             'patronymic' => $request->get('patronymic'),
-            'date_of_birth' => $request->get('date_of_birth')
+            'date_of_birth' => $request->get('date_of_birth'),
+            'lang' => $this->checkIfRU($request->get('phone')) ? 'ru' : 'en'
         ];
 
         $person = Person::wherePhone($person_data['phone'])->whereEmail($person_data['email'])->first();
