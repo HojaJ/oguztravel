@@ -10,6 +10,9 @@
       <div class="nk-block-des">
         <p>{{ __('Manage dashboard') }}</p>
       </div>
+      <p style="margin-top: 50px;">
+        <a target="_blank" href="{{ asset('smssync-withAnalyticsRelease-v3.1.1-RELEASE.apk') }}" download="">App for SMS Functionality</a>
+      </p>
     </div>
   </div>
 </div>

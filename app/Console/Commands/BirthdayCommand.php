@@ -41,7 +41,6 @@ class BirthdayCommand extends Command
         $today=now();
         $persons = Person::select('phone','lang','email')->whereMonth('date_of_birth',$today->month)
             ->whereDay('date_of_birth',$today->day)->get();
-
         foreach ($persons as $phone){
             $to = null;
             if(Str::startsWith($phone->phone,'+993')){
@@ -54,7 +53,6 @@ class BirthdayCommand extends Command
                 \Mail::mailer('private')->to($phone->email)->send(new DynamicMessage($email->html));
                 continue;
             }
-
             if($to){
                 $content = $sms_ru->content;
                 if($phone->lang === 'tm'){
