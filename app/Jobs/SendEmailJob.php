@@ -22,8 +22,8 @@ class SendEmailJob implements ShouldQueue
     protected $type;
 
 
-    public $tries = 2;
-    public $maxExceptions = 3;
+    public $tries = 1;
+    public $maxExceptions = 1;
 
 
 
@@ -47,11 +47,5 @@ class SendEmailJob implements ShouldQueue
     public function handle()
     {
         \Mail::mailer('private')->to($this->email)->send(new DynamicMessage($this->view));
-        MailHistory::create([
-           'to' => $this->email,
-           'sent_time' => now(),
-           'content' => $this->view,
-           'type' =>  $this->type
-        ]);
     }
 }

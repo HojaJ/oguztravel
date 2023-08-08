@@ -9,4 +9,12 @@ class MailHistory extends Model
 {
     use HasFactory;
     protected $fillable = ['to','sent_time','type','content'];
+
+    public $timestamps = false;
+
+    public function email()
+    {
+        return $this->belongsTo(Email::class,'content','id');
+    }
+
 }

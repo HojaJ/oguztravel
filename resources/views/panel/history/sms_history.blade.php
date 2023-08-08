@@ -38,7 +38,7 @@
             <td>{{ $message->id }}</td>
             <td>{{ $message->to }}</td>
             <td>{{ $message->type }}</td>
-            <td>{{ $message->content }}</td>
+            <td>{!!  $message->content !!}</td>
             <td>{{ $message->sent_time }}</td>
 {{--            <td class="tb-col-action">--}}
 {{--              <a href="{{ route('panel.sms_messages.edit', $message->id) }}"--}}
