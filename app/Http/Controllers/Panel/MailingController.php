@@ -114,17 +114,16 @@ class MailingController extends Controller
                 }
                 $persons = $persons->get();
                 foreach ($persons as $person) {
-                    \Mail::mailer('smtp')->to($person->email)->send(new DynamicMessage($mailing->email->html));
-
-                    if( count(\Mail::failures()) > 0 ) {
-
-                    }else{
-                        MailHistory::insert([
+                    try {
+                        MailHistory::create([
                             'to' => $person->email,
                             'sent_time' => now(),
                             'content' => $mailing->email->id,
                             'type' => 'bulk'
                         ]);
+                        \Mail::mailer('private')->to($person->email)->send(new DynamicMessage($mailing->email->html));
+                    } catch (\Exception $e) {
+                        dd($e->getMessage());
                     }
                 }
             } else {

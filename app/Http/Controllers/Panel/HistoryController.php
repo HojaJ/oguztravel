@@ -17,7 +17,7 @@ class HistoryController extends Controller
 
     public function history_mail(Request $request)
     {
-        $messages = MailHistory::paginate(30);
+        $messages = MailHistory::with('email')->paginate(30);
         return view('panel.history.sms_history', compact('messages'));
     }
 }
