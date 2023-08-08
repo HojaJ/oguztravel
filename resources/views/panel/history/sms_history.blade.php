@@ -39,7 +39,7 @@
               <td>{{ $message->to }}</td>
               <td>{{ $message->type }}</td>
               <td>@if($message->email) {!!  $message->email->html !!} @else {{ $message->content }} @endif</td>
-              <td>{{ $message->sent_time }}</td>
+              <td style="white-space: nowrap">{{ $message->sent_time }}</td>
               {{--            <td class="tb-col-action">--}}
               {{--              <a href="{{ route('panel.sms_messages.edit', $message->id) }}"--}}
               {{--                 class="link-cross d-inline-bl  ock link-edit mr-2"><em class="icon ni ni-edit-alt"></em></a>--}}
