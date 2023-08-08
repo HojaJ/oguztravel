@@ -17,6 +17,7 @@ use App\Http\Controllers\Panel\CountryController;
 use App\Http\Controllers\Panel\CoverController;
 use App\Http\Controllers\Panel\DashboardController;
 use App\Http\Controllers\Panel\EmailController;
+use App\Http\Controllers\Panel\HistoryController;
 use App\Http\Controllers\Panel\MailingController;
 use App\Http\Controllers\Panel\MessageController;
 use App\Http\Controllers\Panel\PrivacyController;
@@ -133,6 +134,8 @@ Route::group(
 
                     Route::post('/mark-as-read', [DashboardController::class, 'markNotification'])->name('admin.markNotification');
 
+                    Route::get('history_sms', [HistoryController::class, 'history_sms'])->name('history_sms');
+                    Route::get('history_mail', [HistoryController::class, 'history_mail'])->name('history_mail');
                 });
             });
         });

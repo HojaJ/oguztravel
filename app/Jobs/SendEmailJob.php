@@ -2,7 +2,9 @@
 
 namespace App\Jobs;
 
+use App\Http\Controllers\Panel\MailHistoryController;
 use App\Mail\DynamicMessage;
+use App\Models\MailHistory;
 use App\Models\Person;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -17,6 +19,7 @@ class SendEmailJob implements ShouldQueue
 
     protected $email;
     protected $view;
+    protected $type;
 
 
     public $tries = 2;
@@ -29,8 +32,9 @@ class SendEmailJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($email,$view)
+    public function __construct($email,$view, $type)
     {
+        $this->type = $type;
         $this->email = $email;
         $this->view = $view;
     }
@@ -43,5 +47,11 @@ class SendEmailJob implements ShouldQueue
     public function handle()
     {
         \Mail::mailer('private')->to($this->email)->send(new DynamicMessage($this->view));
+        MailHistory::create([
+           'to' => $this->email,
+           'sent_time' => now(),
+           'content' => $this->view,
+           'type' =>  $this->type
+        ]);
     }
 }

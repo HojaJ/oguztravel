@@ -326,6 +326,17 @@
                             <span class="nk-menu-text">{{ __('Bulk Send') }}</span>
                           </a>
                         </li>
+                        <span>History:</span>
+                        <li class="nk-menu-item" data-active="{{ request()->is('history_sms*') ? 'active' : '' }}">
+                          <a href="{{ route('panel.history_sms') }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('SMS History') }}</span>
+                          </a>
+                        </li>
+                        <li class="nk-menu-item" data-active="{{ request()->is('history_mail*') ? 'active' : '' }}">
+                          <a href="{{ route('panel.history_mail') }}" class="nk-menu-link">
+                            <span class="nk-menu-text">{{ __('Mail History') }}</span>
+                          </a>
+                        </li>
                       </ul>
                     </li>
                     <!-- End Tools -->

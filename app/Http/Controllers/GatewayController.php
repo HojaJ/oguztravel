@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 
 class GatewayController extends Controller
 {
-    public function sms_get(Request $request){
+    public function sms_get(Request $request)
+    {
         if (isset($request->task) and $request->task === 'send') {
-            $messages = Sms::where('status',0)->get();
+            $messages = Sms::where('status', 0)->get();
             $reply = [];
-            foreach ($messages as $message){
+            foreach ($messages as $message) {
                 $reply[] = [
-                    'to'=> $message->to,
+                    'to' => $message->to,
                     "message" => $message->content,
                     'uuid' => $message->uuid
                 ];
@@ -30,7 +31,7 @@ class GatewayController extends Controller
         }
 
         if (isset($request->task) and $request->task == 'result') {
-            $messages = Sms::where('status',0)->get()->pluck('uuid');
+            $messages = Sms::where('status', 0)->get()->pluck('uuid');
 
             $response = json_encode(
                 [
@@ -51,8 +52,9 @@ class GatewayController extends Controller
             $queued_messages = $request->getContent();
             $data = clone json_decode($queued_messages);
             $array = $data->queued_messages;
-             SMS::where('status',0)->whereIn('uuid',$array)->update([
-                'status' => 1
+            SMS::where('status', 0)->whereIn('uuid', $array)->update([
+                'status' => 1,
+                'sent_time' => now()
             ]);
 //            $this->write_message_to_file($queued_messages . "\n\n");
             $this->send_message_uuids_waiting_for_a_delivery_report($queued_messages);
@@ -119,7 +121,7 @@ class GatewayController extends Controller
              * received into a text file.
              *
              */
-            if (isset($sent_timestamp) AND isset($from) AND isset($message_id) AND (strlen($from) > 0) and (strlen($message) > 0) and
+            if (isset($sent_timestamp) and isset($from) and isset($message_id) and (strlen($from) > 0) and (strlen($message) > 0) and
                 (strlen($sent_timestamp) > 0) and (strlen($message_id) > 0)) {
                 /* The screte key set here is 123456. Make sure you enter
                 * that on SMSsync.

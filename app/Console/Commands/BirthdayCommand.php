@@ -6,6 +6,7 @@ use App\Jobs\BirthdayEmailJob;
 use App\Mail\DynamicMessage;
 use App\Models\BirthdayMessage;
 use App\Models\Email;
+use App\Models\MailHistory;
 use App\Models\Person;
 use App\Models\SMS;
 use Illuminate\Console\Command;
@@ -34,7 +35,7 @@ class BirthdayCommand extends Command
      */
     public function handle()
     {
-        SMS::where('type','birthday')->delete();
+//        SMS::where('type','birthday')->delete();
         $sms_tm =  BirthdayMessage::where('name','=', 'Birthday TM')->first();
         $sms_ru =  BirthdayMessage::orWhere('name','=', 'Birthday RU')->first();
         $email = Email::where('name','=','Birthday EN')->first();
@@ -51,6 +52,12 @@ class BirthdayCommand extends Command
                 $to = '+993'. substr($phone->phone,1);
             }else{
                 \Mail::mailer('private')->to($phone->email)->send(new DynamicMessage($email->html));
+                MailHistory::create([
+                    'to' => $phone->email,
+                    'sent_time' => now(),
+                    'content' => $email->html,
+                    'type' =>  'birthday'
+                ]);
                 continue;
             }
             if($to){

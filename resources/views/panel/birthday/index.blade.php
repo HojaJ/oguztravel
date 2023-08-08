@@ -41,8 +41,9 @@
           <th>{{ __('Email') }}</th>
           <th>{{ __('Phone') }}</th>
           <th>{{ __('Gender') }}</th>
+          <th>{{ __('Lang') }}</th>
           <th>{{ __('Date of birth') }}</th>
-{{--          <th>{{ __("Action") }}</th>--}}
+          <th>{{ __("Action") }}</th>
         </tr>
       </thead>
       <tbody>
@@ -54,8 +55,11 @@
             <td>{{ $client->email }}</td>
             <td>{{ $client->phone }}</td>
             <td>{{ $client->gender }}</td>
+            <td>{{ $client->lang}}</td>
             <td>{{ $client->date_of_birth }}</td>
-
+            <td class="tb-col-action">
+              <a href="{{ route('panel.clients.edit', $client->id) }}" class="link-cross d-inline-bl  ock link-edit mr-2"><em class="icon ni ni-edit-alt"></em></a>
+            </td>
           </tr>
         @endforeach
       </tbody>

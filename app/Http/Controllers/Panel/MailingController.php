@@ -57,7 +57,7 @@ class MailingController extends Controller
                 }
                 $persons = $persons->get();
                 foreach ($persons as $person){
-                    dispatch(new SendEmailJob($person->email,$mailing->email->html));
+                    dispatch(new SendEmailJob($person->email,$mailing->email->html,'bulk'));
                 }
             }
             return redirect()->back()->with('success', __('Created msg', ['name' => __('Mailing')]));
@@ -136,10 +136,10 @@ class MailingController extends Controller
                     $message = BirthdayMessage::where('id',$mailing->sms_id)->first();
                     if($to){
                         SMS::create([
-                            'type' => 'mailing',
+                            'type' => 'bulk',
                             'to' => $to,
                             'uuid'=> uuid_create(),
-                            'content' => $message->{$phone->lang},
+                            'content' => $message->content,
                         ]);
                     }
                 }
