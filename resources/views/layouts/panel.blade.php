@@ -21,6 +21,13 @@
   <title>@yield('title') | {{ __('app') }}</title>
   <link rel="stylesheet" href="{{ asset('css/panel.css') }}">
   @yield('css')
+  <style>
+    .tb-col-action {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+    }
+  </style>
 </head>
 
 <body class="nk-body npc-subscription has-aside ui-clean">

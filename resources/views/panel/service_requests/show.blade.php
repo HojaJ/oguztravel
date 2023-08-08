@@ -84,6 +84,7 @@
           @foreach($service->child_ages as $k => $child)
              Child-{{ $k + 1 }} : {{ $child }} &nbsp;&nbsp;&nbsp;
           @endforeach
+          @endif
         </span>
       </div>
       <div class="data-col data-col-end"></div>
