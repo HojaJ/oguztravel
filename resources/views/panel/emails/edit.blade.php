@@ -28,7 +28,7 @@
     },
   });
   let design = @php echo $email->data; @endphp;
-  let design_name = @php echo $email->name; @endphp;
+  let design_name ="@php echo $email->name; @endphp";
   console.log(design);
   unlayer.loadDesign(design);
   document.getElementById("save").addEventListener("click",function () {
