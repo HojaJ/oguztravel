@@ -19,7 +19,15 @@
   </div>
 
   <div class="nk-block">
-    @if (count($messages))
+    <form action="{{ route('panel.history_sms') }}" method="GET">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" name="q" value="{{ $q ?? $q }}"
+               placeholder="{{ __('History') }}" aria-label="{{ __('History') }}" aria-describedby="form-query">
+        <button type="submit" id="form-query" class="btn btn-primary">{{ __('Search') }}</button>
+      </div>
+    </form>
+
+  @if (count($messages))
       <div class="card card-bordered mb-5">
         <table class="table">
           <thead>
@@ -28,6 +36,7 @@
             <th>{{ __('To') }}</th>
             <th>{{ __('Type') }}</th>
             <th>{{ __('Content') }}</th>
+            <th>{{ __('Status') }}</th>
             <th>{{ __('Date') }}</th>
             {{--          <th>{{ __("Action") }}</th>--}}
           </tr>
@@ -39,6 +48,7 @@
               <td>{{ $message->to }}</td>
               <td>{{ $message->type }}</td>
               <td>@if($message->email) {!!  $message->email->html !!} @else {{ $message->content }} @endif</td>
+              <td>@if($message->status) Sent @else Waiting @endif </td>
               <td style="white-space: nowrap">{{ $message->sent_time }}</td>
               {{--            <td class="tb-col-action">--}}
               {{--              <a href="{{ route('panel.sms_messages.edit', $message->id) }}"--}}

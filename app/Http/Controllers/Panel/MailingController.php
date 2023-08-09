@@ -19,7 +19,7 @@ class MailingController extends Controller
     public function index()
     {
         $emails = Email::where('name', '!=', 'Birthday EN')->get();
-        $smss = BirthdayMessage::get();
+        $smss = BirthdayMessage::where('name', '<>','Birthday TM')->where('name', '<>','Birthday RU')->get();
         $mailings = Mailing::with('email')->get();
         return view('panel.mailing.index', compact('mailings', 'emails', 'smss'));
     }
@@ -127,7 +127,7 @@ class MailingController extends Controller
                     }
                 }
             } else {
-                $persons = Person::select('phone', 'lang')->where('lang', $mailing->lang_type);
+                $persons = Person::select('phone', 'lang')->whereIn('lang', $mailing->lang_type);
                 if ($mailing->category !== 'all') {
                     $persons->where('gender', $mailing->category);
                 }

@@ -54,7 +54,7 @@ class GatewayController extends Controller
             $array = $data->queued_messages;
             SMS::where('status', 0)->whereIn('uuid', $array)->update([
                 'status' => 1,
-                'sent_time' => now()
+                'sent_time' => now(),
             ]);
 //            $this->write_message_to_file($queued_messages . "\n\n");
             $this->send_message_uuids_waiting_for_a_delivery_report($queued_messages);

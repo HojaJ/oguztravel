@@ -14,11 +14,11 @@ class HistoryController extends Controller
         $page_limit = 30;
         $q = $request->get('q', null);
         if ($q) {
-            $messages = SMS::where('status', 1)->latest()->where(function ($query) use ($q){
+            $messages = SMS::latest()->where(function ($query) use ($q){
                 $query->where('to', 'like', '%' . $q . '%');
             })->paginate($page_limit);
         } else {
-            $messages = SMS::where('status', 1)->latest()->paginate($page_limit);
+            $messages = SMS::latest()->paginate($page_limit);
         }
         return view('panel.history.sms_history', compact('messages','page_limit', 'q'));
     }
