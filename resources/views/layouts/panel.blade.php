@@ -357,7 +357,8 @@
                       <h6 class="overline-title">{{ __('Languages') }}</h6>
                     </li>
                     @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                    @if($localeCode == app()->getLocale())
+                    @if($localeCode === 'zh' || $localeCode === 'tm') @continue @endif
+                      @if($localeCode == app()->getLocale())
                     <li class="nk-menu-item active">
                       <span class="nk-menu-link"><span class="nk-menu-text">{{ $properties['native'] }}</span></span>
                     </li>

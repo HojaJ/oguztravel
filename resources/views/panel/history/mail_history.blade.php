@@ -19,6 +19,15 @@
   </div>
 
   <div class="nk-block">
+
+    <form action="{{ route('panel.history_mail') }}" method="GET">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" name="q" value="{{ $q ?? $q }}"
+               placeholder="{{ __('History') }}" aria-label="{{ __('History') }}" aria-describedby="form-query">
+        <button type="submit" id="form-query" class="btn btn-primary">{{ __('Search') }}</button>
+      </div>
+    </form>
+
     @if (count($messages))
       <div class="card card-bordered mb-5">
         <table class="table">

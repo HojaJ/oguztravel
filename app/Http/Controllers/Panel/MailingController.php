@@ -121,7 +121,7 @@ class MailingController extends Controller
                             'content' => $mailing->email->id,
                             'type' => 'bulk'
                         ]);
-                        \Mail::mailer('private')->to($person->email)->send(new DynamicMessage($mailing->email->html));
+                        \Mail::mailer('smtp')->to($person->email)->send(new DynamicMessage($mailing->email->html));
                     } catch (\Exception $e) {
                         dd($e->getMessage());
                     }

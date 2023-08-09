@@ -28,6 +28,7 @@
     },
   });
   let design = @php echo $email->data; @endphp;
+  let design_name = @php echo $email->name; @endphp;
   console.log(design);
   unlayer.loadDesign(design);
   document.getElementById("save").addEventListener("click",function () {
@@ -42,7 +43,12 @@
           },
           success: function (data) {
            if(data.success){
-              window.location.href = "{{route('panel.emails.index')}}"
+
+             if(design_name === 'Birthday EN'){
+               window.location.href = "{{route('panel.birthday_messages')}}"
+             }else{
+               window.location.href = "{{route('panel.emails.index')}}"
+             }
            }
           }
         })

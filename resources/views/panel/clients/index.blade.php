@@ -19,9 +19,9 @@
           <form action="{{ route('panel.import') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="input-group">
-              <input type="file" name="file" class="form-control">
+              <input type="file" name="file" class="form-control" required>
               <div class="input-group-append">
-                <button class="btn btn-outline-primary btn-dim">Import</button>
+                <button type="submit" class="btn btn-outline-primary btn-dim">Import</button>
               </div>
             </div>
           </form>
