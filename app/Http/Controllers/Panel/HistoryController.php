@@ -15,7 +15,9 @@ class HistoryController extends Controller
         $q = $request->get('q', null);
         if ($q) {
             $messages = SMS::latest()->where(function ($query) use ($q){
-                $query->where('to', 'like', '%' . $q . '%');
+                $query->where('to', 'like', '%' . $q . '%')
+                    ->orWhere('sent_time', 'like', '%' . $q . '%')
+                    ->orWhere('type', 'like', '%' . $q . '%');
             })->paginate($page_limit);
         } else {
             $messages = SMS::latest()->paginate($page_limit);
@@ -29,7 +31,9 @@ class HistoryController extends Controller
         $q = $request->get('q', null);
         if ($q) {
             $messages = MailHistory::with('email')->orderBy('sent_time')->where(function ($query) use ($q){
-                $query->where('to', 'like', '%' . $q . '%');
+                $query->where('to', 'like', '%' . $q . '%')
+                    ->orWhere('sent_time', 'like', '%' . $q . '%')
+                    ->orWhere('type', 'like', '%' . $q . '%');
             })->paginate($page_limit);
         } else {
             $messages = MailHistory::with('email')->orderBy('sent_time','desc')->paginate($page_limit);
