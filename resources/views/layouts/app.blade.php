@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Oguztravel - have fun and enjoy">
   <meta name="author" content="subo">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+{{--  <meta name="csrf-token" content="{{ csrf_token() }}">--}}
 
   <title>@yield('title') | {{ __('app') }}</title>
 
@@ -23,20 +23,22 @@
   <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('images/favicon/apple-touch-icon-152x152.png') }}" />
   <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon/apple-touch-icon-180x180.png') }}" />
 
-  <link href="{{ asset('css/all.css') }}" rel="stylesheet">
+{{--  <link href="{{ asset('css/all.css') }}" rel="stylesheet">--}}
 
+  <link rel="preload" href="{{ asset('css/bootstrap.min.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"></noscript>
+
+  <link rel="preload" href="{{ asset('css/vendors.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{ asset('css/vendors.css') }}"></noscript>
+
+  <link rel="preload" href="{{ asset('css/style.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{ asset('css/style.css') }}"></noscript>
+
+{{--  <link href="{{ asset('css/style.css') }}" rel="stylesheet">--}}
 
   @yield('css')
-  <style>
-    img {
-      pointer-events: none;
-    }
-    button {
-      z-index: 999;
-      position: relative;
-    }
-  </style>
 </head>
+
 
 <body onselectstart="return false">
   @yield('messages')

@@ -3,7 +3,10 @@
 @section('title') {{ __('Home page') }} @endsection
 
 @section('css')
-<link href="{{ asset('layerslider/css/layerslider.css') }}" rel="stylesheet">
+  <link rel="preload" href="{{ asset('layerslider/css/layerslider.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{ asset('layerslider/css/layerslider.css') }}"></noscript>
+
+{{--<link  href="{{ asset('layerslider/css/layerslider.css') }}" rel="stylesheet">--}}
 @endsection
 
 @section('main')
